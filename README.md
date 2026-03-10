@@ -1,6 +1,6 @@
 # Santifer iRepair — Programmatic SEO Website
 
-**[:gb: English](#the-problem)** | **[:es: Español](#es-el-problema)**
+**[:gb: English](#the-problem)** | **[:es: Español](#el-problema)**
 
 > Astro-based programmatic SEO website that generated 15,500+ unique pages from an Airtable ERP, reaching 2.26M impressions and 2,000 monthly clicks in Google Spain.
 
