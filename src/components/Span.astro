@@ -1,0 +1,13 @@
+---
+type Props = {
+  clase?: string;
+  saltoLinea?: boolean;
+};
+
+const { clase, saltoLinea } = Astro.props;
+---
+
+<span class={`${clase} font-medium`}>
+  {saltoLinea ? <br /> : ''}
+  <slot />
+</span>

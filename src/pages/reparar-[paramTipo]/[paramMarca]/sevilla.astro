@@ -1,0 +1,34 @@
+---
+import type { IMarcas } from '../../../lib/schema';
+import { getRecordsMarcas } from '../../../lib/airtable';
+import MarcaLayout from '../../../layouts/MarcaLayout.astro';
+
+export async function getStaticPaths() {
+  // Tipos de dispositivos que manejas
+  const version = 'local';
+  const records = await getRecordsMarcas(false, version);
+
+  // Construye los paths a partir de los registros de Airtable
+  const paths = records.map((record) => {
+    return {
+      params: {
+        paramTipo: record.paramTipo,
+        paramMarca: record.paramMarca,
+      },
+
+      props: {
+        ...record,
+      },
+      indexable: record.indexable,
+    };
+  });
+
+  // // console.log('pagina version sevilla');
+  return paths;
+}
+
+const marcaProps = Astro.props;
+const marcaLayoutProps = { modoApple: false, ...marcaProps } as IMarcas;
+---
+
+<MarcaLayout {...marcaLayoutProps} version="local" />

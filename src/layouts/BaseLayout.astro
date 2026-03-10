@@ -1,0 +1,642 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import SpeedInsights from '@vercel/speed-insights/astro';
+import { ViewTransitions } from 'astro:transitions';
+import Organization from '../components/metadatos/Organization.astro';
+import LocalBusiness from '../components/metadatos/LocalBusiness.astro';
+
+// Importa el CSS global hola
+import '../styles/global.css';
+import CookieBanner from '../components/CookieBanner.astro';
+import type { Reseña } from '../lib/schema';
+
+interface FAQ {
+  title: string;
+  response: string;
+}
+
+interface Props {
+  title: string;
+  description: string;
+  slugTotal: string;
+  metadatos?: string[];
+  hijo1?: string;
+  enlaceHijo1?: string;
+  hijo2?: string;
+  enlaceHijo2?: string;
+  hijo3?: string;
+  enlaceHijo3?: string;
+  hijo4?: string;
+  enlaceHijo4?: string;
+  hijo5?: string;
+  enlaceHijo5?: string;
+  modoApple?: boolean;
+  faqs?: FAQ[];
+  tipoReparacion?: string;
+  precio?: number;
+  reparacion?: string;
+  imagenProducto?: string;
+  descripcionProducto?: string;
+  NOINDEXCUIDADO?: string;
+  reseñasProduct?: Reseña[];
+  cargarModal?: boolean;
+  precioMin?: number;
+  precioMax?: number;
+  numRep?: number;
+  hijoMax?: string;
+  hijoNext?: string;
+  enlaceHijoMax?: string;
+  enlaceHijoNext?: string;
+  idBuscador?: string;
+  cadenaWhatsapp?: string;
+  paginaInicio?: boolean;
+}
+
+const {
+  title,
+  description,
+  slugTotal,
+  metadatos,
+  hijo1,
+  enlaceHijo1,
+  hijo2,
+  enlaceHijo2,
+  hijo3,
+  enlaceHijo3,
+  hijo4,
+  enlaceHijo4,
+  hijo5,
+  enlaceHijo5,
+  modoApple,
+  faqs,
+  tipoReparacion,
+  precio,
+  imagenProducto,
+  descripcionProducto,
+  NOINDEXCUIDADO,
+  reseñasProduct,
+  cargarModal,
+  precioMin,
+  precioMax,
+  numRep,
+  hijoMax,
+  hijoNext,
+  enlaceHijoMax,
+  enlaceHijoNext,
+  idBuscador,
+  cadenaWhatsapp,
+  paginaInicio = false,
+} = Astro.props;
+
+const hashBuscador = idBuscador ? `#${idBuscador}` : '';
+const canonical = 'https://santiferirepair.es' + slugTotal;
+
+const items = [];
+if (!modoApple) {
+  items.push({
+    name: hijo1,
+    link: `https://santiferirepair.es${enlaceHijo1}` || null,
+  });
+}
+if (hijo2) {
+  items.push({
+    name: hijo2,
+    link: `https://santiferirepair.es${enlaceHijo2}` || null,
+  });
+}
+if (hijo3) {
+  items.push({
+    name: hijo3,
+    link: `https://santiferirepair.es${enlaceHijo3}` || null,
+  });
+}
+if (hijo4) {
+  items.push({
+    name: hijo4,
+    link: `https://santiferirepair.es${enlaceHijo4}` || null,
+  });
+}
+if (hijo5) {
+  items.push({
+    name: hijo5,
+    link: `https://santiferirepair.es${enlaceHijo5}` || null,
+  });
+}
+
+const breadcrumbList = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: items
+    .map((item, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: item.name,
+      item: item.link,
+    }))
+    .filter((item) => item.name),
+};
+let faqList = null;
+if (faqs) {
+  faqList = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqs.map((faq) => ({
+      '@type': 'Question',
+      name: faq.title,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: faq.response,
+      },
+    })),
+  };
+}
+
+let webSite = null;
+if (metadatos && metadatos.includes('WebSite')) {
+  const slugBase = 'https://santiferirepair.es';
+  const searchPath = `${slugBase}${slugTotal}?q={search_term_string}${hashBuscador}`;
+  webSite = {
+    '@context': 'https://schema.org',
+    '@type': 'WebSite',
+    name: 'Santifer iRepair',
+    alternateName: 'Santifer',
+    url: slugBase,
+    potentialAction: {
+      '@type': 'SearchAction',
+      target: searchPath,
+      'query-input': 'required name=search_term_string',
+    },
+  };
+}
+
+let reviews: any = null;
+// // console.log('antes de reseñaspruduct');
+if (reseñasProduct && reseñasProduct.length > 0) {
+  const totalRating = reseñasProduct.reduce(
+    (acc, curr) => acc + curr.puntuacion,
+    0
+  );
+  const ratingValue = (totalRating / reseñasProduct.length).toFixed(2); // Promedio de puntuación
+  const reviewCount = reseñasProduct.filter((reseña) => reseña.quote).length;
+  // // console.log('reviewCount', reviewCount);
+  // // console.log('reseñasProduct', reseñasProduct);
+
+  reviews = {
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: ratingValue,
+      bestRating: '5', // Máximo de la escala de puntuación
+      worstRating: '1', // Mínimo de la escala de puntuación
+      ratingCount: reseñasProduct.length.toString(),
+    },
+  };
+
+  // Incluir 'reviewCount' y 'review' solo si hay reseñas válidas
+  if (reviewCount > 0) {
+    reviews.aggregateRating.reviewCount = reviewCount.toString();
+    reviews.review = reseñasProduct
+      .filter((reseña) => reseña.quote)
+      .map((reseña) => ({
+        '@type': 'Review',
+        author: {
+          '@type': 'Person',
+          name: reseña.name,
+        },
+        datePublished: reseña.dateCreated,
+        description: reseña.quote,
+        name: `Reseña de ${reseña.repair}`,
+        reviewRating: {
+          '@type': 'Rating',
+          bestRating: '5',
+          ratingValue: reseña.puntuacion.toString(),
+          worstRating: '1',
+        },
+      }));
+  }
+}
+
+let productDetails: {
+  '@context': string;
+  '@type': string;
+  name: string;
+  image: string;
+  description: string;
+  brand: { '@type': string; name: string };
+  offers: {
+    '@type': string;
+    priceCurrency: string;
+    price: string;
+    url: string;
+    availability: string;
+    priceValidUntil: string;
+    shippingDetails: {
+      '@type': string;
+      shippingRate: { '@type': string; value: string; currency: string };
+      shippingDestination: { '@type': string; addressCountry: string };
+      deliveryTime: {
+        '@type': string;
+        handlingTime: {
+          '@type': string;
+          minValue: number;
+          maxValue: number;
+          unitCode: string;
+        };
+        transitTime: {
+          '@type': string;
+          minValue: number;
+          maxValue: number;
+          unitCode: string;
+        };
+      };
+    };
+    hasMerchantReturnPolicy: {
+      '@type': string;
+      applicableCountry: string;
+      returnPolicyCategory: string;
+      merchantReturnDays: number;
+      returnMethod: string;
+      returnFees: string;
+    };
+  };
+  aggregateRating?: {
+    '@type': string;
+    ratingValue: string;
+    reviewCount: string;
+  };
+  review?: {
+    '@type': string;
+    author: string;
+    datePublished: string;
+    description: string;
+    name: string;
+    reviewRating: {
+      '@type': string;
+      bestRating: string;
+      ratingValue: string;
+      worstRating: string;
+    };
+  }[];
+} = {} as any;
+
+if ((metadatos ?? []).includes('Product')) {
+  productDetails = {
+    '@context': 'https://schema.org/',
+    '@type': 'Product',
+    name: `${hijoMax ? hijoMax : hijoNext}`,
+    image: `https://santiferirepair.es${imagenProducto}`,
+    description: `${descripcionProducto}`,
+    brand: {
+      '@type': 'Brand',
+      name: 'Santifer iRepair',
+    },
+    offers: {
+      '@type': 'Offer',
+      priceCurrency: 'EUR',
+      price: `${precio || precioMin}`,
+      url: `https://santiferirepair.es${enlaceHijoMax ? enlaceHijoMax : enlaceHijoNext}`,
+      availability: 'http://schema.org/InStock',
+      priceValidUntil: '2024-12-31',
+      shippingDetails: {
+        '@type': 'OfferShippingDetails',
+        shippingRate: {
+          '@type': 'MonetaryAmount',
+          value: '9.00',
+          currency: 'EUR',
+        },
+        shippingDestination: {
+          '@type': 'DefinedRegion',
+          addressCountry: 'ES',
+        },
+        deliveryTime: {
+          '@type': 'ShippingDeliveryTime',
+          handlingTime: {
+            '@type': 'QuantitativeValue',
+            minValue: 0,
+            maxValue: 1,
+            unitCode: 'DAY',
+          },
+          transitTime: {
+            '@type': 'QuantitativeValue',
+            minValue: 1,
+            maxValue: 5,
+            unitCode: 'DAY',
+          },
+        },
+      },
+      hasMerchantReturnPolicy: {
+        '@type': 'MerchantReturnPolicy',
+        applicableCountry: 'ES',
+        returnPolicyCategory:
+          'https://schema.org/MerchantReturnFiniteReturnWindow',
+        merchantReturnDays: 15,
+        returnMethod: 'https://schema.org/ReturnByMail',
+        returnFees: 'https://schema.org/FreeReturn',
+      },
+    },
+  };
+  // Agrega aggregateRating y review solo si reviews no es null
+  if (reviews) {
+    productDetails.aggregateRating = reviews.aggregateRating;
+    productDetails.review = reviews.review;
+  }
+}
+
+let priceRangeDetails: {
+  '@context': string;
+  '@type': string;
+  name: string;
+  image: string;
+  description: string;
+  brand: { '@type': string; name: string };
+  offers: {
+    '@type': string;
+    priceCurrency: string;
+    lowPrice: string;
+    highPrice: string;
+    offerCount: number;
+    url: string;
+    availability: string;
+    priceValidUntil: string;
+    shippingDetails: {
+      '@type': string;
+      shippingRate: { '@type': string; value: string; currency: string };
+      shippingDestination: { '@type': string; addressCountry: string };
+      deliveryTime: {
+        '@type': string;
+        handlingTime: {
+          '@type': string;
+          minValue: number;
+          maxValue: number;
+          unitCode: string;
+        };
+        transitTime: {
+          '@type': string;
+          minValue: number;
+          maxValue: number;
+          unitCode: string;
+        };
+      };
+    };
+    hasMerchantReturnPolicy: {
+      '@type': string;
+      applicableCountry: string;
+      returnPolicyCategory: string;
+      merchantReturnDays: number;
+      returnMethod: string;
+      returnFees: string;
+    };
+  };
+  aggregateRating?: {
+    '@type': string;
+    ratingValue: string;
+    reviewCount: string;
+  };
+  review?: {
+    '@type': string;
+    author: string;
+    datePublished: string;
+    description: string;
+    name: string;
+    reviewRating: {
+      '@type': string;
+      bestRating: string;
+      ratingValue: string;
+      worstRating: string;
+    };
+  }[];
+} = {} as any;
+
+if (precioMin && precioMax && numRep) {
+  priceRangeDetails = {
+    '@context': 'https://schema.org/',
+    '@type': 'Product',
+    name: `${hijoMax ? hijoMax : hijoNext}`,
+    image: `https://santiferirepair.es${imagenProducto}`,
+    description: `${descripcionProducto}`,
+    brand: {
+      '@type': 'Brand',
+      name: 'Santifer iRepair',
+    },
+    offers: {
+      '@type': 'AggregateOffer',
+      priceCurrency: 'EUR',
+      lowPrice: `${precioMin}`,
+      highPrice: `${precioMax}`,
+      offerCount: numRep,
+      url: `https://santiferirepair.es${enlaceHijoMax ? enlaceHijoMax : enlaceHijoNext}`,
+      availability: 'http://schema.org/InStock',
+      priceValidUntil: '2024-12-31',
+      shippingDetails: {
+        '@type': 'OfferShippingDetails',
+        shippingRate: {
+          '@type': 'MonetaryAmount',
+          value: '9.00',
+          currency: 'EUR',
+        },
+        shippingDestination: {
+          '@type': 'DefinedRegion',
+          addressCountry: 'ES',
+        },
+        deliveryTime: {
+          '@type': 'ShippingDeliveryTime',
+          handlingTime: {
+            '@type': 'QuantitativeValue',
+            minValue: 0,
+            maxValue: 1,
+            unitCode: 'DAY',
+          },
+          transitTime: {
+            '@type': 'QuantitativeValue',
+            minValue: 1,
+            maxValue: 5,
+            unitCode: 'DAY',
+          },
+        },
+      },
+      hasMerchantReturnPolicy: {
+        '@type': 'MerchantReturnPolicy',
+        applicableCountry: 'ES',
+        returnPolicyCategory:
+          'https://schema.org/MerchantReturnFiniteReturnWindow',
+        merchantReturnDays: 15,
+        returnMethod: 'https://schema.org/ReturnByMail',
+        returnFees: 'https://schema.org/FreeReturn',
+      },
+    },
+  };
+  // Agrega aggregateRating y review solo si reviews no es null
+  if (reviews) {
+    priceRangeDetails.aggregateRating = reviews.aggregateRating;
+    priceRangeDetails.review = reviews.review;
+  }
+}
+
+const currentPath = new URL(Astro.request.url).pathname;
+
+// Si la ruta empieza por "/blog", devolvemos true
+const isBlog = currentPath.startsWith('/blog');
+---
+
+<!-- <script src="../scripts/fadeInLazyLoad.js"></script> -->
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="preconnect" href="https://c.clarity.ms" crossorigin />
+<link rel="dns-prefetch" href="https://c.clarity.ms" />
+<link rel="preconnect" href="https://a.clarity.ms" crossorigin />
+<link rel="dns-prefetch" href="https://a.clarity.ms" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="64x64" href="/favicon-64x64.png" />
+    <link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png" />
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="192x192"
+      href="/android-icon-192x192.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      sizes="180x180"
+      href="/apple-icon-180x180.png"
+    />
+    {
+      NOINDEXCUIDADO &&
+        NOINDEXCUIDADO ===
+          'Estoy absolutamente seguro que no quiero hacer no index por eso pongo esta cadena' && (
+          <meta name="robots" content="noindex" />
+        )
+    }
+    <link rel="canonical" href={canonical} />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+
+    {metadatos && metadatos.includes('Organization') && <Organization />}
+    {metadatos && metadatos.includes('LocalBusiness') && <LocalBusiness />}
+    {
+      metadatos && metadatos.includes('BreadcrumbList') && (
+        <script
+          type="application/ld+json"
+          set:html={JSON.stringify(breadcrumbList)}
+        />
+      )
+    }
+
+    {
+      metadatos && metadatos.includes('FAQPage') && (
+        <script type="application/ld+json" set:html={JSON.stringify(faqList)} />
+      )
+    }
+    {
+      metadatos && metadatos.includes('Product') && (
+        <script
+          type="application/ld+json"
+          set:html={JSON.stringify(productDetails)}
+        />
+      )
+    }
+    {
+      metadatos && metadatos.includes('PriceRange') && (
+        <script
+          type="application/ld+json"
+          set:html={JSON.stringify(priceRangeDetails)}
+        />
+      )
+    }
+    {
+      metadatos && metadatos.includes('WebSite') && (
+        <script type="application/ld+json" set:html={JSON.stringify(webSite)} />
+      )
+    }
+    {
+      (
+        <>
+          <meta property="og:title" content={title} />
+          <meta property="og:description" content={description} />
+          <meta property="og:url" content={canonical} />
+          <meta
+            property="og:image"
+            content={`https://santiferirepair.es${imagenProducto}`}
+          />
+          <meta property="og:image:width" content="384" />
+          <meta property="og:image:height" content="256" />
+          <meta property="og:type" content="website" />
+          <meta name="twitter:card" content="summary_large_image" />
+          <meta name="twitter:title" content={title} />
+          <meta property="twitter:description" content={description} />
+          <meta
+            name="twitter:image"
+            content={`https://santiferirepair.es${imagenProducto}`}
+          />
+        </>
+      )
+    }
+
+    <!-- <ViewTransitions /> -->
+  </head>
+  <body>
+    <Header paginaInicio={paginaInicio}/>
+    <slot />
+
+    <Footer />
+    <!-- <SpeedInsights /> -->
+    <CookieBanner />
+
+     {
+      /* Solo inyectamos el script si la ruta comienza con /blog */
+      isBlog && (
+        <script is:inline>
+          {`function loadScript(a){var b=document.getElementsByTagName("head")[0],c=document.createElement("script");c.type="text/javascript",c.src="https://tracker.metricool.com/resources/be.js",c.onreadystatechange=a,c.onload=a,b.appendChild(c)}loadScript(function(){beTracker.t({hash:"66c2e7eea26c838d3b135eca5a780faf"})});`}
+        </script>
+      )
+    }
+    <!-- Botón flotante de WhatsApp -->
+{
+      <button
+      onclick={`window.open('https://wa.me/34955542440?text=${encodeURIComponent(cadenaWhatsapp || 'Hola, necesito reparar mi dispositivo')}', '_blank')`}
+      class="fixed bottom-4 right-4
+  z-[9000] w-14 h-14 bg-green-500 rounded-full flex items-center
+  justify-center shadow-lg hover:bg-green-600 transition duration-300 cursor-pointer"
+      aria-label="Contactar por WhatsApp"
+    >
+      <!-- Ícono de WhatsApp -->
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="32"
+        height="32"
+        fill="white"
+        class="bi bi-whatsapp"
+        viewBox="0 0 16 16"
+      >
+        <path
+          d="M13.601 2.326A7.85 7.85 0 0 0 7.994 0C3.627 0 .068 3.558.064 7.926c0 1.399.366 2.76 1.057 3.965L0 16l4.204-1.102a7.9 7.9 0 0 0 3.79.965h.004c4.368 0 7.926-3.558 7.93-7.93A7.9 7.9 0 0 0 13.6 2.326zM7.994 14.521a6.6 6.6 0 0 1-3.356-.92l-.24-.144-2.494.654.666-2.433-.156-.251a6.56 6.56 0 0 1-1.007-3.505c0-3.626 2.957-6.584 6.591-6.584a6.56 6.56 0 0 1 4.66 1.931 6.56 6.56 0 0 1 1.928 4.66c-.004 3.639-2.961 6.592-6.592 6.592m3.615-4.934c-.197-.099-1.17-.578-1.353-.646-.182-.065-.315-.099-.445.099-.133.197-.513.646-.627.775-.114.133-.232.148-.43.05-.197-.1-.836-.308-1.592-.985-.59-.525-.985-1.175-1.103-1.372-.114-.198-.011-.304.088-.403.087-.088.197-.232.296-.346.1-.114.133-.198.198-.33.065-.134.034-.248-.015-.347-.05-.099-.445-1.076-.612-1.47-.16-.389-.323-.335-.445-.34-.114-.007-.247-.007-.38-.007a.73.73 0 0 0-.529.247c-.182.198-.691.677-.691 1.654s.71 1.916.81 2.049c.098.133 1.394 2.132 3.383 2.992.47.205.84.326 1.129.418.475.152.904.129 1.246.08.38-.058 1.171-.48 1.338-.943.164-.464.164-.86.114-.943-.049-.084-.182-.133-.38-.232"
+        ></path>
+      </svg>
+    </button>
+    }
+    <script is:inline async type="text/javascript">
+  (function(c,l,a,r,i,t,y){
+    c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};
+    t=l.createElement(r);
+    t.async=1;
+    t.src="https://www.clarity.ms/tag/q4oda2c7xa";
+    y=l.getElementsByTagName(r)[0];
+    y.parentNode.insertBefore(t,y);
+  })(window, document, "clarity", "script", "q4oda2c7xa");
+
+  window.joinSegmentsAndRedirect = function (segments, anchor = '') {
+  let finalPath = '';
+  segments.forEach((s) => {
+    finalPath += '/' + s;
+  });
+  if (anchor) {
+    finalPath += anchor;
+  }
+  window.location.href = finalPath;
+};
+</script>
+  </body>
+</html>

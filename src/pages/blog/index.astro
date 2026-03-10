@@ -1,0 +1,140 @@
+---
+// filepath: /Users/santifer/code/web-astro/src/pages/blog/index.astro
+import { getCollection } from 'astro:content';
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import slugify from 'slugify';
+import Main from '../../components/Main.astro';
+import Seccion from '../../components/Seccion.astro';
+import H1 from '../../components/H1.astro';
+import PostH1 from '../../components/PostH1.astro';
+import SeccionBlog from '../../components/Seccion2.astro';
+import H2 from '../../components/H2.astro';
+import Main2 from '../../components/Main2.astro';
+import H2Blog from '../../components/H2Blog.astro';
+import Seccion2 from '../../components/Seccion2.astro';
+
+const POSTS_PER_PAGE = 25;
+
+const modoDev = false;
+// console.log('Estamos en modo dev:', modoDev);
+// Obtenemos todos los posts
+const allPosts = await getCollection('blog');
+const now = new Date();
+// Reseteamos la hora a 00:00:00 para comparar solo fechas
+now.setHours(0, 0, 0, 0);
+
+// Filtramos los posts que ya están "publicados" solo si no estamos en modo dev
+const publishedPosts = modoDev
+  ? allPosts.sort(
+      (a: { data: { pubDate: Date } }, b: { data: { pubDate: Date } }) =>
+        b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+    )
+  : allPosts
+      .filter(({ data }: { data: { pubDate: Date } }) => {
+        const pubDate = new Date(data.pubDate);
+        pubDate.setHours(0, 0, 0, 0); // Reseteamos la hora a 00:00:00 para comparar solo fechas
+        return pubDate <= now;
+      })
+      .sort(
+        (a: { data: { pubDate: Date } }, b: { data: { pubDate: Date } }) =>
+          b.data.pubDate.valueOf() - a.data.pubDate.valueOf()
+      );
+
+// Para paginación, tomamos la página solicitada en la URL
+// Por defecto la página 1.
+const urlParams = new URLSearchParams(Astro.request.url.split('?')[1]);
+const page = parseInt(urlParams.get('page') ?? '1', 10);
+
+// Calcula el offset y el slice de posts
+const startIndex = (page - 1) * POSTS_PER_PAGE;
+const endIndex = startIndex + POSTS_PER_PAGE;
+const paginatedPosts = publishedPosts.slice(startIndex, endIndex);
+
+// Calcular cuántas páginas totales
+const totalPages = Math.ceil(publishedPosts.length / POSTS_PER_PAGE);
+---
+
+<BaseLayout
+  title="El Laboratorio de Santifer iRepair"
+  description="En Santifer iRepair te damos 6 meses de garantía en reparaciones exprés de iPhone, móviles y más en Sevilla. Sistema de cita online con reserva de stock ™️"
+  slugTotal="/blog"
+>
+  <Main2>
+    <Seccion fondo="grisOscuro">
+      <H1>El Laboratorio de Santifer iRepair</H1>
+      <PostH1
+        >Notas sobre el Podcast de<br />El Laboratorio de Santifer iRepair</PostH1
+      >
+      <br />
+      <br />
+    </Seccion>
+    {
+      paginatedPosts.map(
+        (post: {
+          data: {
+            title: string;
+            pubDate: Date;
+            description: string;
+            image: { url: string; alt: string };
+          };
+        }) => {
+          const postSlug = slugify(post.data.title, {
+            lower: true,
+            strict: true,
+            remove: /[*+~.()'"!:@¿?¡]/g,
+          });
+          return (
+            <Seccion2>
+              <article class="flex gap-4 p-4 border border-gray-300 rounded-lg bg-gray-50">
+                <img
+                  src={post.data.image.url}
+                  alt={post.data.image.alt}
+                  class="w-[180px] h-[180px] object-cover rounded-lg flex-shrink-0"
+                  loading="lazy"
+                />
+                <div class="flex flex-col justify-between max-h-[180px] overflow-hidden">
+                  <H2Blog>
+                    <a href={`/blog/${postSlug}`} class="hover:text-blue-500">
+                      {post.data.title}
+                    </a>
+                  </H2Blog>
+                  <p class="text-sm text-gray-600">
+                    {new Intl.DateTimeFormat('es-ES', {
+                      dateStyle: 'long',
+                    }).format(new Date(post.data.pubDate))}
+                  </p>
+                  <p class="text-base text-gray-700 leading-relaxed line-clamp-3">
+                    {post.data.description}
+                  </p>
+                </div>
+              </article>
+            </Seccion2>
+          );
+        }
+      )
+    }
+
+    <!-- Links de paginación -->
+    <nav class="mt-6 flex justify-center space-x-2">
+      {
+        Array.from({ length: totalPages }).map((_, i) => {
+          const pageNum = i + 1;
+          const isCurrentPage = pageNum === page;
+          return (
+            <a
+              href={pageNum === 1 ? '/blog' : `/blog?page=${pageNum}`}
+              aria-current={isCurrentPage ? 'page' : undefined}
+              class={`px-3 py-1 mb-2 border rounded ${
+                isCurrentPage
+                  ? 'font-bold border-blue-500 text-blue-500'
+                  : 'border-gray-300 text-gray-700 hover:bg-gray-200'
+              }`}
+            >
+              {pageNum}
+            </a>
+          );
+        })
+      }
+    </nav>
+  </Main2>
+</BaseLayout>

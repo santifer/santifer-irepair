@@ -1,0 +1,102 @@
+---
+import type { IDetails } from '../lib/schema';
+
+// Asegúrate de que Astro.props.marcasDetails es pasado correctamente al componente
+const details = Astro.props.details as IDetails[];
+// // // console.log('Slug Imagen: ', details[0].slugImagen);
+// // // console.log('Slug Total: ', details[0].slugTotal);
+// // // console.log('Texto Destacado: ', details[0].textoDestacado);
+// // // console.log('H1: ', details[0].h1);
+// // // console.log('Salto: ', details[0].salto);
+// // // console.log('Salto2: ', details[0].salto2);
+
+const { modo = '' } = Astro.props;
+// // // console.log('EL MODO ES: ', modo);
+// // // console.log('props', Astro.props);
+---
+
+<div
+  class="grid grid-cols-1 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 gap-2 sm:gap-4 p-2 sm:p-4"
+>
+  {
+    details.map((detail: any) => {
+      const saltofinal = modo === 'alternativo' ? detail.salto2 : detail.salto;
+      const textoDestacadoFinal =
+        modo === 'alternativo' ? detail.textoDestacado2 : detail.textoDestacado;
+      // Marca la primera instancia del texto destacado para reemplazar después
+      const replacedH1 = detail.h1.replace(
+        textoDestacadoFinal,
+        'PLACEHOLDERTEXT'
+      );
+      // Encuentra la posición del texto destacado (ahora PLACEHOLDERTEXT)
+      const highlightIndex = replacedH1.indexOf('PLACEHOLDERTEXT');
+      let firstPart, secondPart, highlightedText;
+
+      if (saltofinal === 'antes' || saltofinal === 'ambos') {
+        firstPart = replacedH1.slice(0, highlightIndex);
+      } else {
+        firstPart = replacedH1.slice(
+          0,
+          highlightIndex + 'PLACEHOLDERTEXT'.length
+        );
+      }
+
+      if (saltofinal === 'después' || saltofinal === 'ambos') {
+        secondPart = replacedH1.slice(
+          highlightIndex + 'PLACEHOLDERTEXT'.length
+        );
+        highlightedText = (
+          <>
+            <br />
+            <span class="text-lg sm:text-xl font-semibold text-blue-600">
+              {textoDestacadoFinal}
+            </span>
+            <br />
+          </>
+        );
+      } else {
+        secondPart = '';
+        highlightedText = (
+          <>
+            <br />
+            <span class="text-lg sm:text-xl font-semibold text-blue-600">
+              {textoDestacadoFinal}
+            </span>
+          </>
+        );
+      }
+
+      return (
+        <a
+          href={detail.slugTotal}
+          class="card group bg-white flex flex-row sm:flex-col overflow-hidden rounded-3xl shadow-lg hover:shadow-xl transition-shadow duration-300"
+        >
+          <img
+            src={detail.slugImagen}
+            alt={`Imagen de ${detail.h1}`}
+            title={detail.h1}
+            class="w-full h-36 object-contain p-2"
+          />
+          <div class="p-4 flex flex-col items-center justify-center sm:items-center sm:justify-start w-full group-hover:bg-gray-100 transition-colors duration-300 h-full text-center">
+            <h3 class="text-lg font-light">
+              {firstPart.replace('PLACEHOLDERTEXT', '')}
+              {highlightedText}
+              {secondPart}
+            </h3>
+          </div>
+        </a>
+      );
+    })
+  }
+</div>
+
+<style>
+  .hover-gradient {
+    background-image: linear-gradient(
+      to right,
+      #4e54c8,
+      #8f94fb
+    ); /* De azul a morado */
+    color: white; /* Cambiar texto a blanco para mejor contraste si deseado */
+  }
+</style>

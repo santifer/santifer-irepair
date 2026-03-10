@@ -1,0 +1,33 @@
+---
+import type { IModelos } from '../../../../lib/schema';
+import { getRecordsModelos } from '../../../../lib/airtable';
+import ModeloLayout from '../../../../layouts/ModeloLayout.astro';
+
+export async function getStaticPaths() {
+  // Tipos de dispositivos que manejas
+  const records = await getRecordsModelos();
+
+  // Construye los paths a partir de los registros de Airtable
+  const paths = records.map((record) => {
+    return {
+      params: {
+        paramTipo: record.paramTipo,
+        paramMarca: record.paramMarca,
+        paramModelo: record.paramModelo,
+      },
+
+      props: {
+        ...record,
+      },
+      indexable: record.indexable,
+    };
+  });
+
+  return paths;
+}
+
+const modeloProps = Astro.props;
+const modeloLayoutProps = { modoApple: false, ...modeloProps } as IModelos;
+---
+
+<ModeloLayout {...modeloLayoutProps} />

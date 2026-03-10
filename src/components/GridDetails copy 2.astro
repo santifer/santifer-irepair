@@ -1,0 +1,308 @@
+---
+import { Image } from 'astro:assets';
+import type { IDetails } from '../lib/schema';
+
+const details = Astro.props.details as IDetails[];
+const idAnexo = Astro.props.idAnexo as string;
+const stringPrincipal = Astro.props.stringPrincipal as string;
+
+const {
+  modo = '',
+  modoEnlace = '',
+  modoModelo = '',
+  modeloImg = '',
+  citaDiag = '',
+  urlPresupuesto = '',
+  modoMarca = '',
+  marcaImg = '',
+  anchor = '',
+} = Astro.props;
+
+// NUEVO: Separa los detalles indexables y no indexables
+const indexableDetails = details.filter((detail: IDetails) => detail.indexable);
+const nonIndexableDetails = details.filter(
+  (detail: IDetails) => !detail.indexable
+);
+---
+
+<div
+  class={`w-full grid grid-cols-1 ${!modoEnlace ? 'sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4' : 'sm:grid-cols-2'} gap-2 sm:gap-4 p-2 sm:p-4 justify-center`}
+  id={`grid-container-${idAnexo}`}
+>
+  {
+    /*
+    1. Tarjeta de Diagnóstico (primera posición, si procede)
+  */
+  }
+  {
+    modoModelo !== '' && modeloImg && (
+      <button
+        id="diag-modelo"
+        data-url={citaDiag}
+        data-modal="sharedModal"
+        data-type="modal"
+        class="button border-2 border-green-200 hover:border-green-400 w-full card group bg-white flex flex-row sm:flex-col items-center justify-center overflow-hidden rounded-3xl shadow-lg hover:shadow-xl transition-shadow duration-300"
+      >
+        <Image
+          src={modeloImg}
+          alt={`Diagnóstico de ${modeloImg}`}
+          width={384}
+          height={256}
+          title={`Diagnóstico de ${modoModelo}`}
+          class="w-1/2 h-36 sm:w-[384px] max-h-[256px] object-contain p-2 transition-transform duration-300 ease-in-out group-hover:scale-105"
+          loading="lazy"
+        />
+        <div class="relative bg-gradient-to-r from-green-50 to-white p-4 flex flex-col items-center justify-center sm:items-center sm:justify-start w-full h-full text-center group-hover:bg-gradient-to-r group-hover:from-green-100 group-hover:to-green-50">
+          <h3 class="text-lg font-light">
+            <span class="text-lg sm:text-xl font-semibold text-blue-600">
+              Diagnóstico:
+            </span>
+            <br />
+            ¿Qué le ocurre a mi{' '}
+            <span class="text-lg sm:text-xl font-semibold text-blue-600">
+              {modoModelo}
+            </span>
+            ?
+          </h3>
+          {/* SVG omitido para simplificar */}
+        </div>
+      </button>
+    )
+  }
+
+  {
+    /*
+  2. Reparaciones: Primero se muestran las indexables
+*/
+  }
+  {
+    indexableDetails.map((detail: any) => {
+      // Procesa el título y construye la URL (mantén la lógica existente)
+      const saltofinal = modo === 'alternativo' ? detail.salto2 : detail.salto;
+      const textoDestacadoFinal =
+        modo === 'alternativo' ? detail.textoDestacado2 : detail.textoDestacado;
+      const replacedH1 = detail.h1.replace(
+        textoDestacadoFinal,
+        'PLACEHOLDERTEXT'
+      );
+      const highlightIndex = replacedH1.indexOf('PLACEHOLDERTEXT');
+      let firstPart, secondPart, highlightedText;
+
+      if (saltofinal === 'antes' || saltofinal === 'ambos') {
+        firstPart = replacedH1.slice(0, highlightIndex);
+      } else {
+        firstPart = replacedH1.slice(
+          0,
+          highlightIndex + 'PLACEHOLDERTEXT'.length
+        );
+      }
+
+      if (saltofinal === 'después' || saltofinal === 'ambos') {
+        secondPart = replacedH1.slice(
+          highlightIndex + 'PLACEHOLDERTEXT'.length
+        );
+        highlightedText = (
+          <>
+            <br />
+            <span class="text-lg sm:text-xl font-semibold text-blue-600">
+              {textoDestacadoFinal}
+            </span>
+            <br />
+          </>
+        );
+      } else {
+        secondPart = '';
+        highlightedText = (
+          <>
+            <br />
+            <span class="text-lg sm:text-xl font-semibold text-blue-600">
+              {textoDestacadoFinal}
+            </span>
+          </>
+        );
+      }
+
+      const destinationUrl = anchor
+        ? detail.slugTotal + anchor
+        : detail.slugTotal;
+
+      return (
+        <a
+          href={destinationUrl}
+          class="border-2 hover:border-blue-400 w-full card group bg-white flex flex-row sm:flex-col items-center justify-center overflow-hidden rounded-3xl shadow-lg hover:shadow-xl transition-shadow duration-300"
+        >
+          <Image
+            src={detail.slugImagen}
+            alt={`Imagen de ${detail.h1}`}
+            width={384}
+            height={256}
+            title={detail.h1}
+            class={`w-1/2 ${modoEnlace ? 'h-36' : 'h-auto'} sm:w-auto max-h-[256px] object-contain p-2 transition-transform duration-300 ease-in-out group-hover:scale-105`}
+            loading="lazy"
+          />
+          <div class="bg-gradient-to-r from-blue-50 to-white p-4 flex flex-col items-center justify-center sm:items-center sm:justify-start w-full h-full text-center group-hover:bg-gradient-to-r group-hover:from-blue-100 group-hover:to-blue-50">
+            <h3 class="text-lg font-light">
+              {firstPart.replace('PLACEHOLDERTEXT', '')}
+              {highlightedText}
+              {secondPart}
+            </h3>
+          </div>
+        </a>
+      );
+    })
+  }
+
+  {
+    /*
+  2. Reparaciones: Luego se muestran las no indexables
+*/
+  }
+  {
+    nonIndexableDetails.map((detail: any) => {
+      // (Reutiliza la misma lógica de procesamiento)
+      const saltofinal = modo === 'alternativo' ? detail.salto2 : detail.salto;
+      const textoDestacadoFinal =
+        modo === 'alternativo' ? detail.textoDestacado2 : detail.textoDestacado;
+      const replacedH1 = detail.h1.replace(
+        textoDestacadoFinal,
+        'PLACEHOLDERTEXT'
+      );
+      const highlightIndex = replacedH1.indexOf('PLACEHOLDERTEXT');
+      let firstPart, secondPart, highlightedText;
+
+      if (saltofinal === 'antes' || saltofinal === 'ambos') {
+        firstPart = replacedH1.slice(0, highlightIndex);
+      } else {
+        firstPart = replacedH1.slice(
+          0,
+          highlightIndex + 'PLACEHOLDERTEXT'.length
+        );
+      }
+
+      if (saltofinal === 'después' || saltofinal === 'ambos') {
+        secondPart = replacedH1.slice(
+          highlightIndex + 'PLACEHOLDERTEXT'.length
+        );
+        highlightedText = (
+          <span class="text-lg sm:text-xl font-semibold text-blue-600">
+            {textoDestacadoFinal}
+          </span>
+        );
+      } else {
+        secondPart = '';
+        highlightedText = (
+          <>
+            <br />
+            <span class="text-lg sm:text-xl font-semibold text-blue-600">
+              {textoDestacadoFinal}
+            </span>
+          </>
+        );
+      }
+
+      const destinationUrl = anchor
+        ? detail.slugTotal + anchor
+        : detail.slugTotal;
+
+      return (
+        <button
+          type="button"
+          onclick={`window.location.href='${destinationUrl}'`}
+          class="border-2 hover:border-blue-400 w-full card group bg-white flex flex-row sm:flex-col items-center justify-center overflow-hidden rounded-3xl shadow-lg hover:shadow-xl transition-shadow duration-300"
+        >
+          <Image
+            src={detail.slugImagen}
+            alt={`Imagen de ${detail.h1}`}
+            width={384}
+            height={256}
+            title={detail.h1}
+            class={`w-1/2 ${modoEnlace ? 'h-36' : 'h-auto'} sm:w-auto max-h-[256px] object-contain p-2 transition-transform duration-300 ease-in-out group-hover:scale-105`}
+            loading="lazy"
+          />
+          <div class="bg-gradient-to-r from-blue-50 to-white p-4 flex flex-col items-center justify-center sm:items-center sm:justify-start w-full h-full text-center group-hover:bg-gradient-to-r group-hover:from-blue-100 group-hover:to-blue-50">
+            <h3 class="text-lg font-light">
+              {firstPart.replace('PLACEHOLDERTEXT', '')}
+              {highlightedText}
+              {secondPart}
+            </h3>
+          </div>
+        </button>
+      );
+    })
+  }
+
+  {
+    /*
+    3. Tarjetas de Presupuesto (al final)
+  */
+  }
+  {
+    modoModelo !== '' && modeloImg && (
+      <button
+        id="presupuesto-modelo"
+        data-url={urlPresupuesto}
+        data-modal="sharedModal"
+        data-type="modal"
+        class="button border-2 border-orange-200 hover:border-orange-400 w-full card group bg-white flex flex-row sm:flex-col items-center justify-center overflow-hidden rounded-3xl shadow-lg hover:shadow-xl transition-shadow duration-300"
+      >
+        <Image
+          src={modeloImg}
+          alt={`Imagen desenfocada de ${modoModelo}, invitando a pedir presupuesto`}
+          width={384}
+          height={256}
+          title={`Presupuesto de ${modoModelo}`}
+          class="w-1/2 h-36 sm:w-[384px] max-h-[256px] object-contain p-2 transition-transform duration-300 ease-in-out group-hover:scale-105"
+          loading="lazy"
+        />
+        <div class="relative bg-gradient-to-r from-orange-50 to-white p-4 flex flex-col items-center justify-center sm:items-center sm:justify-start w-full h-full text-center group-hover:bg-gradient-to-r group-hover:from-orange-100 group-hover:to-orange-50">
+          <h3 class="text-lg font-light">
+            <span class="text-lg sm:text-xl font-semibold text-blue-600">
+              Presupuesto:
+            </span>
+            <br />
+            Otra avería de <br />
+            <span class="text-lg sm:text-xl font-semibold text-blue-600">
+              {modoModelo}
+            </span>
+          </h3>
+          {/* SVG omitido para simplificar */}
+        </div>
+      </button>
+    )
+  }
+
+  {
+    modoMarca !== '' && marcaImg && (
+      <button
+        id="presupuesto-marca"
+        data-url={urlPresupuesto}
+        data-modal="sharedModal"
+        data-type="modal"
+        class="button border-2 border-orange-200 hover:border-orange-400 w-full card group bg-white flex flex-row sm:flex-col items-center justify-center overflow-hidden rounded-3xl shadow-lg hover:shadow-xl transition-shadow duration-300"
+      >
+        <Image
+          src={marcaImg}
+          alt={`Imagen desenfocada de ${modoMarca}, invitando a pedir presupuesto`}
+          width={384}
+          height={256}
+          title={`Presupuesto de ${modoMarca}`}
+          class="w-1/2 h-auto sm:w-[384px] max-h-[256px] object-contain p-2 transition-transform duration-300 ease-in-out group-hover:scale-105"
+          loading="lazy"
+        />
+        <div class="relative bg-gradient-to-r from-orange-50 to-white p-4 flex flex-col items-center justify-center sm:items-center sm:justify-start w-full h-full text-center group-hover:bg-gradient-to-r group-hover:from-orange-100 group-hover:to-orange-50">
+          <h3 class="text-lg font-light">
+            <span class="text-lg sm:text-xl font-semibold text-blue-600">
+              Presupuesto:
+            </span>
+            <br />
+            No aparece mi <br />
+            <span class="text-lg sm:text-xl font-semibold text-blue-600">
+              {modoMarca}
+            </span>
+          </h3>
+          {/* SVG omitido para simplificar */}
+        </div>
+      </button>
+    )
+  }
+</div>

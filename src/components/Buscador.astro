@@ -1,0 +1,345 @@
+---
+import { propsToFilename } from 'astro/assets/utils';
+
+// Recibe los props del componente padre o de la página que lo incluye
+const {
+  filtroTipo = '',
+  filtroMarca = '',
+  placeholderBuscador = '¿Qué te reparamos hoy?',
+  numElementos = 5,
+} = Astro.props;
+---
+
+<div class="relative z-10">
+  <div
+    id="resultados"
+    role="listbox"
+    aria-label="Resultados de búsqueda"
+    class="hidden absolute w-full bg-gradient-to-br from-stone-50 to-stone-100 mt-8 pt-7 pb-3 rounded-b-2xl shadow-sm z-0 opacity-0 transition-opacity duration-500 border-4 border-stone-300"
+  >
+  </div>
+  <div
+    id="searchBox"
+    class="bg-white flex items-center rounded-full w-72 border-4 border-stone-300 drop-shadow-sm sm:w-96 h-14 px-4 transition-all duration-700 animate-borderPulse"
+    data-filtro-tipo={filtroTipo}
+    data-filtro-marca={filtroMarca}
+  >
+    <input
+      id="search-input"
+      name="search"
+      class="bg-transparent text-gray-900 text-center placeholder-gray-400 text-lg sm:text-xl font-light tracking-tight outline-none flex-grow"
+      placeholder={placeholderBuscador}
+      oninput="handleInput(event)"
+      onfocus="handleFocus(event)"
+    />
+    <button id="boton-buscador" class="hidden">
+      <svg
+        class="text-white w-6 h-6"
+        fill="#BBBBBB"
+        stroke="#BBBBBB"
+        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+        onclick="clearInput()"
+      >
+        <path class="secondary" d="M6 18L18 6M6 6l12 12"></path>
+      </svg>
+    </button>
+    <svg
+      id="icono-lupa"
+      class="text-white w-6 h-6"
+      fill="#BBBBBB"
+      stroke="#BBBBBB"
+      viewBox="0 0 24 24"
+      xmlns="http://www.w3.org/2000/svg"
+      onclick="clearInput()"
+    >
+      <path
+        class="secondary"
+        d="M16.32 14.9l1.1 1.1c.4-.02.83.13 1.14.44l3 3a1.5 1.5 0 0 1-2.12 2.12l-3-3a1.5 1.5 0 0 1-.44-1.14l-1.1-1.1a8 8 0 1 1 1.41-1.41zM10 16a6 6 0 1 0 0-12 6 6 0 0 0 0 12z"
+      ></path>
+    </svg>
+  </div>
+</div>
+
+<script is:inline src="/scripts/searchComponent8.js"></script>
+
+<!-- <script>
+  function calcularPuntuacion(modelo: any, terminosBusqueda: any) {
+    let puntuacion = 0;
+    const nombreModelo = modelo.n.toLowerCase();
+
+    // Chequear si todos los términos de búsqueda están en el nombre del modelo
+    const todasLasPalabrasPresentes = terminosBusqueda.every((termino: any) =>
+      nombreModelo.includes(termino)
+    );
+
+    if (todasLasPalabrasPresentes) {
+      puntuacion += 20; // Base para que cualquier modelo que contenga todas las palabras tenga puntuación
+      const nombreModeloPalabras = nombreModelo.split(/\s+/);
+
+      // Penalización por cada palabra extra en el nombre del modelo que no está en los términos de búsqueda
+      const penalizacionPorPalabrasExtra = nombreModeloPalabras.filter(
+        (palabra: any) => !terminosBusqueda.includes(palabra)
+      ).length;
+      puntuacion -= penalizacionPorPalabrasExtra * 2;
+
+      // Bono si el término de búsqueda es exactamente el modelo (p.ej. "iPad 2" vs "iPad 2" y no "iPad Air 2")
+      if (nombreModelo === terminosBusqueda.join(' ')) {
+        puntuacion += 30;
+      }
+
+      // Bono si el nombre del modelo comienza con el término de búsqueda
+      if (nombreModelo.startsWith(terminosBusqueda.join(' '))) {
+        puntuacion += 10;
+      }
+    }
+
+    return puntuacion;
+  }
+  function mostrarResultados(
+    valorDeBusqueda: any,
+    filtroTipo: any,
+    filtroMarca: any
+  ) {
+    if (valorDeBusqueda.length < 2 && !filtroMarca) {
+      // Opción para limpiar los resultados anteriores si la búsqueda es demasiado corta y no hay filtroMarca
+      // document.getElementById('resultados').innerHTML = '';
+      return; // Salimos temprano de la función
+    }
+
+    let resultadosFiltrados = modelosconv;
+
+    // Filtrado inicial por tipo de dispositivo y marca
+    if (filtroTipo) {
+      resultadosFiltrados = resultadosFiltrados.filter(
+        (modelo: any) => modelo.t === filtroTipo
+      );
+    }
+    if (filtroMarca) {
+      resultadosFiltrados = resultadosFiltrados.filter(
+        (modelo: any) => modelo.b.toLowerCase() === filtroMarca.toLowerCase()
+      );
+    }
+
+    const terminosBusqueda = valorDeBusqueda.toLowerCase().split(/\s+/);
+
+    // Solo ahora que tenemos un conjunto de datos potencialmente más pequeño, calculamos la puntuación y filtramos
+    resultadosFiltrados = resultadosFiltrados
+      .map((modelo: any) => ({
+        ...modelo,
+        puntuacion: calcularPuntuacion(modelo, terminosBusqueda),
+      }))
+      .filter((modelo: any) => modelo.puntuacion > 0)
+      .sort((a: any, b: any) => b.puntuacion - a.puntuacion);
+
+    if (resultadosFiltrados.length === 0) {
+      if (resultados) {
+        resultados.innerHTML = `<div class="flex justify-center items-center p-5">No hay resultados</div>`;
+      }
+    } else {
+      const resultadosLimitados = resultadosFiltrados.slice(0, 6);
+      if (resultados) {
+        resultados.innerHTML = resultadosLimitados
+          .map(
+            ({
+              b,
+              t,
+              n,
+              u,
+            }: {
+              b: string;
+              t: string;
+              n: string;
+              u: string;
+            }) => {
+              let iconoTipo;
+              switch (t) {
+                case 'm':
+                  iconoTipo = 'movil.svg';
+                  break;
+                case 't':
+                  iconoTipo = 'tablet.svg';
+                  break;
+                case 's':
+                  iconoTipo = 'smartwatch.svg';
+                  break;
+                default:
+                  iconoTipo = ''; // En caso de que no haya un tipo definido
+              }
+              return `
+          <a href="${u}" class="flex items-center p-2 hover:bg-blue-500 hover:text-white hover:font-bold">
+            ${
+              iconoTipo
+                ? `<img src="/${iconoTipo}" alt="${t}" class="h-8 w-8 mr-2" />`
+                : ''
+            }
+            <img src="/marcas/${b.toLowerCase()}.svg" alt="${b}" class="h-8 w-8 mr-2" />
+            <span>${n}</span>
+          </a>
+        `;
+            }
+          )
+          .join('');
+      }
+    }
+  }
+
+  function guardarModelos(modelos: any[]) {
+    const dataParaAlmacenar = {
+      timestamp: Date.now(),
+      data: modelos,
+    };
+    localStorage.setItem('modelosconv', JSON.stringify(dataParaAlmacenar));
+  }
+  async function cargarYConvertirModelos() {
+    const urlModelos = '/modelos5.json';
+    try {
+      const response = await fetch(urlModelos);
+      const modelos = await response.json();
+
+      modelosconv = modelos.flatMap((marca: any) => [
+        ...(marca.m
+          ? marca.m.map((modelo: any) => ({
+              b: marca.b,
+              t: 'm',
+              n: `${marca.b} ${modelo}`,
+              u:
+                marca.b.toLowerCase() === 'apple'
+                  ? `/reparar-iphone/${modelo
+                      // Elimina todos los paréntesis abiertos
+                      .replace(/\(/g, '')
+                      // Elimina todos los paréntesis cerrados
+                      .replace(/\)/g, '')
+                      // Elimina el texto "iphone" al inicio de la cadena, sin importar si es mayúscula o minúscula
+                      .replace(/iphone\s*/i, '')
+                      // Reemplaza todos los espacios por guiones
+                      .replace(/\s+/g, '-')
+                      // Convierte todo el texto a minúsculas
+                      .toLowerCase()}`
+                  : `/reparar-movil/${marca.b.toLowerCase()}/${modelo
+                      // Reemplaza todos los espacios por guiones
+                      .replace(/\s+/g, '-')
+                      // Elimina todos los puntos
+                      .replace(/\./g, '')
+                      // Convierte todo el texto a minúsculas
+                      .toLowerCase()}`,
+            }))
+          : []),
+        ...(marca.t
+          ? marca.t.map((tablet: any) => ({
+              b: marca.b,
+              t: 't',
+              n: `${marca.b} ${tablet}`,
+              u:
+                marca.b.toLowerCase() === 'apple'
+                  ? `/reparar-ipad/${tablet
+                      .replace(/ipad\s*/i, '')
+                      .replace(/(pro|mini|air)\s*/i, '$1/')
+                      .replace(/\s+/g, '-')
+                      .replace(/\(/g, '')
+                      .replace(/\)/g, '')
+                      .replace(/\./g, '')
+                      .toLowerCase()}`
+                  : `/reparar-tablet/${marca.b.toLowerCase()}/${tablet
+                      .replace(/\s+/g, '-')
+                      .toLowerCase()}`,
+            }))
+          : []),
+        ...(marca.s
+          ? marca.s.map((watch: any) => ({
+              b: marca.b,
+              t: 's',
+              n: `${marca.b} ${watch}`,
+              u:
+                marca.b.toLowerCase() === 'apple'
+                  ? `/reparar-apple-watch/${watch
+                      .replace(/\s+/g, '-')
+                      .toLowerCase()
+                      .replace('watch-', '')
+                      .replace(/^(se|serie-\d+)-/, (p1: any) =>
+                        p1 === 'se' ? 'se/' : `${p1}/`
+                      )}`
+                  : `/reparar-smartwatch/${marca.b.toLowerCase()}/${watch
+                      .replace(/\s+/g, '-')
+                      .replace(/\./g, '')
+                      .toLowerCase()}`,
+            }))
+          : []),
+      ]);
+      localStorage.setItem('modelosconv', JSON.stringify(modelosconv));
+    } catch (error) {
+      console.error('Error cargando y convirtiendo los modelos:', error);
+    }
+  }
+
+  function obtenerModelos() {
+    // Leer los filtros desde los atributos data-*
+
+    modelosconv = JSON.parse(localStorage.getItem('modelosconv') || '');
+    if (modelosconv === null) {
+      modelosconv = '';
+    }
+
+    const input = document.querySelector('input');
+    if (input) {
+      input.addEventListener('input', async (e) => {
+        const valorDeBusqueda = (e.target as HTMLInputElement).value || '';
+        // Agregamos la condición de 'filtroMarca' para decidir si es necesario mostrar resultados
+        const debeMostrarResultados =
+          valorDeBusqueda.length >= 2 || filtroMarca;
+
+        if (valorDeBusqueda && debeMostrarResultados) {
+          if (resultados) {
+            resultados.classList.remove('hidden');
+          }
+          if (modelosconv.length === 0) {
+            await cargarYConvertirModelos();
+          }
+          mostrarResultados(valorDeBusqueda, filtroTipo, filtroMarca);
+        } else {
+          if (resultados) {
+            resultados.classList.add('hidden');
+          }
+        }
+      });
+    }
+  }
+
+  function ocultarResultados() {
+    resultados?.classList.remove('opacity-100');
+    resultados?.classList.add('opacity-0');
+    setTimeout(() => {
+      resultados?.classList.add('hidden');
+    }, 300); // Debe coincidir con el valor de transition-duration
+  }
+
+  function clearInput() {
+    if (inputElement) {
+      (inputElement as HTMLInputElement).value = '';
+      ocultarResultados();
+      botonBuscador?.classList.add('hidden');
+      iconoLupa?.classList.remove('hidden'); // Mostrar la lupa
+    }
+  }
+  const resultados = document.getElementById('resultados');
+  let searchBox;
+  let inputElement: HTMLInputElement;
+  let filtroMarca = '';
+  let filtroTipo = '';
+  let modelosconv: any = null;
+  let iconoLupa: HTMLElement;
+  let botonBuscador: HTMLElement;
+  if (resultados) {
+    searchBox = document.getElementById('searchBox');
+    inputElement = document.querySelector('#searchBox input')!;
+
+    if (searchBox) {
+      filtroTipo = searchBox.dataset.filtroTipo || '';
+      filtroMarca = searchBox.dataset.filtroMarca || '';
+    }
+    iconoLupa = document.getElementById('icono-lupa')!;
+    botonBuscador = document.getElementById('boton-buscador')!;
+    iconoLupa?.addEventListener('click', () => clearInput());
+  }
+</script>
+-->

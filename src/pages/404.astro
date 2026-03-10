@@ -1,0 +1,38 @@
+---
+import { Image } from 'astro:assets';
+import Buscador from '../components/Buscador.astro';
+import Cabecera from '../components/Cabecera.astro';
+import H1Specs from '../components/H1specs.astro';
+import Main2 from '../components/Main2.astro';
+import Seccion2 from '../components/Seccion2.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { cleanAndSplitText } from '../lib/textProcessing';
+import H2Specs from '../components/H2specs.astro';
+---
+
+<BaseLayout
+  title="Página no encontrada | Santifer iRepair"
+  description="Página de error 404"
+  slugTotal="/404"
+>
+  <Main2>
+    <Seccion2>
+      <H1Specs>¡Vaya! Parece que hubo un fallo en Matrix</H1Specs>
+      <p class="text-2xl mt-8 mb-4">Prueba a buscar tu dispositivo aquí:</p>
+      <div class="absolute mt-40">
+        <Buscador placeholderBuscador="Busca tu dispositivo para repararlo" />
+      </div>
+      <figure>
+        <Image
+          src="/404.gif"
+          alt="Animación de error 404, indicando que no se ha encontrado la página solicitada"
+          width="800"
+          height="600"
+        />
+        <figcaption class="text-sm text-gray-500 text-center">
+          Imagen por Francisco G
+        </figcaption>
+      </figure>
+    </Seccion2>
+  </Main2>
+</BaseLayout>

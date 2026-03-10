@@ -1,0 +1,131 @@
+---
+import type { MarkdownHeading } from 'astro';
+import BaseLayout from './BaseLayout.astro';
+import Main from '../components/Main.astro';
+import Seccion from '../components/Seccion.astro';
+import Seccion2 from '../components/Seccion2.astro';
+import PostH1 from '../components/PostH1.astro';
+import H1 from '../components/H1.astro';
+import Main2 from '../components/Main2.astro';
+import { propsToFilename } from 'astro/assets/utils';
+
+// Ajusta la interfaz si vas a incluir el objeto 'image' en frontmatter
+interface BlogLayoutProps {
+  frontmatter: {
+    title: string;
+    pubDate: Date;
+    description?: string;
+    author?: string;
+    image?: {
+      url: string;
+      alt?: string;
+    };
+    tags?: string[];
+    guia?: string;
+    podcast?: string;
+  };
+  Content: (props?: Record<string, any>) => any;
+  headings?: MarkdownHeading[];
+  slug: string;
+}
+
+const { frontmatter, Content, slug } = Astro.props as BlogLayoutProps;
+const pubDateAsDate = new Date(frontmatter.pubDate);
+// console.log(frontmatter);
+---
+
+<BaseLayout
+  title={frontmatter.title}
+  description={frontmatter.description ?? ''}
+  slugTotal={slug}
+>
+  <Main2>
+    <Seccion fondo="grisOscuro">
+      <!-- Cabecera principal -->
+      <H1>{frontmatter.title}</H1>
+      <PostH1>
+        Publicado el {
+          new Intl.DateTimeFormat('es-ES', { dateStyle: 'long' }).format(
+            pubDateAsDate
+          )
+        }
+      </PostH1>
+    </Seccion>
+
+
+    
+    <Seccion2>
+      {frontmatter.podcast && (<div style="max-height: 360px; overflow: hidden; border-radius: 12px; width: 100%; height: 100%;">
+          <iframe style="border-radius:12px" src={`https://open.spotify.com/embed/episode/${frontmatter.podcast}?utm_source=generator&theme=0`} width="100%" height="152" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
+        </div>) }
+                  
+      <!-- Aquí renderizas tu post -->
+      <article class="article-body">
+
+{
+           !frontmatter.podcast && frontmatter.image && frontmatter.image.url && (
+            <img
+              src={frontmatter.image.url}
+              alt={frontmatter.image.alt ?? frontmatter.title}
+              loading="lazy"
+              style="max-width: 100%; height: auto; margin-bottom: 2rem; display: block; margin: 0 auto; padding-bottom: 2rem"
+            />
+          )
+        }
+
+        <Content />
+        {
+          frontmatter.guia && (
+            <h3 class="strong mb-4">Aquí tienes la guía completa:</h3>
+            <iframe
+              class="w-full h-full"
+              src={`https://es.ifixit.com/Guide/embed/${frontmatter.guia}`}
+              allowfullscreen=""
+              style="border: 0px; width: 100%; height: 100%; max-height: 100%;"
+            />
+          )
+        }
+
+
+      </article>
+    </Seccion2>
+    <Seccion2>
+              <a class="text-3xl strong" href="/blog">Volver al blog</a>
+    </Seccion2>
+  </Main2>
+</BaseLayout>
+
+<style>
+  iframe {
+    width: 100% !important;
+    height: 800px !important;
+    border: 0 !important;
+    display: block !important;
+  }
+  .article-body :global(p) {
+    margin-bottom: 1.5rem;
+    line-height: 1.8;
+  }
+
+  .article-body :global(h2) {
+    font-size: 1.875rem;
+    font-weight: bold;
+    margin: 2rem 0 1rem;
+  }
+
+  .article-body :global(h3) {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin: 1.5rem 0 1rem;
+  }
+
+  .article-body :global(ul) {
+    list-style-type: disc;
+    margin-left: 2rem;
+    margin-bottom: 1.5rem;
+  }
+
+  .article-body :global(li) {
+    margin-bottom: 0.5rem;
+  }
+</style>

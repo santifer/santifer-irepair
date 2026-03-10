@@ -1,0 +1,45 @@
+---
+import { Image } from 'astro:assets';
+import hero from '../images/home/santifer-irepair-tienda-reparaciones-moviles-sevilla.webp';
+---
+
+<section
+  id="hero"
+  class="lg:max-h-[585px] lg:h-[585px] flex items-start overflow-hidden relative"
+>
+  <div class="relative w-full h-full">
+    <Image
+      src={hero}
+      alt="Teléfono móvil en una mesa de trabajo limpia y organizada con herramientas dispuesto a ser reparado en la tienda de reparaciones móviles de Sevilla Santifer iRepair"
+      width={1024}
+      height={585}
+      class="content-cover"
+      decoding="async"
+      loading="eager"
+    />
+    <div
+      class="absolute inset-0 bg-gradient-to-br from-orange-600 to-violet-500 opacity-80 hover:bg-gradient-to-br flex flex-col items-center justify-center"
+    >
+      <!-- Añade tu nuevo div aquí -->
+    </div>
+    <div
+      class="absolute inset-0 flex flex-col items-center justify-center z-10"
+    >
+      <div
+        class="flex flex-col text-center items-center justify-center px-10 py-8 rounded-xl gap-0 md:gap-1"
+      >
+        <p
+          class="text-2xl sm:text-3xl md:text-4xl lg:text-5xl tracking-tighter text-white"
+        >
+          Tu dispositivo roto ni un día más
+        </p>
+
+        <p
+          class="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-medium text-white"
+        >
+          Revívelo de nuevo
+        </p>
+      </div>
+    </div>
+  </div>
+</section>

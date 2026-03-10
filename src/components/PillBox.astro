@@ -1,0 +1,21 @@
+---
+// Componente PillBox.astro
+import MarkdownIt from 'markdown-it';
+const md = new MarkdownIt();
+const { texts, modo = '' } = Astro.props;
+
+// añade que modo puede ser opcional
+---
+
+<div
+  class={`mt-2  ${!modo ? 'flex flex-col w-full md:flex-row' : 'grid grid-cols-1 sm:grid-cols-2'} gap-8 mb-2 p-4`}
+>
+  {
+    texts.map((parrafo: any) => (
+      <div
+        class="md:rounded-3xl  md:bg-stone-200/50 md:p-4"
+        set:html={md.render(parrafo)}
+      />
+    ))
+  }
+</div>

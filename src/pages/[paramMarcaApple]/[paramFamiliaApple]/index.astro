@@ -1,0 +1,33 @@
+---
+import type { IFamilias } from '../../../lib/schema';
+import { getRecordsFamilias } from '../../../lib/airtable';
+import FamiliaLayout from '../../../layouts/FamiliaLayout.astro';
+
+export async function getStaticPaths() {
+  // Tipos de dispositivos que manejas
+  const modoApple = true;
+  const records = await getRecordsFamilias(modoApple);
+
+  // Construye los paths a partir de los registros de Airtable
+  const paths = records.map((record) => {
+    return {
+      params: {
+        paramMarcaApple: record.paramMarca,
+        paramFamiliaApple: record.paramFamilia,
+      },
+
+      props: {
+        ...record,
+      },
+      indexable: record.indexable,
+    };
+  });
+
+  return paths;
+}
+
+const familiaProps = Astro.props;
+const familiaLayoutProps = { modoApple: true, ...familiaProps } as IFamilias;
+---
+
+<FamiliaLayout {...familiaLayoutProps} />

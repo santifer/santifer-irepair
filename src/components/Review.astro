@@ -1,0 +1,109 @@
+---
+type Props = {
+  quote?: string;
+  name?: string;
+  repair?: string;
+  imageUrl?: string;
+  puntuacion?: number;
+  dateCreated?: string;
+  respuesta?: string;
+  modoComprimido?: boolean;
+  modoSubrayado?: boolean;
+};
+
+const {
+  quote,
+  name,
+  repair,
+  imageUrl,
+  puntuacion = 5,
+  dateCreated = '',
+  respuesta,
+  modoComprimido = false,
+  modoSubrayado = false,
+} = Astro.props;
+// // console.log('Astro.props', Astro.props);
+
+const fecha = new Date(dateCreated).toLocaleDateString('es-ES');
+// const formattedRepairPre =
+//   repair?.replace(/(?<=.+)Reparación/, '\nReparación') || '';
+const formatRepairTypes = (repair: string | undefined) => {
+  if (!repair) return '';
+
+  const prefix = 'Reparación de ';
+  const repairs = repair.split(prefix).filter(Boolean);
+  if (repairs.length === 0) return repair;
+
+  if (repairs.length === 1) return prefix + repairs[0];
+
+  const modelo = repairs[0].split(' de ').pop();
+  const reparaciones = repairs.map((r) => r.split(' de ')[0]);
+
+  if (reparaciones.length === 2) {
+    return `${prefix}${reparaciones[0]} y ${reparaciones[1]} de ${modelo}`;
+  }
+
+  const lastItem = reparaciones.pop();
+  return `${prefix}${reparaciones.join(', ')} y ${lastItem} de ${modelo}`;
+};
+
+const formattedRepair = formatRepairTypes(repair);
+---
+
+<article
+  class="flex flex-col md:flex-row w-full items-center justify-center gap-4 md:gap-4 h-54 p-4 bg-stone-50/90 border-2 border-stone-100 rounded-3xl shadow-md"
+>
+  <div class="flex sm:flex-col lg:w-3/5 font-georgia">
+    <p
+      class={`relative pl-8 ${modoComprimido ? 'text-sm' : 'md:text-lg lg:text-lg'} italic before:content-['"'] before:absolute before:-left-4 before:text-7xl ${quote && modoSubrayado && 'decoration-yellow-200 decoration-8 underline underline-offset-3'}`}
+    >
+      {quote ? quote : 'El usuario no dejó un comentario'}
+    </p>
+    {
+      respuesta && (
+        <>
+          <div class="w-full border-t-2 border-gray-300 my-1" />
+          <p class="text-sm italic text-gray-500">
+            <strong class="text-black">Respuesta:</strong> {respuesta}
+          </p>
+        </>
+      )
+    }
+  </div>
+  <div class="flex justify-start items-start gap-2 lg:flex-row">
+    <figure
+      class="flex-none justify-start w-24 h-24 mr-4 rounded-full overflow-hidden border-2 border-amber-700"
+    >
+      <img
+        src={imageUrl}
+        alt={`Imagen pública de perfil social de ${name}, tras la ${repair} en Santifer iRepair el ${fecha}`}
+        height={60}
+        width={60}
+        class="w-full h-full object-cover"
+        loading="lazy"
+      />
+    </figure>
+    <figcaption class="flex flex-col justify-center gap-0 w-full">
+      <span class="font-bold md:text-xl text-amber-700">{name}</span>
+      {
+        formattedRepair
+          .split('\n')
+          .map((line) => <span class="block text-sm md:text-lg">{line}</span>)
+      }
+      <div class="flex mt-1">
+        {
+          Array.from({ length: 5 }, (_, index) => (
+            <span
+              class={`text-lg leading-none ${index < puntuacion ? 'text-yellow-400' : 'text-gray-300'}`}
+            >
+              ★
+            </span>
+          ))
+        }
+        <p class="text-sm text-gray-600 font-bold ml-auto">
+          {fecha}
+        </p>
+      </div>
+    </figcaption>
+  </div>
+</article>

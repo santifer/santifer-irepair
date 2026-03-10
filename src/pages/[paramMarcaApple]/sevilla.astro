@@ -1,0 +1,35 @@
+---
+import type { IMarcas } from '../../lib/schema';
+import { getRecordsMarcas } from '../../lib/airtable';
+import MarcaLayout from '../../layouts/MarcaLayout.astro';
+
+export async function getStaticPaths() {
+  // Tipos de dispositivos que manejas
+  const version = 'local';
+  const modoApple = true;
+  const records = await getRecordsMarcas(modoApple, version);
+
+  // Construye los paths a partir de los registros de Airtable
+  const paths = records.map((record) => {
+    return {
+      params: {
+        paramMarcaApple: record.paramMarca,
+      },
+
+      props: {
+        ...record,
+      },
+      indexable: record.indexable,
+    };
+  });
+
+  return paths;
+}
+
+const marcaProps = Astro.props;
+const marcaLayoutProps = { modoApple: true, ...marcaProps } as IMarcas;
+
+// // console.log('marcaProps', marcaProps);
+---
+
+<MarcaLayout {...marcaLayoutProps} version="local" />

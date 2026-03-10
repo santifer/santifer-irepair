@@ -1,0 +1,55 @@
+---
+interface SeccionProps {
+  bgColor?: string;
+  id?: string;
+  modoLegal?: boolean;
+  pad?: string;
+  slugImagenBackground?: string;
+}
+
+const {
+  bgColor = '',
+  id = '',
+  modoLegal = false,
+  pad = '',
+  slugImagenBackground = '',
+} = Astro.props as SeccionProps;
+
+let direccion = modoLegal || slugImagenBackground ? 'items-start' : 'items-center';
+let margenInicial = slugImagenBackground ? 'mb-8 mt-2' : 'my-8';
+
+const baseClass = 'flex flex-col my-8 px-1 md:px-2 ' + margenInicial;
+const contentClass = ' mx-auto max-w-5xl';
+const bgClase = bgColor ? bgColor : '';
+
+// En lugar de condicionar con breakpoints, lo dejamos igual para todos:
+let objectFitClasses = 'object-cover object-top';
+---
+
+<section
+  class={`relative w-full ${bgClase} scroll-mt-0 lg:scroll-mt-24`}
+  id={id}
+>
+  <div class={`${contentClass} ${baseClass} ${direccion} relative z-10`}>
+    <slot />
+  </div>
+
+  {slugImagenBackground && (
+    <!-- CONTENEDOR envolvente con position absolute -->
+    <div class="absolute top-20 sm:top-40 bottom-0 left-0 right-0 -z-10 overflow-hidden">
+      <img
+        src={slugImagenBackground}
+        alt=""
+        role="presentation"
+        loading="eager"
+        class={`absolute -bottom-10 sm:-bottom-40 left-0 right-0 w-full h-[calc(100%-20px)] sm:h-[calc(100%)] ${objectFitClasses} max-w-6xl mx-auto`}
+        style={{
+          maskImage:
+            'linear-gradient(to right, transparent, black 15%, black 85%, transparent)',
+          WebkitMaskImage:
+            'linear-gradient(to right, transparent, black 15%, black 85%, transparent)',
+        }}
+      />
+    </div>
+  )}
+</section>

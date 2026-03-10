@@ -1,0 +1,223 @@
+---
+import Review from './Review.astro';
+import type { Reseña } from '../lib/schema';
+import Image from 'astro/components/Image.astro';
+
+export interface ReviewsContainerProps {
+  reviews: Reseña[];
+}
+
+const { reviews } = Astro.props as ReviewsContainerProps;
+
+// Filtra y ordena reseñas (igual que antes)
+const reseñasConTextoYPuntuacionAlta = reviews.filter(
+  (review) => review.puntuacion >= 5 && review.quote
+);
+reseñasConTextoYPuntuacionAlta.sort(
+  (a, b) => (new Date(b.dateCreated) as any) - (new Date(a.dateCreated) as any)
+);
+
+let primerasVeinte = reseñasConTextoYPuntuacionAlta.slice(0, 20);
+if (primerasVeinte.length < 20) {
+  const reseñasSinTexto = reviews
+    .filter((review) => review.puntuacion >= 4 && !review.quote)
+    .slice(0, 20 - primerasVeinte.length);
+  primerasVeinte = [...primerasVeinte, ...reseñasSinTexto];
+}
+
+const reseñasRestantes = reviews.filter(
+  (review) => !primerasVeinte.includes(review)
+);
+reseñasRestantes.sort(
+  (a, b) => (new Date(b.dateCreated) as any) - (new Date(a.dateCreated) as any)
+);
+---
+
+<div class="w-full flex flex-col items-center mt-10 sm:mt-7" id="reviews-container">
+  <!-- CONTENEDOR PRINCIPAL DEL CARRUSEL -->
+  <div
+    class={`reviews-container relative flex flex-row items-center ${
+      primerasVeinte.length > 1 ? 'justify-between' : 'justify-center'
+    } w-full h-[20rem] lg:h-[16rem]`}
+  >
+    <!-- Botón PREV si hay varias reseñas -->
+    {primerasVeinte.length > 1 && (
+      <button id="prev-review" aria-label="Anterior reseña" class="mx-2">
+        <span class="text-5xl cursor-pointer font-semibold text-blue-500">⟨</span>
+      </button>
+    )}
+
+    <!-- Reseñas en carrusel -->
+    {primerasVeinte.map((review, index) => (
+      <div
+        class={`review transition-opacity duration-500 ease-in-out ${
+          index === 0 ? 'opacity-100' : 'opacity-0 hidden'
+        } inset-0`}
+      >
+        <Review {...review} modoComprimido={false} modoSubrayado={false} />
+      </div>
+    ))}
+
+    <!-- Botón NEXT si hay varias reseñas -->
+    {primerasVeinte.length > 1 && (
+      <button id="next-review" aria-label="Siguiente reseña" class="mx-2">
+        <span class="text-5xl cursor-pointer font-semibold text-blue-500">⟩</span>
+      </button>
+    )}
+  </div>
+
+    <!-- BARRA DE PROGRESO ABAJO DEL CARRUSEL -->
+  {primerasVeinte.length > 1 && (
+    <div class="progress-bar w-full h-1 bg-gray-200 rounded mt-6 sm:mt-2 relative overflow-hidden max-w-[80%]">
+      <!-- El relleno que irá reduciéndose de 100% a 0% -->
+      <div id="progress-fill" class="absolute left-0 top-0 h-full bg-blue-500" style="width:100%"></div>
+    </div>
+  )}
+
+  <!-- BARRA DE PUNTOS (opcional, si ya la tenías) -->
+{primerasVeinte.length > 1 && (
+  <div
+    class={`dots ${
+      // Si hay más de 10 reseñas, se oculta en móvil y se muestra solo en lg
+      primerasVeinte.length > 10 ? 'hidden lg:flex' : 'flex'
+    } space-x-2 justify-center mt-3`}
+  >
+    {primerasVeinte.map((_, dotIndex) => (
+      <button
+        class={`dot w-6 h-6 lg:w-3 lg:h-3 rounded-full ${
+          dotIndex === 0 ? 'bg-blue-500' : 'bg-blue-200'
+        }`}
+        data-index={dotIndex}
+        aria-label={`Ir a la reseña ${dotIndex + 1}`}
+      />
+    ))}
+  </div>
+)}
+
+
+
+  <!-- RESEÑAS RESTANTES (EXPANDIBLES) -->
+  {reseñasRestantes.length > 0 && (
+    <details class="p-4 mt-4">
+      <summary class="font-base text-base cursor-pointer">
+        Reseñas de nuestro perfil de Google y de cuestionarios a clientes (ver resto)
+      </summary>
+      <div class="space-y-4 mt-4">
+        {reseñasRestantes.map((review) => (
+          <Review {...review} modoComprimido={true} />
+        ))}
+      </div>
+    </details>
+  )}
+</div>
+
+<script>
+  //@ts-nocheck
+  // Colección de las reseñas (bloques .review)
+  const reviews = document.querySelectorAll('.review');
+  let currentReviewIndex = 0;
+  let autoAdvanceTimer;
+
+  // Seleccionamos la barra de progreso
+  const progressFill = document.getElementById('progress-fill');
+
+  // Solo ejecutamos lógica si hay más de 1 reseña
+  if (reviews && reviews.length > 1) {
+    const prevButton = document.getElementById('prev-review');
+    const nextButton = document.getElementById('next-review');
+    const dots = document.querySelectorAll('.dot');
+
+    // Inicia auto-rotación y animación de la barra
+    resetAutoAdvanceTimer();
+
+    if (prevButton) {
+      prevButton.addEventListener('click', () => {
+        const newIndex =
+          currentReviewIndex > 0
+            ? currentReviewIndex - 1
+            : reviews.length - 1;
+        changeReview(newIndex);
+        resetAutoAdvanceTimer();
+      });
+    }
+
+    if (nextButton) {
+      nextButton.addEventListener('click', () => {
+        const newIndex = (currentReviewIndex + 1) % reviews.length;
+        changeReview(newIndex);
+        resetAutoAdvanceTimer();
+      });
+    }
+
+    // Evento de clic en dots (si los usas)
+    dots.forEach((dot) => {
+      dot.addEventListener('click', () => {
+        const dotIndex = parseInt(dot.dataset.index);
+        changeReview(dotIndex);
+        resetAutoAdvanceTimer();
+      });
+    });
+
+    function changeReview(newIndex) {
+      // Reiniciamos la barra para la nueva reseña
+      animateProgressBar();
+
+      const currentReview = reviews[currentReviewIndex];
+      const nextReview = reviews[newIndex];
+
+      // Ocultamos la reseña actual con opacidad
+      currentReview.classList.replace('opacity-100', 'opacity-0');
+      setTimeout(() => {
+        currentReview.classList.add('hidden');
+        nextReview.classList.remove('hidden');
+        nextReview.classList.replace('opacity-0', 'opacity-100');
+
+        currentReviewIndex = newIndex;
+        updateDots(newIndex);
+      }, 700);
+    }
+
+    function updateDots(newActiveIndex) {
+      if (!dots) return;
+      dots.forEach((dot, i) => {
+        if (i === newActiveIndex) {
+          dot.classList.remove('bg-blue-200');
+          dot.classList.add('bg-blue-500');
+        } else {
+          dot.classList.remove('bg-blue-500');
+          dot.classList.add('bg-blue-200');
+        }
+      });
+    }
+
+    // Mantiene la animación de cambiar cada 9s
+    function resetAutoAdvanceTimer() {
+      if (autoAdvanceTimer) clearInterval(autoAdvanceTimer);
+      // cada 9s pasamos a la siguiente reseña
+      autoAdvanceTimer = setInterval(() => {
+        const newIndex = (currentReviewIndex + 1) % reviews.length;
+        changeReview(newIndex);
+      }, 9000);
+
+      // y reiniciamos la barra
+      animateProgressBar();
+    }
+
+    
+    // --- BARRA DE PROGRESO DE 0% A 100% (9s) ---
+function animateProgressBar() {
+  if (!progressFill) return;
+
+  // Reiniciamos la barra al 0% sin transición
+  progressFill.style.transition = 'none';
+  progressFill.style.width = '0%';
+
+  // Forzamos un reflow
+  requestAnimationFrame(() => {
+    // Aplicamos transición lineal de 9s, 0% a 100%
+    progressFill.style.transition = 'width 9s linear';
+    progressFill.style.width = '100%';
+  });
+}
+  }
+</script>

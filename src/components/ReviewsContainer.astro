@@ -1,0 +1,138 @@
+---
+// Importa el componente Review.
+import Review from './Review.astro';
+import type { Reseña } from '../lib/schema';
+import Image from 'astro/components/Image.astro';
+
+export interface ReviewsContainerProps {
+  reviews: Reseña[];
+}
+
+const { reviews } = Astro.props as ReviewsContainerProps;
+
+// Filtrar reseñas con texto y buena puntuación
+const reseñasConTextoYPuntuacionAlta = reviews.filter(
+  (review) => review.puntuacion >= 5 && review.quote
+);
+
+// Ordenar por fecha si es necesario o por cualquier otro criterio relevante
+reseñasConTextoYPuntuacionAlta.sort(
+  (a, b) => (new Date(b.dateCreated) as any) - (new Date(a.dateCreated) as any)
+);
+
+// Tomar las primeras 20 reseñas que cumplen las condiciones
+let primerasVeinte = reseñasConTextoYPuntuacionAlta.slice(0, 20);
+
+// Si no hay suficientes reseñas con texto, rellenar con reseñas de alta puntuación sin texto
+if (primerasVeinte.length < 20) {
+  const reseñasSinTexto = reviews
+    .filter((review) => review.puntuacion >= 4 && !review.quote)
+    .slice(0, 20 - primerasVeinte.length);
+  primerasVeinte = [...primerasVeinte, ...reseñasSinTexto];
+}
+
+// Tomar las reseñas restantes del array original que no están en las primeras veinte
+const reseñasRestantes = reviews.filter(
+  (review) => !primerasVeinte.includes(review)
+);
+
+reseñasRestantes.sort(
+  (a, b) => (new Date(b.dateCreated) as any) - (new Date(a.dateCreated) as any)
+);
+---
+
+<div
+  class="w-full flex items-center flex-col px-2 pt-12"
+  id="reviews-container"
+>
+  <div
+    class="reviews-container relative flex flex-row items-center justify-between w-full h-[22rem]"
+  >
+    <button id="prev-review" class="" aria-label="Previous review">
+      <span class="text-5xl cursor-pointer">⟨</span>
+    </button>
+    {
+      primerasVeinte.map((review, index) => (
+        // Añade una clase o estilo que oculte las reseñas que no están activas.
+        // Solo la reseña activa se mostrará.
+        <div
+          class={`review transition-opacity duration-500 ease-in-out ${index === 0 ? 'opacity-100' : 'opacity-0 hidden'} inset-0`}
+        >
+          <Review {...review} modoComprimido={false} />
+        </div>
+      ))
+    }
+    <button id="next-review" class="" aria-label="Next review">
+      <span class="text-5xl cursor-pointer">⟩</span>
+    </button>
+  </div>
+
+  {
+    reseñasRestantes.length > 0 && (
+      <details class="p-4">
+        <summary class="font-base text-base cursor-pointer">
+          Reseñas de nuestro perfil de Google y de cuestionarios a clientes (ver
+          resto)
+        </summary>
+        <div class="space-y-4 mt-4">
+          {reseñasRestantes.map((review, index) => (
+            <Review {...review} modoComprimido={true} />
+          ))}
+        </div>
+      </details>
+    )
+  }
+</div>
+
+<script>
+  const reviews = document.querySelectorAll('.review');
+  let currentReviewIndex = 0;
+  let autoAdvanceTimer: any;
+  if (reviews && reviews.length > 0) {
+    // // console.log('reviews', reviews);
+
+    // Inicia la navegación automática al cargar.
+    resetAutoAdvanceTimer();
+    // // console.log('timer started');
+    const prevButton = document.getElementById('prev-review');
+    if (prevButton) {
+      prevButton.addEventListener('click', () => {
+        const newIndex =
+          currentReviewIndex > 0 ? currentReviewIndex - 1 : reviews.length - 1;
+        changeReview(newIndex);
+        resetAutoAdvanceTimer();
+      });
+    }
+    const nextButton = document.getElementById('next-review');
+    if (nextButton) {
+      nextButton.addEventListener('click', () => {
+        const newIndex = (currentReviewIndex + 1) % reviews.length;
+        changeReview(newIndex);
+        resetAutoAdvanceTimer();
+      });
+    }
+  }
+  function changeReview(newIndex: any) {
+    const currentReview = reviews[currentReviewIndex];
+    const nextReview = reviews[newIndex];
+
+    currentReview.classList.replace('opacity-100', 'opacity-0');
+    setTimeout(() => {
+      currentReview.classList.add('hidden');
+      nextReview.classList.remove('hidden');
+      nextReview.classList.replace('opacity-0', 'opacity-100');
+      currentReviewIndex = newIndex;
+    }, 700); // Espera la finalización de la transición de opacidad
+  }
+
+  function resetAutoAdvanceTimer() {
+    // // console.log('resetting timer');
+    if (autoAdvanceTimer) {
+      clearTimeout(autoAdvanceTimer);
+    }
+    autoAdvanceTimer = setInterval(() => {
+      let newIndex = (currentReviewIndex + 1) % reviews.length;
+      changeReview(newIndex);
+    }, 9000);
+  }
+</script>

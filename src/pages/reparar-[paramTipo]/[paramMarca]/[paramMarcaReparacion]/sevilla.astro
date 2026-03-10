@@ -1,0 +1,51 @@
+---
+import type { IMarcaReparaciones } from '../../../../lib/schema';
+import { getRecordsMarcaReparaciones } from '../../../../lib/airtable';
+
+import MarcaReparacionesLayout from '../../../../layouts/MarcaReparacionesLayout.astro';
+
+export async function getStaticPaths() {
+  // Tipos de dispositivos que manejas
+  // // console.log('PRELITO');
+  const version = 'local';
+  const records = await getRecordsMarcaReparaciones(false, version);
+
+  let count = 1;
+  // Construye los paths a partir de los registros de Airtable
+  const paths = records.map((record) => {
+    // // console.log('record', record);
+    // // console.log('count', count);
+    count++;
+    // console.log(
+    //   'MIRA AQUI: ',
+    //   record.paramTipo,
+    //   record.paramMarca,
+    //   record.paramMarcaReparacion
+    // );
+    return {
+      params: {
+        paramTipo: record.paramTipo,
+        paramMarca: record.paramMarca,
+        paramMarcaReparacion: record.paramMarcaReparacion,
+      },
+
+      props: {
+        ...record,
+      },
+    };
+  });
+
+  return paths;
+}
+// // console.log('TODO OK');
+
+const marcaReparacionesProps = Astro.props;
+const marcaReparacionesLayoutProps = {
+  modoApple: false,
+  ...marcaReparacionesProps,
+} as IMarcaReparaciones;
+
+// // console.log('TODO OK');
+---
+
+<MarcaReparacionesLayout {...marcaReparacionesLayoutProps} version="local" />

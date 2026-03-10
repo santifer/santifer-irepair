@@ -1,0 +1,23 @@
+---
+const { id, padre } = Astro.props;
+---
+
+<button
+  id={id}
+  class="cookie-button h-10 text-white tracking-tighter py-2 px-2 rounded bg-blue-400 hover:bg-blue-500"
+  onclick={`document.getElementById('cookie-banner').classList.add('hidden'); localStorage.setItem('cookieConsent', 'true');`}
+>
+  <slot />
+</button>
+
+<!-- <script>
+  function funcion(id: string, padre: string) {
+    const banner = document.getElementById(padre); // Asegúrate de que el ID del banner es correcto
+    if (id === id) {
+      localStorage.setItem('cookieConsent', 'true'); // Guarda el consentimiento en localStorage
+      if (banner) {
+        banner.classList.add('hidden'); // Oculta el banner añadiendo la clase 'hidden'
+      }
+    }
+  }
+</script> -->

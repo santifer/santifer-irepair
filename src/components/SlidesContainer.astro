@@ -1,0 +1,86 @@
+---
+// Importa el componente slide.
+import Slide from './Slide.astro';
+
+// Define las props que el componente recibirá.
+export interface SlideProps {
+  indiceImagen: number;
+  titulo: string;
+  texto: string;
+}
+
+export interface slidesContainerProps {
+  slides: SlideProps[];
+}
+
+const { slides } = Astro.props as slidesContainerProps;
+---
+
+<div class="flex items-center flex-col px-4 py-8 w-5/5 lg:w-5/5 my-8 lg:mb-16">
+  <div class="relative flex gap-4 flex-row items-center h-64">
+    <button id="prev-slide" class="" aria-label="Previous slide">
+      <span class="text-5xl cursor-pointer">⟨</span>
+    </button>
+
+    {
+      slides.map((slide, index) => (
+        // Añade una clase o estilo que oculte las reseñas que no están activas.
+        // Solo la reseña activa se mostrará.
+        <div
+          class={`slide rounded-3xl overflow-hidden drop-shadow-2xl bg-gray-900 transition-opacity duration-500 ease-in-out ${index === 0 ? 'opacity-100' : 'opacity-0 hidden'} inset-0`}
+        >
+          <Slide {...slide} />
+        </div>
+      ))
+    }
+
+    <button id="next-slide" class="" aria-label="Next slide">
+      <span class="text-5xl cursor-pointer">⟩</span>
+    </button>
+  </div>
+</div>
+
+<script is:inline>
+  let currentslideIndex = 0;
+  const slides = document.querySelectorAll('.slide');
+  let autoAdvanceTimerSlide;
+
+  function changeslide(newIndex) {
+    const currentslide = slides[currentslideIndex];
+    const nextslide = slides[newIndex];
+
+    currentslide.classList.replace('opacity-100', 'opacity-0');
+    setTimeout(() => {
+      currentslide.classList.add('hidden');
+      nextslide.classList.remove('hidden');
+      nextslide.classList.replace('opacity-0', 'opacity-100');
+      currentslideIndex = newIndex;
+    }, 700); // Espera la finalización de la transición de opacidad
+  }
+
+  function resetAutoAdvanceTimerSlides() {
+    if (autoAdvanceTimerSlide) {
+      clearTimeout(autoAdvanceTimerSlide);
+    }
+    autoAdvanceTimerSlide = setInterval(() => {
+      let newIndex = (currentslideIndex + 1) % slides.length;
+      changeslide(newIndex);
+    }, 11000);
+  }
+
+  // Inicia la navegación automática al cargar.
+  resetAutoAdvanceTimerSlides();
+
+  document.getElementById('prev-slide').addEventListener('click', () => {
+    const newIndex =
+      currentslideIndex > 0 ? currentslideIndex - 1 : slides.length - 1;
+    changeslide(newIndex);
+    resetAutoAdvanceTimerSlides();
+  });
+
+  document.getElementById('next-slide').addEventListener('click', () => {
+    const newIndex = (currentslideIndex + 1) % slides.length;
+    changeslide(newIndex);
+    resetAutoAdvanceTimerSlides();
+  });
+</script>

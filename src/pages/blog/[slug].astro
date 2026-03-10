@@ -1,0 +1,57 @@
+---
+import BlogLayout from '../../layouts/BlogLayout.astro';
+import { getCollection } from 'astro:content';
+import type { CollectionEntry } from 'astro:content';
+import slugify from 'slugify';
+
+// Interfaz de Props
+interface Props {
+  post: CollectionEntry<'blog'>;
+  slug: string; // Añade esta línea
+}
+
+// Función para definir rutas
+export async function getStaticPaths() {
+  const posts = await getCollection('blog');
+  const now = new Date();
+  // const publishedPosts = posts.filter(
+  //   (post: CollectionEntry<'blog'>) => post.data.pubDate <= now
+  // );
+  const publishedPosts = posts;
+
+  return publishedPosts.map((post: CollectionEntry<'blog'>) => {
+    const postSlug = slugify(post.data.title, {
+      lower: true,
+      strict: true,
+      remove: /[*+~.()'"!:@¿?¡]/g,
+    });
+
+    return {
+      params: { slug: postSlug },
+      props: { post, slug: postSlug },
+    };
+  });
+}
+
+// Render de Props
+export async function get({ props }: { props: Props }) {
+  return {
+    props,
+  };
+}
+
+// Renderizamos el contenido del Markdown
+const { post, slug } = Astro.props as Props;
+const { Content, headings } = await post.render();
+// console.log(post.data);
+//saca por consola post pero que se vea bien poues es un objeto
+
+console.log('EL SLUG', `/blog/${slug}`);
+---
+
+<BlogLayout
+  frontmatter={post.data}
+  Content={Content}
+  headings={headings}
+  slug={`/blog/${slug}`}
+/>

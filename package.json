@@ -1,0 +1,42 @@
+{
+  "name": "santiferv4",
+  "type": "module",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "astro dev",
+    "start": "astro dev",
+    "build": "astro check && astro build",
+    "preview": "astro preview",
+    "astro": "astro",
+    "disable": "astro preferences disable devToolbar",
+    "local": "astro dev --host"
+  },
+  "dependencies": {
+    "@astrojs/check": "^0.5.10",
+    "@astrojs/sitemap": "^3.1.4",
+    "@astrojs/tailwind": "^5.1.0",
+    "@astrojs/vercel": "^7.6.0",
+    "@vercel/analytics": "^1.2.2",
+    "@vercel/speed-insights": "^1.0.10",
+    "airtable": "^0.12.2",
+    "astro": "^4.5.12",
+    "axios": "^1.6.8",
+    "dotenv": "^16.4.7",
+    "exiftool-vendored": "^29.0.0",
+    "fs-extra": "^11.2.0",
+    "markdown-it": "^14.1.0",
+    "path": "^0.12.7",
+    "piexifjs": "^1.0.6",
+    "sharp": "^0.33.5",
+    "slugify": "^1.6.6",
+    "tailwind": "^4.0.0",
+    "tailwindcss": "^3.4.3",
+    "typescript": "^5.4.3"
+  },
+  "devDependencies": {
+    "@types/markdown-it": "^14.0.1",
+    "astro-critters": "2.2.1",
+    "prettier": "^3.5.0",
+    "prettier-plugin-astro": "^0.14.1"
+  }
+}

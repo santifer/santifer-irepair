@@ -1,0 +1,81 @@
+---
+// Definición de la interfaz para las props
+interface BreadcrumbProps {
+  hijo1?: string;
+  enlaceHijo1?: string;
+  hijo2?: string;
+  enlaceHijo2?: string;
+  hijo3?: string;
+  enlaceHijo3?: string;
+  hijo4?: string;
+  enlaceHijo4?: string;
+  hijo5?: string;
+  enlaceHijo5?: string;
+  modoApple?: boolean; // Opcional, con valor predeterminado falso
+}
+
+const props: BreadcrumbProps = Astro.props;
+const {
+  hijo1,
+  enlaceHijo1,
+  hijo2,
+  enlaceHijo2,
+  hijo3,
+  enlaceHijo3,
+  hijo4,
+  enlaceHijo4,
+  hijo5,
+  enlaceHijo5,
+  modoApple = false, // Default a false si no se proporciona
+} = props;
+
+// Asumiendo que las props ya están definidas arriba como se muestra anteriormente
+const items = [];
+if (!modoApple) {
+  items.push({
+    name: hijo1,
+    link: enlaceHijo1 || null,
+  });
+}
+if (hijo2) {
+  items.push({
+    name: hijo2,
+    link: enlaceHijo2 || null,
+  });
+}
+if (hijo3) {
+  items.push({
+    name: hijo3,
+    link: enlaceHijo3 || null,
+  });
+}
+if (hijo4) {
+  items.push({
+    name: hijo4,
+    link: enlaceHijo4 || null,
+  });
+}
+if (hijo5) {
+  items.push({
+    name: hijo5,
+    link: enlaceHijo5 || null,
+  });
+}
+
+const breadcrumbList = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: items
+    .map((item, index) => ({
+      '@type': 'ListItem',
+      position: index + 1,
+      name: item.name,
+      item: item.link,
+    }))
+    .filter((item) => item.name),
+};
+
+// // console.log('PRUEBA', JSON.stringify(breadcrumbList));
+---
+
+{JSON.stringify(breadcrumbList)}

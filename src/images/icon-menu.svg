@@ -1,0 +1,20 @@
+<svg 
+  id="SvgjsSvg1001" 
+  width="288" 
+  height="288" 
+  xmlns="http://www.w3.org/2000/svg" 
+  version="1.1" 
+  xmlns:xlink="http://www.w3.org/1999/xlink" 
+  xmlns:svgjs="http://svgjs.com/svgjs">
+    <defs id="SvgjsDefs1002"></defs>
+    <g id="SvgjsG1008">
+      <svg xmlns="http://www.w3.org/2000/svg" class="icon-menu" viewBox="0 0 24 24" width="288" height="288">
+        <path 
+          fill-rule="evenodd" 
+          d="M4 5h16a1 1 0 0 1 0 2H4a1 1 0 1 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2zm0 6h16a1 1 0 0 1 0 2H4a1 1 0 0 1 0-2z" 
+          class="secondary color000 svgShape" 
+          fill="#ffffff">
+        </path>
+      </svg>
+    </g>
+</svg>

@@ -1,0 +1,86 @@
+---
+import Image from 'astro/components/Image.astro';
+import H1SpecsCRO from './H1specsCRO.astro';
+import MarkdownIt from 'markdown-it';
+import H1 from './H1.astro';
+const md = new MarkdownIt({
+  html: true, // Permite HTML en el fuente
+  linkify: true, // Autoconvierte URL en enlaces
+  typographer: true, // Mejora tipográfica
+  breaks: false, // Convierte '\n' en <br>
+});
+
+const {
+  h1,
+  slugImagen,
+  altPrincipal,
+  textolimpio,
+  referenciaLocal,
+  enlaceLocal,
+  slugImagenBackground = '',
+  ImagesUploadedBig,
+} = Astro.props;
+
+// Determina la URL de la imagen.
+const backgroundURL = slugImagenBackground
+  ? slugImagenBackground
+  : ImagesUploadedBig[0]?.url;
+---
+
+<div
+  class="relative flex flex-col items-center lg:w-full opacity-85 overflow-hidden"
+>
+  <H1SpecsCRO>{h1}</H1SpecsCRO>
+  <img
+    src={backgroundURL}
+    alt=""
+    role="presentation"
+    loading="lazy"
+    class="mt-20 absolute top-0 left-0 w-full h-full object-contain md:object-cover md:object-top -z-10"
+    style="height: 100%;"
+  />
+  <div class="flex flex-col md:flex-row-reverse items-center mt-4 pb-3">
+    <div class="md:w-1/3 flex flex-row sm:flex-col items-center">
+      <Image
+        src={slugImagen}
+        alt={altPrincipal}
+        width={256}
+        height={256}
+        class="object-fit md:object-contain"
+        loading="eager"
+      />
+    </div>
+    <div
+      class="flex flex-col items-left mx-auto md:w-2/3 sm:px-8 text-left text-base sm:text-lg pb-4"
+    >
+      <div class="bg-white/90 rounded-xl shadow-md px-4 py-2">
+        {
+          //comprueba si props.textoLimpio es de tipo array o string
+
+          textolimpio.length > 0 ? (
+            textolimpio.map((parrafo: any) => (
+              <>
+                <p class="py-2 sm:p-2" set:html={md.render(parrafo)} />
+              </>
+            ))
+          ) : (
+            <p class="py-2 sm:p-2" set:html={md.render(textolimpio)} />
+          )
+        }
+      </div>
+      {
+        referenciaLocal === 1 && (
+          <p class="py-4">
+            Ofrecemos{' '}
+            <a href={enlaceLocal} class="text-blue-700">
+              {`${h1} en Sevilla`}
+            </a>{' '}
+            y en toda España. Confía en nosotros para solucionar cualquier
+            problema de tu dispositivo.
+          </p>
+        )
+      }
+      <slot />
+    </div>
+  </div>
+</div>

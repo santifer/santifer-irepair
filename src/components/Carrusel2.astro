@@ -1,0 +1,35 @@
+<section class="slider-wrapper">
+  <button class="slide-arrow" id="slide-arrow-prev"> &#8249; </button>
+
+  <button class="slide-arrow" id="slide-arrow-next"> &#8250; </button>
+
+  <ul class="slides-container" id="slides-container">
+    <li class="slide"></li>
+    <li class="slide"></li>
+    <li class="slide"></li>
+    <li class="slide"></li>
+  </ul>
+</section>
+
+<style>
+  .slider-wrapper {
+    margin: 1rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .slides-container {
+    height: calc(100vh - 2rem);
+    width: 100%;
+    display: flex;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    overflow: scroll;
+    scroll-behavior: smooth;
+  }
+  .slide {
+    width: 100%;
+    height: 100%;
+    flex: 1 0 100%;
+  }
+</style>

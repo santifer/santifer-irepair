@@ -1,0 +1,72 @@
+---
+import ButtonCookie from './ButtonCookie.astro';
+---
+
+<style>
+  .cookie-banner.show {
+    display: block; /* Mostrar cuando sea necesario */
+  }
+  .cookie-banner {
+    display: none; /* Ocultar por defecto */
+  }
+</style>
+
+<div
+  id="cookie-banner"
+  class="cookie-banner fixed bottom-2 left-2 sm:bottom-10 sm:left-10 w-80 sm:w-96 bg-gradient-to-t from-stone-200 to-stone-300 text-stone-800 tracking-tighter p-4 text-left z-50 py-5 border border-stone-400 rounded-lg overflow-hidden"
+>
+  <p>
+    Utilizamos cookies propias y de terceros para analizar el uso del sitio web
+    y mostrarte publicidad relacionada con tus preferencias sobre la base de un
+    perfil elaborado a partir de tus hábitos de navegación (por ejemplo, páginas
+    visitadas). <button onclick="window.location.href='/politica-cookies'" class="text-blue-500 underline">Política de cookies</button>
+  </p>
+  <div class="flex flex-row items-center justify-between space-x-4 mt-4">
+    <button
+      id="accept-cookies1"
+      class="cookie-button text-sm sm:text-base h-10 text-white font-bold tracking-tighter py-2 px-1 sm:px-2 rounded bg-blue-700 hover:bg-blue-600"
+    >
+      ACEPTAR
+    </button>
+    <button
+      id="accept-cookies2"
+      class="cookie-button text-sm sm:text-base h-10 text-white font-bold tracking-tighter py-2 px-1 sm:px-2 rounded bg-blue-700 hover:bg-blue-600"
+    >
+      CONFIGURAR
+    </button>
+    <button
+      id="accept-cookies3"
+      class="cookie-button h-10 text-sm sm:text-base text-white font-bold tracking-tighter py-2 px-1 sm:px-2 rounded bg-blue-700 hover:bg-blue-600"
+    >
+      RECHAZAR
+    </button>
+  </div>
+</div>
+
+<script>
+  function cookiesF() {
+    const banner = document.getElementById('cookie-banner');
+    const consent = localStorage.getItem('cookieConsent');
+
+    if (!consent) {
+      banner && banner.classList.add('show');
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', cookiesF); // Ejecutar cuando el DOM esté listo
+  document.addEventListener('astro:swap', cookiesF); // Ejecutar en astro:swap
+
+  const buttons = document.querySelectorAll('.cookie-button');
+
+  buttons.forEach((button) => {
+    button.addEventListener('click', () => {
+      const banner = document.getElementById('cookie-banner');
+      if (banner) {
+        banner.classList.remove('show');
+      }
+      localStorage.setItem('cookieConsent', 'true');
+    });
+  });
+
+  cookiesF();
+</script>

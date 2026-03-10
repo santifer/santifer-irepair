@@ -1,0 +1,1234 @@
+---
+import { Image } from 'astro:assets';
+import logo from '../images/logo.png';
+import menu from '../images/icon-menu.svg';
+
+// Array de menús y submenús
+
+import pantalla from '../images/menu/pantalla.svg';
+import cristal from '../images/menu/cristal.svg';
+import bateria from '../images/menu/bateria.svg';
+import microfono from '../images/menu/microfono.svg';
+import camaraTrasera from '../images/menu/camara.svg';
+import altavoz from '../images/menu/altavoz.svg';
+import cristalTrasero from '../images/menu/cristal.svg';
+import wifi from '../images/menu/wifi.svg';
+import antena from '../images/menu/antena.svg';
+import cristalCamara from '../images/menu/cristal-camara.svg';
+import conectorCarga from '../images/menu/conector-carga.svg';
+import lcd from '../images/menu/lcd.svg';
+import tactil from '../images/menu/tactil.svg';
+import appleLogo from '../images/home/marcas/apple.svg';
+import xiaomiLogo from '../images/home/marcas/xiaomi.svg';
+import huaweiLogo from '../images/home/marcas/huawei.svg';
+import sonyLogo from '../images/home/marcas/sony.svg';
+import samsungLogo from '../images/home/marcas/samsung.svg';
+import oneplusLogo from '../images/home/marcas/oneplus.svg';
+import oppoLogo from '../images/home/marcas/oppo.svg';
+import honorLogo from '../images/home/marcas/honor.svg';
+import cubotLogo from '../images/home/marcas/cubot.svg';
+import googleLogo from '../images/home/marcas/pixel.svg';
+import motorolaLogo from '../images/home/marcas/motorola.svg';
+import htcLogo from '../images/home/marcas/htc.svg';
+import lgLogo from '../images/home/marcas/lg.svg';
+import nokiaLogo from '../images/home/marcas/nokia.svg';
+import realmeLogo from '../images/home/marcas/realme.svg';
+import asusLogo from '../images/home/marcas/asus.svg';
+import bqLogo from '../images/home/marcas/bq.svg';
+import lenovoLogo from '../images/home/marcas/lenovo.svg';
+
+import iphone from '../images/menu/iphone.svg';
+import ipad from '../images/menu/ipad-2.svg';
+import appleWatch2 from '../images/menu/apple-watch2.svg';
+
+import flechaAbajo from '../images/menu/flecha-abajo.svg';
+import iconClose from '../images/menu/icon-close2.svg';
+import Span from './Span.astro';
+
+interface Props {
+  paginaInicio: boolean; 
+}
+
+const { paginaInicio = false } = Astro.props;
+
+const menuItems = [
+  {
+    name: 'Reparar iPhone',
+    link: '/reparar-iphone/sevilla',
+    icon: appleLogo,
+    submenus: [
+      {
+        title: 'Reparar iPhone: Averías',
+        link: '/reparar-iphone/sevilla#averias',
+        tipo: 'averias',
+        items: [
+          {
+            name: [
+              { text: 'Reparación de ', bold: false },
+              { text: 'Pantalla', bold: true },
+              { text: ' de iPhone', bold: false },
+            ],
+            icon: pantalla,
+            link: '/reparar-iphone/pantalla/sevilla',
+          },
+          {
+            name: [
+              { text: 'Reparación de ', bold: false },
+              { text: 'Batería', bold: true },
+              { text: ' de iPhone', bold: false },
+            ],
+            icon: bateria,
+            link: '/reparar-iphone/bateria/sevilla',
+          },
+          {
+            name: [
+              { text: 'Reparación de ', bold: false },
+              { text: 'Tapa trasera', bold: true },
+              { text: ' de iPhone', bold: false },
+            ],
+            icon: cristalTrasero,
+            link: '/reparar-iphone/tapa-trasera/sevilla',
+          },
+          {
+            name: [
+              { text: 'Reparación de ', bold: false },
+              { text: 'Cámara trasera', bold: true },
+              { text: ' de iPhone', bold: false },
+            ],
+            icon: camaraTrasera,
+            link: '/reparar-iphone/camara-trasera/sevilla',
+          },
+          {
+            name: [
+              { text: 'Reparación de ', bold: false },
+              { text: 'Cámara delantera', bold: true },
+              { text: ' de iPhone', bold: false },
+            ],
+            icon: camaraTrasera, // Asumiendo que hay un icono para cámara delantera
+            link: '/reparar-iphone/camara-delantera/sevilla',
+          },
+          {
+            name: [
+              { text: 'Reparación de ', bold: false },
+              { text: 'Puerto de carga', bold: true },
+              { text: ' de iPhone', bold: false },
+            ],
+            icon: conectorCarga,
+            link: '/reparar-iphone/puerto-carga/sevilla',
+          },
+          {
+            name: [
+              { text: 'Reparación de ', bold: false },
+              { text: 'Cristal', bold: true },
+              { text: ' de iPhone', bold: false },
+            ],
+            icon: cristal,
+            link: '/reparar-iphone/cristal/sevilla',
+          },
+          {
+            name: [
+              { text: 'Reparación de ', bold: false },
+              { text: 'Cristal de la cámara', bold: true },
+              { text: ' de iPhone', bold: false },
+            ],
+            icon: cristalCamara,
+            link: '/reparar-iphone/cristal-camara/sevilla',
+          },
+          {
+            name: [
+              { text: 'Reparación de ', bold: false },
+              { text: 'Altavoz', bold: true },
+              { text: ' de iPhone', bold: false },
+            ],
+            icon: altavoz,
+            link: '/reparar-iphone/altavoz/sevilla',
+          },
+          {
+            name: [
+              { text: 'Reparación de ', bold: false },
+              { text: 'Auricular', bold: true },
+              { text: ' de iPhone', bold: false },
+            ],
+            icon: altavoz, // Asumiendo que hay un icono para auricular
+            link: '/reparar-iphone/auricular/sevilla',
+          },
+          {
+            name: [
+              { text: 'Reparación de ', bold: false },
+              { text: 'Micrófono', bold: true },
+              { text: ' de iPhone', bold: false },
+            ],
+            icon: microfono,
+            link: '/reparar-iphone/microfono/sevilla',
+          },
+          {
+            name: [
+              { text: 'Reparación de ', bold: false },
+              { text: 'Táctil', bold: true },
+              { text: ' de iPhone', bold: false },
+            ],
+            icon: tactil, // Asumiendo que hay un icono para táctil
+            link: '/reparar-iphone/tactil/sevilla',
+          },
+        ],
+      },
+      {
+        title: 'Reparar iPhone: Modelos',
+        link: '/reparar-iphone/sevilla#modelos',
+        tipo: 'modelos',
+        items: [
+          {
+            name: [
+              { text: 'Reparar ', bold: false },
+              { text: 'iPhone 11', bold: true },
+            ],
+            icon: iphone,
+            link: '/reparar-iphone/11',
+          },
+          {
+            name: [
+              { text: 'Reparar ', bold: false },
+              { text: 'iPhone 12', bold: true },
+            ],
+            icon: iphone,
+            link: '/reparar-iphone/12',
+          },
+          {
+            name: [
+              { text: 'Reparar ', bold: false },
+              { text: 'iPhone X', bold: true },
+            ],
+            icon: iphone,
+            link: '/reparar-iphone/x',
+          },
+          {
+            name: [
+              { text: 'Reparar ', bold: false },
+              { text: 'iPhone 13', bold: true },
+            ],
+            icon: iphone,
+            link: '/reparar-iphone/13',
+          },
+          {
+            name: [
+              { text: 'Reparar ', bold: false },
+              { text: 'iPhone 7', bold: true },
+            ],
+            icon: iphone,
+            link: '/reparar-iphone/7',
+          },
+          {
+            name: [
+              { text: 'Reparar ', bold: false },
+              { text: 'iPhone 8', bold: true },
+            ],
+            icon: iphone,
+            link: '/reparar-iphone/8',
+          },
+          {
+            name: [
+              { text: 'Reparar ', bold: false },
+              { text: 'iPhone 13 Pro Max', bold: true },
+            ],
+            icon: iphone,
+            link: '/reparar-iphone/13-pro-max',
+          },
+          {
+            name: [
+              { text: 'Reparar ', bold: false },
+              { text: 'iPhone 6', bold: true },
+            ],
+            icon: iphone,
+            link: '/reparar-iphone/6',
+          },
+          {
+            name: [
+              { text: 'Reparar ', bold: false },
+              { text: 'iPhone XS', bold: true },
+            ],
+            icon: iphone,
+            link: '/reparar-iphone/xs',
+          },
+          {
+            name: [
+              { text: 'Reparar ', bold: false },
+              { text: 'iPhone 8 Plus', bold: true },
+            ],
+            icon: iphone,
+            link: '/reparar-iphone/8-plus',
+          },
+          {
+            name: [
+              { text: 'Reparar ', bold: false },
+              { text: 'iPhone SE', bold: true },
+            ],
+            icon: iphone,
+            link: '/reparar-iphone/se',
+          },
+          {
+            name: [
+              { text: 'Reparar ', bold: false },
+              { text: 'iPhone 12 Pro Max', bold: true },
+            ],
+            icon: iphone,
+            link: '/reparar-iphone/12-pro-max',
+          },
+        ],
+      },
+    ],
+  },
+  {
+    name: 'Reparar iPad',
+    link: '/reparar-ipad/sevilla',
+    icon: appleLogo,
+    submenus: [
+      {
+        title: 'Reparar iPad: Averías',
+        link: '/reparar-ipad/sevilla#averias',
+        tipo: 'averias',
+        items: [
+          {
+            name: [
+              { text: 'Reparación de ', bold: false },
+              { text: 'Pantalla', bold: true },
+              { text: ' de iPad', bold: false },
+            ],
+            icon: pantalla,
+            link: '/reparar-ipad/pantalla/sevilla',
+          },
+          {
+            name: [
+              { text: 'Reparación de ', bold: false },
+              { text: 'Batería', bold: true },
+              { text: ' de iPad', bold: false },
+            ],
+            icon: bateria,
+            link: '/reparar-ipad/bateria/sevilla',
+          },
+          {
+            name: [
+              { text: 'Reparación de ', bold: false },
+              { text: 'Cristal', bold: true },
+              { text: ' de iPad', bold: false },
+            ],
+            icon: cristal,
+            link: '/reparar-ipad/cristal/sevilla',
+          },
+          {
+            name: [
+              { text: 'Reparación de ', bold: false },
+              { text: 'Táctil', bold: true },
+              { text: ' de iPad', bold: false },
+            ],
+            icon: tactil, // Asumiendo que hay un icono para táctil
+            link: '/reparar-ipad/tactil/sevilla',
+          },
+          {
+            name: [
+              { text: 'Reparación de ', bold: false },
+              { text: 'Puerto de carga', bold: true },
+              { text: ' de iPad', bold: false },
+            ],
+            icon: conectorCarga,
+            link: '/reparar-ipad/puerto-carga/sevilla',
+          },
+          {
+            name: [
+              { text: 'Reparación de ', bold: false },
+              { text: 'Tapa trasera', bold: true },
+              { text: ' de iPad', bold: false },
+            ],
+            icon: cristalTrasero, // Asumiendo que hay un icono para tapa trasera
+            link: '/reparar-ipad/tapa-trasera/sevilla',
+          },
+          {
+            name: [
+              { text: 'Reparación de ', bold: false },
+              { text: 'LCD', bold: true },
+              { text: ' de iPad', bold: false },
+            ],
+            icon: lcd,
+            link: '/reparar-ipad/lcd/sevilla',
+          },
+        ],
+      },
+
+      {
+        title: 'Modelos de iPad',
+        link: '/reparar-ipad/sevilla#modelos',
+        tipo: 'modelos',
+        items: [
+          {
+            name: [
+              { text: 'Reparación de ', bold: false },
+              { text: 'iPad', bold: true },
+            ],
+            icon: ipad,
+            link: '/reparar-ipad/sevilla#modelos',
+          },
+          {
+            name: [
+              { text: 'Reparación de ', bold: false },
+              { text: 'iPad Pro', bold: true },
+            ],
+            icon: ipad,
+            link: '/reparar-ipad/pro',
+          },
+          {
+            name: [
+              { text: 'Reparación de ', bold: false },
+              { text: 'iPad mini', bold: true },
+            ],
+            icon: ipad,
+            link: '/reparar-ipad/mini',
+          },
+          {
+            name: [
+              { text: 'Reparación de ', bold: false },
+              { text: 'iPad Air', bold: true },
+            ],
+            icon: ipad,
+            link: '/reparar-ipad/air',
+          },
+          // Más modelos...
+        ],
+      },
+    ],
+  },
+  {
+    name: 'Reparar Apple Watch',
+    link: '/reparar-apple-watch/sevilla',
+    icon: appleLogo,
+    submenus: [
+      {
+        title: 'Reparar Apple Watch: Averías',
+        link: '/reparar-apple-watch/sevilla#averias',
+        tipo: 'averias',
+        items: [
+          {
+            name: [
+              { text: 'Reparación de ', bold: false },
+              { text: 'Pantalla', bold: true },
+              { text: ' de Apple Watch', bold: false },
+            ],
+            icon: pantalla,
+            link: '/reparar-apple-watch/pantalla/sevilla',
+          },
+          {
+            name: [
+              { text: 'Reparación de ', bold: false },
+              { text: 'Batería', bold: true },
+              { text: ' de Apple Watch', bold: false },
+            ],
+            icon: bateria,
+            link: '/reparar-apple-watch/bateria/sevilla',
+          },
+          {
+            name: [
+              { text: 'Reparación de ', bold: false },
+              { text: 'Cristal', bold: true },
+              { text: ' de Apple Watch', bold: false },
+            ],
+            icon: cristal,
+            link: '/reparar-apple-watch/cristal/sevilla',
+          },
+        ],
+      },
+
+      {
+        title: 'Reparar Apple Watch: Modelos',
+        link: '/reparar-apple-watch/sevilla#modelos',
+        tipo: 'modelos',
+        items: [
+          {
+            name: [
+              { text: 'Reparación de Apple Watch ', bold: false },
+              { text: 'Serie 1', bold: true },
+            ],
+            icon: appleWatch2,
+            link: '/reparar-apple-watch/serie-1',
+          },
+          {
+            name: [
+              { text: 'Reparación de Apple Watch ', bold: false },
+              { text: 'Serie 2', bold: true },
+            ],
+            icon: appleWatch2,
+            link: '/reparar-apple-watch/serie-2',
+          },
+          {
+            name: [
+              { text: 'Reparación de Apple Watch ', bold: false },
+              { text: 'Serie 3', bold: true },
+            ],
+            icon: appleWatch2,
+            link: '/reparar-apple-watch/serie-3',
+          },
+          {
+            name: [
+              { text: 'Reparación de Apple Watch ', bold: false },
+              { text: 'Serie 4', bold: true },
+            ],
+            icon: appleWatch2,
+            link: '/reparar-apple-watch/serie-4',
+          },
+          {
+            name: [
+              { text: 'Reparación de Apple Watch ', bold: false },
+              { text: 'Serie 5', bold: true },
+            ],
+            icon: appleWatch2,
+            link: '/reparar-apple-watch/serie-5',
+          },
+          {
+            name: [
+              { text: 'Reparación de Apple Watch ', bold: false },
+              { text: 'Serie 6', bold: true },
+            ],
+            icon: appleWatch2,
+            link: '/reparar-apple-watch/serie-6',
+          },
+          {
+            name: [
+              { text: 'Reparación de Apple Watch ', bold: false },
+              { text: 'Serie 7', bold: true },
+            ],
+            icon: appleWatch2,
+            link: '/reparar-apple-watch/serie-7',
+          },
+          {
+            name: [
+              { text: 'Reparación de Apple Watch ', bold: false },
+              { text: 'Serie 8', bold: true },
+            ],
+            icon: appleWatch2,
+            link: '/reparar-apple-watch/serie-8',
+          },
+          {
+            name: [
+              { text: 'Reparación de Apple Watch ', bold: false },
+              { text: 'SE', bold: true },
+            ],
+            icon: appleWatch2,
+            link: '/reparar-apple-watch/se',
+          },
+          // Más modelos...
+        ],
+      },
+    ],
+  },
+
+  {
+    name: 'Reparar Móvil',
+    link: '/reparar-movil/sevilla',
+    icon: iphone,
+    submenus: [
+      {
+        title: 'Reparación de móviles: Averías',
+        link: '/reparar-movil/sevilla#averias',
+        tipo: 'averias',
+        items: [
+          {
+            name: [
+              { text: 'Reparación de ', bold: false },
+              { text: 'Pantalla', bold: true },
+              { text: ' de móvil', bold: false },
+            ],
+            icon: pantalla,
+            link: '/reparar-movil/pantalla/sevilla',
+          },
+          {
+            name: [
+              { text: 'Reparación de ', bold: false },
+              { text: 'Batería', bold: true },
+              { text: ' de móvil', bold: false },
+            ],
+            icon: bateria,
+            link: '/reparar-movil/bateria/sevilla',
+          },
+          {
+            name: [
+              { text: 'Reparación de ', bold: false },
+              { text: 'Tapa trasera', bold: true },
+              { text: ' de móvil', bold: false },
+            ],
+            icon: cristalTrasero, // Asumiendo que hay un icono para tapa trasera
+            link: '/reparar-movil/tapa-trasera/sevilla',
+          },
+          {
+            name: [
+              { text: 'Reparación de ', bold: false },
+              { text: 'Cristal', bold: true },
+              { text: ' de móvil', bold: false },
+            ],
+            icon: cristal,
+            link: '/reparar-movil/cristal/sevilla',
+          },
+          {
+            name: [
+              { text: 'Reparación de ', bold: false },
+              { text: 'Cámara trasera', bold: true },
+              { text: ' de móvil', bold: false },
+            ],
+            icon: camaraTrasera,
+            link: '/reparar-movil/camara-trasera/sevilla',
+          },
+          {
+            name: [
+              { text: 'Reparación de ', bold: false },
+              { text: 'Cámara delantera', bold: true },
+              { text: ' de móvil', bold: false },
+            ],
+            icon: camaraTrasera, // Asumiendo que hay un icono para cámara delantera
+            link: '/reparar-movil/camara-delantera/sevilla',
+          },
+          {
+            name: [
+              { text: 'Reparación de ', bold: false },
+              { text: 'Puerto de carga', bold: true },
+              { text: ' de móvil', bold: false },
+            ],
+            icon: conectorCarga,
+            link: '/reparar-movil/puerto-carga/sevilla',
+          },
+          {
+            name: [
+              { text: 'Reparación de ', bold: false },
+              { text: 'Cristal de la cámara', bold: true },
+              { text: ' de móvil', bold: false },
+            ],
+            icon: cristalCamara,
+            link: '/reparar-movil/cristal-camara/sevilla',
+          },
+          {
+            name: [
+              { text: 'Reparación de ', bold: false },
+              { text: 'Altavoz', bold: true },
+              { text: ' de móvil', bold: false },
+            ],
+            icon: altavoz,
+            link: '/reparar-movil/altavoz/sevilla',
+          },
+          {
+            name: [
+              { text: 'Reparación de ', bold: false },
+              { text: 'Micrófono', bold: true },
+              { text: ' de móvil', bold: false },
+            ],
+            icon: microfono,
+            link: '/reparar-movil/microfono/sevilla',
+          },
+          {
+            name: [
+              { text: 'Reparación de ', bold: false },
+              { text: 'Auricular', bold: true },
+              { text: ' de móvil', bold: false },
+            ],
+            icon: altavoz, // Asumiendo que hay un icono para auricular
+            link: '/reparar-movil/auricular/sevilla',
+          },
+          {
+            name: [
+              { text: 'Reparación de ', bold: false },
+              { text: 'Táctil', bold: true },
+              { text: ' de móvil', bold: false },
+            ],
+            icon: tactil, // Asumiendo que hay un icono para táctil
+            link: '/reparar-movil/tactil/sevilla',
+          },
+        ],
+      },
+
+      {
+        title: 'Reparación de móviles: Marcas',
+        link: '/reparar-movil/sevilla#marcas',
+        tipo: 'marcas',
+        items: [
+          {
+            name: [
+              { text: 'Reparación de ', bold: false },
+              { text: 'iPhone', bold: true },
+            ],
+            icon: appleLogo,
+            link: '/reparar-iphone/sevilla',
+          },
+          {
+            name: [
+              { text: 'Reparación de ', bold: false },
+              { text: 'Samsung', bold: true },
+            ],
+            icon: samsungLogo,
+            link: '/reparar-movil/samsung/sevilla',
+          },
+          {
+            name: [
+              { text: 'Reparación de ', bold: false },
+              { text: 'Xiaomi', bold: true },
+            ],
+            icon: xiaomiLogo,
+            link: '/reparar-movil/xiaomi/sevilla',
+          },
+          {
+            name: [
+              { text: 'Reparación de ', bold: false },
+              { text: 'Huawei', bold: true },
+            ],
+            icon: huaweiLogo,
+            link: '/reparar-movil/huawei/sevilla',
+          },
+          {
+            name: [
+              { text: 'Reparación de ', bold: false },
+              { text: 'LG', bold: true },
+            ],
+            icon: lgLogo,
+            link: '/reparar-movil/lg/sevilla',
+          },
+          {
+            name: [
+              { text: 'Reparación de ', bold: false },
+              { text: 'Motorola', bold: true },
+            ],
+            icon: motorolaLogo,
+            link: '/reparar-movil/motorola/sevilla',
+          },
+          {
+            name: [
+              { text: 'Reparación de ', bold: false },
+              { text: 'Sony', bold: true },
+            ],
+            icon: sonyLogo,
+            link: '/reparar-movil/sony/sevilla',
+          },
+          {
+            name: [
+              { text: 'Reparación de ', bold: false },
+              { text: 'Oppo', bold: true },
+            ],
+            icon: oppoLogo,
+            link: '/reparar-movil/oppo/sevilla',
+          },
+          {
+            name: [
+              { text: 'Reparación de ', bold: false },
+              { text: 'Google', bold: true },
+            ],
+            icon: googleLogo,
+            link: '/reparar-movil/google/sevilla',
+          },
+          {
+            name: [
+              { text: 'Reparación de ', bold: false },
+              { text: 'BQ', bold: true },
+            ],
+            icon: bqLogo,
+            link: '/reparar-movil/bq/sevilla',
+          },
+          {
+            name: [
+              { text: 'Reparación de ', bold: false },
+              { text: 'Honor', bold: true },
+            ],
+            icon: honorLogo,
+            link: '/reparar-movil/honor/sevilla',
+          },
+          {
+            name: [
+              { text: 'Reparación de ', bold: false },
+              { text: 'OnePlus', bold: true },
+            ],
+            icon: oneplusLogo,
+            link: '/reparar-movil/oneplus/sevilla',
+          },
+          {
+            name: [
+              { text: 'Reparación de ', bold: false },
+              { text: 'Nokia', bold: true },
+            ],
+            icon: nokiaLogo,
+            link: '/reparar-movil/nokia/sevilla',
+          },
+          {
+            name: [
+              { text: 'Reparación de ', bold: false },
+              { text: 'Realme', bold: true },
+            ],
+            icon: realmeLogo,
+            link: '/reparar-movil/realme/sevilla',
+          },
+          {
+            name: [
+              { text: 'Reparación de ', bold: false },
+              { text: 'HTC', bold: true },
+            ],
+            icon: htcLogo,
+            link: '/reparar-movil/htc/sevilla',
+          },
+          {
+            name: [
+              { text: 'Reparación de ', bold: false },
+              { text: 'Asus', bold: true },
+            ],
+            icon: asusLogo,
+            link: '/reparar-movil/asus/sevilla',
+          },
+        ],
+      },
+    ],
+  },
+  {
+    name: 'Reparar Tablet',
+    link: '/reparar-tablet/sevilla',
+    icon: ipad,
+    submenus: [
+      {
+        title: 'Reparar Tablets: Averías',
+        link: '/reparar-tablet/sevilla#averias',
+        tipo: 'averias',
+        items: [
+          {
+            name: [
+              { text: 'Reparación de ', bold: false },
+              { text: 'Pantalla', bold: true },
+              { text: ' de tablet', bold: false },
+            ],
+            icon: pantalla,
+            link: '/reparar-tablet/pantalla/sevilla',
+          },
+          {
+            name: [
+              { text: 'Reparación de ', bold: false },
+              { text: 'Batería', bold: true },
+              { text: ' de tablet', bold: false },
+            ],
+            icon: bateria,
+            link: '/reparar-tablet/bateria/sevilla',
+          },
+          {
+            name: [
+              { text: 'Reparación de ', bold: false },
+              { text: 'Cristal', bold: true },
+              { text: ' de tablet', bold: false },
+            ],
+            icon: cristal,
+            link: '/reparar-tablet/cristal/sevilla',
+          },
+          {
+            name: [
+              { text: 'Reparación de ', bold: false },
+              { text: 'Puerto de carga', bold: true },
+              { text: ' de tablet', bold: false },
+            ],
+            icon: conectorCarga,
+            link: '/reparar-tablet/puerto-carga/sevilla',
+          },
+          {
+            name: [
+              { text: 'Reparación de ', bold: false },
+              { text: 'Táctil', bold: true },
+              { text: ' de tablet', bold: false },
+            ],
+            icon: tactil,
+            link: '/reparar-tablet/tactil/sevilla',
+          },
+        ],
+      },
+
+      {
+        title: 'Reparar Tablets: Marcas',
+        link: '/reparar-tablet/sevilla#marcas',
+        tipo: 'marcas',
+        items: [
+          {
+            name: [
+              { text: 'Reparación de ', bold: false },
+              { text: 'iPad', bold: true },
+            ],
+            icon: appleLogo,
+            link: '/reparar-ipad/sevilla',
+          },
+          {
+            name: [
+              { text: 'Reparación de tablets ', bold: false },
+              { text: 'Samsung', bold: true },
+            ],
+            icon: samsungLogo,
+            link: '/reparar-tablet/samsung/sevilla',
+          },
+          {
+            name: [
+              { text: 'Reparación de tablets ', bold: false },
+              { text: 'Lenovo', bold: true },
+            ],
+            icon: lenovoLogo, // Asumiendo que hay un icono para Lenovo
+            link: '/reparar-tablet/lenovo/sevilla',
+          },
+          {
+            name: [
+              { text: 'Reparación de tablets ', bold: false },
+              { text: 'Huawei', bold: true },
+            ],
+            icon: huaweiLogo,
+            link: '/reparar-tablet/huawei/sevilla',
+          },
+        ],
+      },
+    ],
+  },
+
+  {
+    name: 'Reparar Smartwatch',
+    link: '/reparar-smartwatch/sevilla',
+    icon: appleWatch2,
+    submenus: [
+      {
+        title: 'Reparar Smartwatch: Averías',
+        link: '/reparar-smartwatch/sevilla#averias',
+        tipo: 'averias',
+        items: [
+          {
+            name: [
+              { text: 'Reparación de ', bold: false },
+              { text: 'Pantalla', bold: true },
+              { text: ' de smartwatch', bold: false },
+            ],
+            icon: pantalla,
+            link: '/reparar-smartwatch/pantalla/sevilla',
+          },
+          {
+            name: [
+              { text: 'Reparación de ', bold: false },
+              { text: 'Batería', bold: true },
+              { text: ' de smartwatch', bold: false },
+            ],
+            icon: bateria,
+            link: '/reparar-smartwatch/bateria/sevilla',
+          },
+          {
+            name: [
+              { text: 'Reparación de ', bold: false },
+              { text: 'Cristal', bold: true },
+              { text: ' de smartwatch', bold: false },
+            ],
+            icon: cristal,
+            link: '/reparar-smartwatch/cristal/sevilla',
+          },
+        ],
+      },
+
+      {
+        title: 'Reparar Smartwatch: Marcas',
+        link: '/reparar-smartwatch/sevilla#marcas',
+        tipo: 'marcas',
+        items: [
+          {
+            name: [
+              { text: 'Reparación de ', bold: false },
+              { text: 'Apple Watch', bold: true },
+            ],
+            icon: appleLogo,
+            link: '/reparar-apple-watch/sevilla',
+          },
+          {
+            name: [
+              { text: 'Reparación de smartwatches ', bold: false },
+              { text: 'Samsung', bold: true },
+            ],
+            icon: samsungLogo,
+            link: '/reparar-smartwatch/samsung/sevilla',
+          },
+          {
+            name: [
+              { text: 'Reparación de smartwatches ', bold: false },
+              { text: 'Huawei', bold: true },
+            ],
+            icon: huaweiLogo,
+            link: '/reparar-smartwatch/huawei/sevilla',
+          },
+        ],
+      },
+    ],
+  },
+
+  // Más dispositivos...
+];
+
+
+---
+
+<header
+  class="bg-grisuno sticky lg:opacity-95 lg:top-0 z-50 text-white h-auto"
+  style="height: 60px"
+>
+  <nav
+    class="max-w-5xl relative flex justify-between sm:gap-x-3 items-center my-auto h-full px-2 md:px-8 mx-auto lg:justify-start"
+  >
+    {paginaInicio && paginaInicio == true ? (
+
+      <p class="flex-shrink-0">
+      <Image src={logo} alt="Logo de Santifer iRepair" width={56} height={56} />
+      </p>
+    ) : (
+      <a href="/" class="flex-shrink-0">
+      <Image src={logo} alt="Logo de Santifer iRepair" width={56} height={56} />
+      </a>
+    )}
+    <div
+      class="flex h-full justify-center items-center text-center flex-col md:flex-row md:items-center md:gap-x-4 lg:flex-col lg:min-w-52"
+    >
+      <p class="-mb-2 text-xl sm:text-2xl tracking-tighter md:mb-0 lg:-mb-2">
+        Santifer iRepair
+      </p>
+      <p class="text-sm tracking-tighter">quality express repairs</p>
+    </div>
+
+    <button id="hamburger" class="hamburger lg:hidden">
+      <!-- Icono de hamburguesa aquí -->
+      <Image
+        src={menu}
+        alt="Botón de menú movil desplegable"
+        width={48}
+        height={48}
+        class="sticky filter-white lg:hidden"
+        onclick="toggleMenuMovil()"
+      />
+    </button>
+    <button id="close-hamburger" class="hidden lg:hidden">
+      <!-- Icono de hamburguesa aquí -->
+      <Image
+        src={iconClose}
+        alt="Botón para cerrar menú móvil desplegable"
+        width={48}
+        height={48}
+        class="filter-white lg:hidden text-white"
+        onclick="toggleMenuMovil()"
+      />
+    </button>
+
+    <ul
+      id="mobile-menu"
+      aria-hidden="true"
+      class="bg-stone-50 hidden text-black lg:text-stone-50 flex-col py-4 top-2 mt-[52px] lg:mt-0 w-10/12 lg:w-full max-w-96 lg:w-1/1 lg:max-w-full right-0 lg:bg-transparent absolute lg:static lg:flex lg:flex-row lg:justify-start lg:text-start lg:items-start lg:mx-auto gap-8 h-[calc(100vh-60px)] lg:h-[8.5rem]"
+    >
+    <!-- Recorremos las 6 categorías principales -->
+      {
+        menuItems.map((menuItem, index1) => (
+          <li class="group mb-0 lg:mb-0">
+            <span class="flex ml-2 flex-row w-full items-center lg:block cursor-pointer lg:mt-8 lg:group-hover:text-blue-200 lg:after:content-[''] lg:after:block lg:after:-top-6 lg:after:left-0 lg:after:right-0 lg:after:h-8 lg:after:bg-transparent">
+              {/* iPhone */}
+              <Image
+                class="block lg:hidden mr-2 lg:mr-0"
+                src={menuItem.icon}
+                width={40}
+                alt={menuItem.name}
+              />
+              {/*
+                1) Enlace normal (SEO) SOLO en el top-level
+                */}
+              <a href={menuItem.link}>
+                <p class="text-xl lg:text-base lg:tracking-base lg:leading-tight lg:mt-8 lg:border-b-4 lg:border-transparent lg:group-hover:border-blue-200">
+                  {menuItem.name}
+                </p>
+              </a>
+              {/*
+                2) Submenús en hover (desktop) y toggle (mobile)
+                Submenús usaremos JavaScript links
+                */}
+              <button
+                class="lg:hidden ml-auto pr-4"
+                aria-expanded="false"
+                aria-controls={`mobile-menu-${index1}`}
+              >
+                <Image
+                  id={`toggle-mobile-menu-${index1}`}
+                  class="text-grey-800 ml-4 transition-transform"
+                  src={flechaAbajo}
+                  width={40}
+                  alt={`Desplegar submenú de ${menuItem.name}`}
+                  onclick={`toggleMenu('mobile-menu-${index1}','toggle-mobile-menu-${index1}')`}
+                />
+              </button>
+            </span>
+
+            <div
+              id={`mobile-menu-${index1}`}
+              aria-hidden="true"
+              class="hidden flex-col gap-4 ml-10 lg:mb-0 lg:hidden lg:group-hover:flex lg:text-gray-800 lg:absolute lg:left-0 lg:my-10 lg:mx-4 lg:bg-stone-50 lg:border-2 lg:-mt-2 lg:flex-row lg:p-4 lg:rounded-lg lg:shadow-xl"
+            >
+              {/* Reparaciones de iPhone / Modelos de iPhone */}
+              {menuItem.submenus.map((submenu, index2) => (
+                <ul class="text-lg w-full submenu lg:flex lg:flex-col lg:items-start lg:w-1/2">
+                  <div class="flex flex-row items-center w-full ml-4">
+                    <p class="text-lg lg:text-base font-light lg:font-medium lg:tracking-tighter lg:mb-4 lg:border-b-2 lg:border-gray-400">
+                        <span onclick={`window.location.href='${submenu.link}'`} class="cursor-pointer">{submenu.title}</span>
+                    </p>
+                    <button
+                      class="lg:hidden ml-auto pr-7"
+                      aria-expanded="false"
+                      aria-controls={`mobile-sub-menu-${index1}-${index2}`}
+                    >
+                      <Image
+                        id={`toggle-mobile-sub-menu-${index1}-${index2}`}
+                        class="text-grey-800 transition-transform"
+                        src={flechaAbajo}
+                        width={32}
+                        alt={`Desplegar submenú de ${submenu.title}`}
+                        onclick={`toggleSubMenu('mobile-sub-menu-${index1}-${index2}','toggle-mobile-sub-menu-${index1}-${index2}')`}
+                      />
+                    </button>
+                  </div>
+
+                  <div
+                    id={`mobile-sub-menu-${index1}-${index2}`}
+                    aria-hidden="true"
+                    class="hidden flex-col text-base font-light py-2 lg:flex lg:flex-row lg:flex-wrap lg:text-sm lg:w-full lg:items-start lg:p-0 w-full"
+                  >
+                    {/* Pantalla de iPhone */}
+                    {submenu.items.map((item) => (
+                      <li class="lg:basis-1/2 lg:p-2 flex flex-row gap-2 py-3 px-10 -mx-10 lg:px-0 lg:mx-0 items-center w-full hover:bg-white border border-stone-100 hover:border-stone-200">
+                        <div
+                          onclick={`window.location.href='${item.link}'`}
+                          class="flex flex-row gap-2 items-center w-full cursor-pointer"
+                        >
+                          {item.icon && typeof item.icon !== 'undefined' && (
+                            <Image
+                              src={item.icon}
+                              alt={item.name
+                                .flatMap((text) => text.text)
+                                .join('')}
+                              width={
+                                submenu.tipo === 'averias'
+                                  ? 40
+                                  : submenu.tipo === 'marcas'
+                                    ? 64
+                                    : 48
+                              }
+                            />
+                          )}
+                          <p class="font-light">
+                            {item.name.map((text) =>
+                              text.bold ? (
+                                <Span
+                                  clase="text-red-600 hover:underline"
+                                  saltoLinea={true}
+                                >
+                                  {text.text}
+                                </Span>
+                              ) : (
+                                <Fragment>{text.text}</Fragment>
+                              )
+                            )}
+                          </p>
+                        </div>
+                      </li>
+                    ))}
+                  </div>
+                </ul>
+              ))}
+            </div>
+          </li>
+        ))
+      }
+
+      <a href="/blog" class="">
+        <p
+          class="ml-14 lg:ml-0 text-xl lg:text-sm lg:tracking-base lg:leading-tight lg:mt-8 lg:border-b-4 lg:border-transparent lg:group-hover:border-blue-200"
+        >
+          Blog
+        </p>
+      </a>
+    </ul>
+  </nav>
+
+  <script is:inline>
+    // @ts-ignore
+    function toggleMenuMovil() {
+      const menu = document.getElementById('mobile-menu');
+      const main = document.getElementById('main');
+      const hamburger = document.getElementById('hamburger');
+      const closeHamburger = document.getElementById('close-hamburger');
+      const scrollBarCompensation =
+        window.innerWidth - document.documentElement.clientWidth;
+
+      // Toggle the menu visibility based on the 'hidden' class presence
+      if (menu.classList.contains('hidden')) {
+        menu.classList.remove('hidden');
+        setTimeout(() => {
+          menu.style.opacity = '1';
+          menu.classList.add('flex');
+          main.classList.add('opacity-75');
+          main.classList.add('blur-sm');
+          menu.style.overflowY = 'auto';
+        }, 10);
+
+        document.body.style.overflow = 'hidden';
+        document.body.style.paddingRight = `${scrollBarCompensation}px`;
+
+        hamburger.classList.add('hidden');
+        closeHamburger.classList.remove('hidden');
+
+        // Attach an event listener to close the menu when clicking outside
+        main.addEventListener(
+          'click',
+          (event) => {
+            // Check if the click was outside the menu
+            if (
+              !menu.contains(event.target) &&
+              !hamburger.contains(event.target)
+            ) {
+              toggleMenuMovil(); // Recursively call the function to close the menu
+            }
+          },
+          { once: true }
+        ); // Use the 'once' option so the event is automatically removed after it fires
+      } else {
+        menu.style.opacity = '0';
+        menu.classList.add('hidden');
+        menu.classList.remove('flex');
+        main.classList.remove('opacity-75');
+        main.classList.remove('blur-sm');
+        menu.style.overflowY = 'hidden'; // Disable scrolling inside the menu
+
+        document.body.style.overflow = 'auto';
+        document.body.style.paddingRight = '0px';
+
+        hamburger.classList.remove('hidden');
+        closeHamburger.classList.add('hidden');
+      }
+    }
+    // @ts-ignore
+    function toggleMenu(menuId, toggleSubMenuIconId) {
+      const menu = document.getElementById(menuId);
+      const toggleIconSubMenu = document.getElementById(toggleSubMenuIconId);
+
+      if (menu.classList.contains('hidden')) {
+        menu.classList.remove('hidden');
+        menu.classList.add('flex');
+        menu.setAttribute('aria-hidden', 'false');
+        toggleIconSubMenu.classList.add('rotate-180');
+      } else {
+        menu.classList.remove('flex');
+        menu.classList.add('hidden');
+        menu.setAttribute('aria-hidden', 'true');
+        toggleIconSubMenu.classList.remove('rotate-180');
+      }
+    }
+    // @ts-ignore
+    function toggleSubMenu(subMenuId, toggleIconId) {
+      const submenu = document.getElementById(subMenuId);
+      const toggleIcon = document.getElementById(toggleIconId);
+
+      if (submenu.classList.contains('hidden')) {
+        submenu.classList.remove('hidden');
+        submenu.classList.add('flex');
+        submenu.setAttribute('aria-hidden', 'false');
+        toggleIcon.classList.add('rotate-180');
+      } else {
+        submenu.classList.remove('flex');
+        submenu.classList.add('hidden');
+        submenu.setAttribute('aria-hidden', 'true');
+        toggleIcon.classList.remove('rotate-180');
+      }
+    }
+  </script>
+</header>

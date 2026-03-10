@@ -1,0 +1,2324 @@
+{
+  "trailingSlash": false,
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [
+        {
+          "key": "X-Frame-Options",
+          "value": "SAMEORIGIN"
+        },
+        {
+          "key": "X-Content-Type-Options",
+          "value": "nosniff"
+        },
+        {
+          "key": "Content-Security-Policy",
+          "value": "default-src 'self'; img-src 'self' https://*.amazonaws.com https://*.spotifycdn.com https://santiferirepair.es *.youcanbook.me *.airtable.com https://*.airtableusercontent.com https://c.clarity.ms https://*.clarity.ms https://c.bing.com https://*.bing.com; frame-src 'self' https://open.spotify.com https://es.ifixit.com *.youcanbook.me https://airtable.com www.google.com https://*.clarity.ms; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://vercel.live https://*.clarity.ms https://*.metricool.com; style-src 'self' 'unsafe-inline' *.youcanbook.me *.airtable.com; connect-src 'self' *.youcanbook.me *.airtable.com https://sockjs-us3.pusher.com https://vercel.live https://*.clarity.ms https://*.metricool.com;"
+        },
+
+        {
+          "key": "Referrer-Policy",
+          "value": "strict-origin-when-cross-origin"
+        }
+      ]
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/reparar-movil",
+      "destination": "/reparar-movil/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-tablet",
+      "destination": "/reparar-tablet/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-smartwatch",
+      "destination": "/reparar-smartwatch/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-iphone",
+      "destination": "/reparar-iphone/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-ipad",
+      "destination": "/reparar-ipad/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-apple-watch",
+      "destination": "/reparar-apple-watch/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/samsung",
+      "destination": "/reparar-movil/samsung/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/xiaomi",
+      "destination": "/reparar-movil/xiaomi/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/sony",
+      "destination": "/reparar-movil/sony/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-tablet/samsung",
+      "destination": "/reparar-tablet/samsung/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/huawei",
+      "destination": "/reparar-movil/huawei/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/asus",
+      "destination": "/reparar-movil/asus/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/lg",
+      "destination": "/reparar-movil/lg/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/nokia",
+      "destination": "/reparar-movil/nokia/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/oneplus",
+      "destination": "/reparar-movil/oneplus/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-smartwatch/huawei",
+      "destination": "/reparar-smartwatch/huawei/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/bq",
+      "destination": "/reparar-movil/bq/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-smartwatch/samsung",
+      "destination": "/reparar-smartwatch/samsung/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-tablet/lenovo",
+      "destination": "/reparar-tablet/lenovo/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/motorola",
+      "destination": "/reparar-movil/motorola/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/oppo",
+      "destination": "/reparar-movil/oppo/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-tablet/huawei",
+      "destination": "/reparar-tablet/huawei/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/google",
+      "destination": "/reparar-movil/google/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/htc",
+      "destination": "/reparar-movil/htc/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/doogee",
+      "destination": "/reparar-movil/doogee/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/zte",
+      "destination": "/reparar-movil/zte/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/alcatel",
+      "destination": "/reparar-movil/alcatel/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/blackview",
+      "destination": "/reparar-movil/blackview/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/cubot",
+      "destination": "/reparar-movil/cubot/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/wiko",
+      "destination": "/reparar-movil/wiko/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/honor",
+      "destination": "/reparar-movil/honor/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/fairphone",
+      "destination": "/reparar-movil/fairphone/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/realme",
+      "destination": "/reparar-movil/realme/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/tcl",
+      "destination": "/reparar-movil/tcl/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/vivo",
+      "destination": "/reparar-movil/vivo/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-smartwatch/motorola",
+      "destination": "/reparar-smartwatch/motorola/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-tablet/bq",
+      "destination": "/reparar-tablet/bq/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-tablet/realme",
+      "destination": "/reparar-tablet/realme/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-tablet/xiaomi",
+      "destination": "/reparar-tablet/xiaomi/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/cristal",
+      "destination": "/reparar-movil/cristal/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/tactil",
+      "destination": "/reparar-movil/tactil/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/pantalla",
+      "destination": "/reparar-movil/pantalla/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/puerto-carga",
+      "destination": "/reparar-movil/puerto-carga/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/bateria",
+      "destination": "/reparar-movil/bateria/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/tapa-trasera",
+      "destination": "/reparar-movil/tapa-trasera/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/camara-trasera",
+      "destination": "/reparar-movil/camara-trasera/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/altavoz",
+      "destination": "/reparar-movil/altavoz/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/cristal-camara",
+      "destination": "/reparar-movil/cristal-camara/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/boton-encendido",
+      "destination": "/reparar-movil/boton-encendido/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/camara-delantera",
+      "destination": "/reparar-movil/camara-delantera/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/microfono",
+      "destination": "/reparar-movil/microfono/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/botones-volumen",
+      "destination": "/reparar-movil/botones-volumen/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/auricular",
+      "destination": "/reparar-movil/auricular/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/lector-huella",
+      "destination": "/reparar-movil/lector-huella/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/vibrador",
+      "destination": "/reparar-movil/vibrador/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/sensor-proximidad",
+      "destination": "/reparar-movil/sensor-proximidad/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-tablet/tactil",
+      "destination": "/reparar-tablet/tactil/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-tablet/cristal",
+      "destination": "/reparar-tablet/cristal/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-tablet/pantalla",
+      "destination": "/reparar-tablet/pantalla/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-tablet/puerto-carga",
+      "destination": "/reparar-tablet/puerto-carga/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-tablet/bateria",
+      "destination": "/reparar-tablet/bateria/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-smartwatch/cristal",
+      "destination": "/reparar-smartwatch/cristal/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-smartwatch/pantalla",
+      "destination": "/reparar-smartwatch/pantalla/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-smartwatch/tactil",
+      "destination": "/reparar-smartwatch/tactil/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-smartwatch/bateria",
+      "destination": "/reparar-smartwatch/bateria/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-tablet/boton-encendido",
+      "destination": "/reparar-tablet/boton-encendido/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-tablet/lcd",
+      "destination": "/reparar-tablet/lcd/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-tablet/botones-volumen",
+      "destination": "/reparar-tablet/botones-volumen/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-tablet/tapa-trasera",
+      "destination": "/reparar-tablet/tapa-trasera/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-tablet/lector-huella",
+      "destination": "/reparar-tablet/lector-huella/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-smartwatch/tapa-trasera",
+      "destination": "/reparar-smartwatch/tapa-trasera/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-smartwatch/altavoz",
+      "destination": "/reparar-smartwatch/altavoz/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-tablet/camara-trasera",
+      "destination": "/reparar-tablet/camara-trasera/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-smartwatch/microfono",
+      "destination": "/reparar-smartwatch/microfono/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-smartwatch/boton-encendido",
+      "destination": "/reparar-smartwatch/boton-encendido/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-tablet/cristal-camara",
+      "destination": "/reparar-tablet/cristal-camara/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-tablet/microfono",
+      "destination": "/reparar-tablet/microfono/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-tablet/vibrador",
+      "destination": "/reparar-tablet/vibrador/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-smartwatch/botones-volumen",
+      "destination": "/reparar-smartwatch/botones-volumen/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-smartwatch/vibrador",
+      "destination": "/reparar-smartwatch/vibrador/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-tablet/altavoz",
+      "destination": "/reparar-tablet/altavoz/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-apple-watch/altavoz",
+      "destination": "/reparar-apple-watch/altavoz/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-ipad/altavoz",
+      "destination": "/reparar-ipad/altavoz/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-iphone/altavoz",
+      "destination": "/reparar-iphone/altavoz/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/alcatel/altavoz",
+      "destination": "/reparar-movil/alcatel/altavoz/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/blackview/altavoz",
+      "destination": "/reparar-movil/blackview/altavoz/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/bq/altavoz",
+      "destination": "/reparar-movil/bq/altavoz/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/doogee/altavoz",
+      "destination": "/reparar-movil/doogee/altavoz/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/google/altavoz",
+      "destination": "/reparar-movil/google/altavoz/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/honor/altavoz",
+      "destination": "/reparar-movil/honor/altavoz/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/htc/altavoz",
+      "destination": "/reparar-movil/htc/altavoz/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/huawei/altavoz",
+      "destination": "/reparar-movil/huawei/altavoz/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/lg/altavoz",
+      "destination": "/reparar-movil/lg/altavoz/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/motorola/altavoz",
+      "destination": "/reparar-movil/motorola/altavoz/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/nokia/altavoz",
+      "destination": "/reparar-movil/nokia/altavoz/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/oneplus/altavoz",
+      "destination": "/reparar-movil/oneplus/altavoz/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/oppo/altavoz",
+      "destination": "/reparar-movil/oppo/altavoz/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/realme/altavoz",
+      "destination": "/reparar-movil/realme/altavoz/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/samsung/altavoz",
+      "destination": "/reparar-movil/samsung/altavoz/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/sony/altavoz",
+      "destination": "/reparar-movil/sony/altavoz/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/xiaomi/altavoz",
+      "destination": "/reparar-movil/xiaomi/altavoz/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/zte/altavoz",
+      "destination": "/reparar-movil/zte/altavoz/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-iphone/auricular",
+      "destination": "/reparar-iphone/auricular/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/blackview/auricular",
+      "destination": "/reparar-movil/blackview/auricular/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/bq/auricular",
+      "destination": "/reparar-movil/bq/auricular/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/cubot/auricular",
+      "destination": "/reparar-movil/cubot/auricular/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/google/auricular",
+      "destination": "/reparar-movil/google/auricular/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/honor/auricular",
+      "destination": "/reparar-movil/honor/auricular/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/htc/auricular",
+      "destination": "/reparar-movil/htc/auricular/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/huawei/auricular",
+      "destination": "/reparar-movil/huawei/auricular/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/lg/auricular",
+      "destination": "/reparar-movil/lg/auricular/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/motorola/auricular",
+      "destination": "/reparar-movil/motorola/auricular/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/nokia/auricular",
+      "destination": "/reparar-movil/nokia/auricular/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/oneplus/auricular",
+      "destination": "/reparar-movil/oneplus/auricular/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/oppo/auricular",
+      "destination": "/reparar-movil/oppo/auricular/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/realme/auricular",
+      "destination": "/reparar-movil/realme/auricular/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/samsung/auricular",
+      "destination": "/reparar-movil/samsung/auricular/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/sony/auricular",
+      "destination": "/reparar-movil/sony/auricular/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/xiaomi/auricular",
+      "destination": "/reparar-movil/xiaomi/auricular/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-apple-watch/bateria",
+      "destination": "/reparar-apple-watch/bateria/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-ipad/bateria",
+      "destination": "/reparar-ipad/bateria/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-iphone/bateria",
+      "destination": "/reparar-iphone/bateria/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/alcatel/bateria",
+      "destination": "/reparar-movil/alcatel/bateria/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/blackview/bateria",
+      "destination": "/reparar-movil/blackview/bateria/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/bq/bateria",
+      "destination": "/reparar-movil/bq/bateria/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/cubot/bateria",
+      "destination": "/reparar-movil/cubot/bateria/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/google/bateria",
+      "destination": "/reparar-movil/google/bateria/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/honor/bateria",
+      "destination": "/reparar-movil/honor/bateria/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/htc/bateria",
+      "destination": "/reparar-movil/htc/bateria/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/huawei/bateria",
+      "destination": "/reparar-movil/huawei/bateria/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/lg/bateria",
+      "destination": "/reparar-movil/lg/bateria/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/motorola/bateria",
+      "destination": "/reparar-movil/motorola/bateria/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/nokia/bateria",
+      "destination": "/reparar-movil/nokia/bateria/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/oneplus/bateria",
+      "destination": "/reparar-movil/oneplus/bateria/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/oppo/bateria",
+      "destination": "/reparar-movil/oppo/bateria/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/realme/bateria",
+      "destination": "/reparar-movil/realme/bateria/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/samsung/bateria",
+      "destination": "/reparar-movil/samsung/bateria/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/sony/bateria",
+      "destination": "/reparar-movil/sony/bateria/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/xiaomi/bateria",
+      "destination": "/reparar-movil/xiaomi/bateria/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/zte/bateria",
+      "destination": "/reparar-movil/zte/bateria/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-smartwatch/huawei/bateria",
+      "destination": "/reparar-smartwatch/huawei/bateria/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-smartwatch/motorola/bateria",
+      "destination": "/reparar-smartwatch/motorola/bateria/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-smartwatch/samsung/bateria",
+      "destination": "/reparar-smartwatch/samsung/bateria/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-tablet/bq/bateria",
+      "destination": "/reparar-tablet/bq/bateria/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-tablet/huawei/bateria",
+      "destination": "/reparar-tablet/huawei/bateria/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-tablet/lenovo/bateria",
+      "destination": "/reparar-tablet/lenovo/bateria/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-tablet/samsung/bateria",
+      "destination": "/reparar-tablet/samsung/bateria/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-iphone/camara-delantera",
+      "destination": "/reparar-iphone/camara-delantera/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/alcatel/camara-delantera",
+      "destination": "/reparar-movil/alcatel/camara-delantera/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/blackview/camara-delantera",
+      "destination": "/reparar-movil/blackview/camara-delantera/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/bq/camara-delantera",
+      "destination": "/reparar-movil/bq/camara-delantera/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/google/camara-delantera",
+      "destination": "/reparar-movil/google/camara-delantera/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/honor/camara-delantera",
+      "destination": "/reparar-movil/honor/camara-delantera/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/htc/camara-delantera",
+      "destination": "/reparar-movil/htc/camara-delantera/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/huawei/camara-delantera",
+      "destination": "/reparar-movil/huawei/camara-delantera/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/lg/camara-delantera",
+      "destination": "/reparar-movil/lg/camara-delantera/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/motorola/camara-delantera",
+      "destination": "/reparar-movil/motorola/camara-delantera/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/nokia/camara-delantera",
+      "destination": "/reparar-movil/nokia/camara-delantera/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/oneplus/camara-delantera",
+      "destination": "/reparar-movil/oneplus/camara-delantera/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/oppo/camara-delantera",
+      "destination": "/reparar-movil/oppo/camara-delantera/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/realme/camara-delantera",
+      "destination": "/reparar-movil/realme/camara-delantera/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/samsung/camara-delantera",
+      "destination": "/reparar-movil/samsung/camara-delantera/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/sony/camara-delantera",
+      "destination": "/reparar-movil/sony/camara-delantera/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/xiaomi/camara-delantera",
+      "destination": "/reparar-movil/xiaomi/camara-delantera/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/zte/camara-delantera",
+      "destination": "/reparar-movil/zte/camara-delantera/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-ipad/camara-trasera",
+      "destination": "/reparar-ipad/camara-trasera/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-iphone/camara-trasera",
+      "destination": "/reparar-iphone/camara-trasera/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/alcatel/camara-trasera",
+      "destination": "/reparar-movil/alcatel/camara-trasera/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/blackview/camara-trasera",
+      "destination": "/reparar-movil/blackview/camara-trasera/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/bq/camara-trasera",
+      "destination": "/reparar-movil/bq/camara-trasera/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/google/camara-trasera",
+      "destination": "/reparar-movil/google/camara-trasera/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/honor/camara-trasera",
+      "destination": "/reparar-movil/honor/camara-trasera/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/htc/camara-trasera",
+      "destination": "/reparar-movil/htc/camara-trasera/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/huawei/camara-trasera",
+      "destination": "/reparar-movil/huawei/camara-trasera/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/lg/camara-trasera",
+      "destination": "/reparar-movil/lg/camara-trasera/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/motorola/camara-trasera",
+      "destination": "/reparar-movil/motorola/camara-trasera/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/nokia/camara-trasera",
+      "destination": "/reparar-movil/nokia/camara-trasera/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/oneplus/camara-trasera",
+      "destination": "/reparar-movil/oneplus/camara-trasera/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/oppo/camara-trasera",
+      "destination": "/reparar-movil/oppo/camara-trasera/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/realme/camara-trasera",
+      "destination": "/reparar-movil/realme/camara-trasera/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/samsung/camara-trasera",
+      "destination": "/reparar-movil/samsung/camara-trasera/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/sony/camara-trasera",
+      "destination": "/reparar-movil/sony/camara-trasera/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/xiaomi/camara-trasera",
+      "destination": "/reparar-movil/xiaomi/camara-trasera/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/zte/camara-trasera",
+      "destination": "/reparar-movil/zte/camara-trasera/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-apple-watch/cristal",
+      "destination": "/reparar-apple-watch/cristal/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-ipad/cristal",
+      "destination": "/reparar-ipad/cristal/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-iphone/cristal",
+      "destination": "/reparar-iphone/cristal/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/alcatel/cristal",
+      "destination": "/reparar-movil/alcatel/cristal/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/asus/cristal",
+      "destination": "/reparar-movil/asus/cristal/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/blackview/cristal",
+      "destination": "/reparar-movil/blackview/cristal/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/bq/cristal",
+      "destination": "/reparar-movil/bq/cristal/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/cubot/cristal",
+      "destination": "/reparar-movil/cubot/cristal/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/doogee/cristal",
+      "destination": "/reparar-movil/doogee/cristal/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/google/cristal",
+      "destination": "/reparar-movil/google/cristal/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/honor/cristal",
+      "destination": "/reparar-movil/honor/cristal/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/htc/cristal",
+      "destination": "/reparar-movil/htc/cristal/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/huawei/cristal",
+      "destination": "/reparar-movil/huawei/cristal/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/lg/cristal",
+      "destination": "/reparar-movil/lg/cristal/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/motorola/cristal",
+      "destination": "/reparar-movil/motorola/cristal/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/nokia/cristal",
+      "destination": "/reparar-movil/nokia/cristal/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/oneplus/cristal",
+      "destination": "/reparar-movil/oneplus/cristal/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/oppo/cristal",
+      "destination": "/reparar-movil/oppo/cristal/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/realme/cristal",
+      "destination": "/reparar-movil/realme/cristal/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/samsung/cristal",
+      "destination": "/reparar-movil/samsung/cristal/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/sony/cristal",
+      "destination": "/reparar-movil/sony/cristal/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/tcl/cristal",
+      "destination": "/reparar-movil/tcl/cristal/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/vivo/cristal",
+      "destination": "/reparar-movil/vivo/cristal/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/wiko/cristal",
+      "destination": "/reparar-movil/wiko/cristal/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/xiaomi/cristal",
+      "destination": "/reparar-movil/xiaomi/cristal/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/zte/cristal",
+      "destination": "/reparar-movil/zte/cristal/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-smartwatch/huawei/cristal",
+      "destination": "/reparar-smartwatch/huawei/cristal/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-smartwatch/samsung/cristal",
+      "destination": "/reparar-smartwatch/samsung/cristal/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-tablet/bq/cristal",
+      "destination": "/reparar-tablet/bq/cristal/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-tablet/huawei/cristal",
+      "destination": "/reparar-tablet/huawei/cristal/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-tablet/lenovo/cristal",
+      "destination": "/reparar-tablet/lenovo/cristal/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-tablet/realme/cristal",
+      "destination": "/reparar-tablet/realme/cristal/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-tablet/samsung/cristal",
+      "destination": "/reparar-tablet/samsung/cristal/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-tablet/xiaomi/cristal",
+      "destination": "/reparar-tablet/xiaomi/cristal/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-apple-watch/tactil",
+      "destination": "/reparar-apple-watch/tactil/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-ipad/tactil",
+      "destination": "/reparar-ipad/tactil/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-iphone/tactil",
+      "destination": "/reparar-iphone/tactil/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/alcatel/tactil",
+      "destination": "/reparar-movil/alcatel/tactil/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/asus/tactil",
+      "destination": "/reparar-movil/asus/tactil/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/blackview/tactil",
+      "destination": "/reparar-movil/blackview/tactil/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/bq/tactil",
+      "destination": "/reparar-movil/bq/tactil/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/cubot/tactil",
+      "destination": "/reparar-movil/cubot/tactil/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/doogee/tactil",
+      "destination": "/reparar-movil/doogee/tactil/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/google/tactil",
+      "destination": "/reparar-movil/google/tactil/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/honor/tactil",
+      "destination": "/reparar-movil/honor/tactil/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/htc/tactil",
+      "destination": "/reparar-movil/htc/tactil/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/huawei/tactil",
+      "destination": "/reparar-movil/huawei/tactil/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/lg/tactil",
+      "destination": "/reparar-movil/lg/tactil/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/motorola/tactil",
+      "destination": "/reparar-movil/motorola/tactil/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/nokia/tactil",
+      "destination": "/reparar-movil/nokia/tactil/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/oneplus/tactil",
+      "destination": "/reparar-movil/oneplus/tactil/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/oppo/tactil",
+      "destination": "/reparar-movil/oppo/tactil/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/realme/tactil",
+      "destination": "/reparar-movil/realme/tactil/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/samsung/tactil",
+      "destination": "/reparar-movil/samsung/tactil/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/sony/tactil",
+      "destination": "/reparar-movil/sony/tactil/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/tcl/tactil",
+      "destination": "/reparar-movil/tcl/tactil/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/vivo/tactil",
+      "destination": "/reparar-movil/vivo/tactil/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/wiko/tactil",
+      "destination": "/reparar-movil/wiko/tactil/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/xiaomi/tactil",
+      "destination": "/reparar-movil/xiaomi/tactil/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/zte/tactil",
+      "destination": "/reparar-movil/zte/tactil/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-smartwatch/huawei/tactil",
+      "destination": "/reparar-smartwatch/huawei/tactil/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-smartwatch/samsung/tactil",
+      "destination": "/reparar-smartwatch/samsung/tactil/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-tablet/bq/tactil",
+      "destination": "/reparar-tablet/bq/tactil/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-tablet/huawei/tactil",
+      "destination": "/reparar-tablet/huawei/tactil/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-tablet/lenovo/tactil",
+      "destination": "/reparar-tablet/lenovo/tactil/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-tablet/realme/tactil",
+      "destination": "/reparar-tablet/realme/tactil/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-tablet/samsung/tactil",
+      "destination": "/reparar-tablet/samsung/tactil/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-tablet/xiaomi/tactil",
+      "destination": "/reparar-tablet/xiaomi/tactil/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-apple-watch/electronica-encendido",
+      "destination": "/reparar-apple-watch/electronica-encendido/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-ipad/electronica-encendido",
+      "destination": "/reparar-ipad/electronica-encendido/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-iphone/electronica-encendido",
+      "destination": "/reparar-iphone/electronica-encendido/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/alcatel/electronica-encendido",
+      "destination": "/reparar-movil/alcatel/electronica-encendido/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/blackview/electronica-encendido",
+      "destination": "/reparar-movil/blackview/electronica-encendido/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/bq/electronica-encendido",
+      "destination": "/reparar-movil/bq/electronica-encendido/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/google/electronica-encendido",
+      "destination": "/reparar-movil/google/electronica-encendido/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/honor/electronica-encendido",
+      "destination": "/reparar-movil/honor/electronica-encendido/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/htc/electronica-encendido",
+      "destination": "/reparar-movil/htc/electronica-encendido/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/huawei/electronica-encendido",
+      "destination": "/reparar-movil/huawei/electronica-encendido/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/lg/electronica-encendido",
+      "destination": "/reparar-movil/lg/electronica-encendido/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/motorola/electronica-encendido",
+      "destination": "/reparar-movil/motorola/electronica-encendido/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/nokia/electronica-encendido",
+      "destination": "/reparar-movil/nokia/electronica-encendido/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/oneplus/electronica-encendido",
+      "destination": "/reparar-movil/oneplus/electronica-encendido/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/oppo/electronica-encendido",
+      "destination": "/reparar-movil/oppo/electronica-encendido/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/realme/electronica-encendido",
+      "destination": "/reparar-movil/realme/electronica-encendido/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/samsung/electronica-encendido",
+      "destination": "/reparar-movil/samsung/electronica-encendido/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/sony/electronica-encendido",
+      "destination": "/reparar-movil/sony/electronica-encendido/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/xiaomi/electronica-encendido",
+      "destination": "/reparar-movil/xiaomi/electronica-encendido/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/zte/electronica-encendido",
+      "destination": "/reparar-movil/zte/electronica-encendido/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-smartwatch/samsung/electronica-encendido",
+      "destination": "/reparar-smartwatch/samsung/electronica-encendido/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-tablet/samsung/electronica-encendido",
+      "destination": "/reparar-tablet/samsung/electronica-encendido/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-ipad/electronica-volumen",
+      "destination": "/reparar-ipad/electronica-volumen/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-iphone/electronica-volumen",
+      "destination": "/reparar-iphone/electronica-volumen/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/alcatel/electronica-volumen",
+      "destination": "/reparar-movil/alcatel/electronica-volumen/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/blackview/electronica-volumen",
+      "destination": "/reparar-movil/blackview/electronica-volumen/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/bq/electronica-volumen",
+      "destination": "/reparar-movil/bq/electronica-volumen/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/google/electronica-volumen",
+      "destination": "/reparar-movil/google/electronica-volumen/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/honor/electronica-volumen",
+      "destination": "/reparar-movil/honor/electronica-volumen/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/htc/electronica-volumen",
+      "destination": "/reparar-movil/htc/electronica-volumen/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/huawei/electronica-volumen",
+      "destination": "/reparar-movil/huawei/electronica-volumen/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/lg/electronica-volumen",
+      "destination": "/reparar-movil/lg/electronica-volumen/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/motorola/electronica-volumen",
+      "destination": "/reparar-movil/motorola/electronica-volumen/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/nokia/electronica-volumen",
+      "destination": "/reparar-movil/nokia/electronica-volumen/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/oneplus/electronica-volumen",
+      "destination": "/reparar-movil/oneplus/electronica-volumen/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/oppo/electronica-volumen",
+      "destination": "/reparar-movil/oppo/electronica-volumen/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/realme/electronica-volumen",
+      "destination": "/reparar-movil/realme/electronica-volumen/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/samsung/electronica-volumen",
+      "destination": "/reparar-movil/samsung/electronica-volumen/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/sony/electronica-volumen",
+      "destination": "/reparar-movil/sony/electronica-volumen/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/xiaomi/electronica-volumen",
+      "destination": "/reparar-movil/xiaomi/electronica-volumen/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/zte/electronica-volumen",
+      "destination": "/reparar-movil/zte/electronica-volumen/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-smartwatch/samsung/electronica-volumen",
+      "destination": "/reparar-smartwatch/samsung/electronica-volumen/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-tablet/samsung/electronica-volumen",
+      "destination": "/reparar-tablet/samsung/electronica-volumen/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-ipad/lcd",
+      "destination": "/reparar-ipad/lcd/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-ipad/lector-huella",
+      "destination": "/reparar-ipad/lector-huella/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-iphone/lector-huella",
+      "destination": "/reparar-iphone/lector-huella/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/google/lector-huella",
+      "destination": "/reparar-movil/google/lector-huella/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/honor/lector-huella",
+      "destination": "/reparar-movil/honor/lector-huella/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/htc/lector-huella",
+      "destination": "/reparar-movil/htc/lector-huella/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/huawei/lector-huella",
+      "destination": "/reparar-movil/huawei/lector-huella/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/lg/lector-huella",
+      "destination": "/reparar-movil/lg/lector-huella/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/motorola/lector-huella",
+      "destination": "/reparar-movil/motorola/lector-huella/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/nokia/lector-huella",
+      "destination": "/reparar-movil/nokia/lector-huella/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/oneplus/lector-huella",
+      "destination": "/reparar-movil/oneplus/lector-huella/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/oppo/lector-huella",
+      "destination": "/reparar-movil/oppo/lector-huella/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/realme/lector-huella",
+      "destination": "/reparar-movil/realme/lector-huella/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/samsung/lector-huella",
+      "destination": "/reparar-movil/samsung/lector-huella/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/sony/lector-huella",
+      "destination": "/reparar-movil/sony/lector-huella/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/xiaomi/lector-huella",
+      "destination": "/reparar-movil/xiaomi/lector-huella/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-ipad/cristal-camara",
+      "destination": "/reparar-ipad/cristal-camara/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-iphone/cristal-camara",
+      "destination": "/reparar-iphone/cristal-camara/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/blackview/cristal-camara",
+      "destination": "/reparar-movil/blackview/cristal-camara/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/bq/cristal-camara",
+      "destination": "/reparar-movil/bq/cristal-camara/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/cubot/cristal-camara",
+      "destination": "/reparar-movil/cubot/cristal-camara/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/google/cristal-camara",
+      "destination": "/reparar-movil/google/cristal-camara/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/honor/cristal-camara",
+      "destination": "/reparar-movil/honor/cristal-camara/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/htc/cristal-camara",
+      "destination": "/reparar-movil/htc/cristal-camara/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/huawei/cristal-camara",
+      "destination": "/reparar-movil/huawei/cristal-camara/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/lg/cristal-camara",
+      "destination": "/reparar-movil/lg/cristal-camara/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/motorola/cristal-camara",
+      "destination": "/reparar-movil/motorola/cristal-camara/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/nokia/cristal-camara",
+      "destination": "/reparar-movil/nokia/cristal-camara/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/oneplus/cristal-camara",
+      "destination": "/reparar-movil/oneplus/cristal-camara/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/oppo/cristal-camara",
+      "destination": "/reparar-movil/oppo/cristal-camara/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/realme/cristal-camara",
+      "destination": "/reparar-movil/realme/cristal-camara/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/samsung/cristal-camara",
+      "destination": "/reparar-movil/samsung/cristal-camara/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/sony/cristal-camara",
+      "destination": "/reparar-movil/sony/cristal-camara/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/vivo/cristal-camara",
+      "destination": "/reparar-movil/vivo/cristal-camara/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/xiaomi/cristal-camara",
+      "destination": "/reparar-movil/xiaomi/cristal-camara/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/zte/cristal-camara",
+      "destination": "/reparar-movil/zte/cristal-camara/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-apple-watch/microfono",
+      "destination": "/reparar-apple-watch/microfono/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-ipad/microfono",
+      "destination": "/reparar-ipad/microfono/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-iphone/microfono",
+      "destination": "/reparar-iphone/microfono/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/alcatel/microfono",
+      "destination": "/reparar-movil/alcatel/microfono/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/blackview/microfono",
+      "destination": "/reparar-movil/blackview/microfono/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/bq/microfono",
+      "destination": "/reparar-movil/bq/microfono/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/doogee/microfono",
+      "destination": "/reparar-movil/doogee/microfono/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/fairphone/microfono",
+      "destination": "/reparar-movil/fairphone/microfono/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/google/microfono",
+      "destination": "/reparar-movil/google/microfono/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/honor/microfono",
+      "destination": "/reparar-movil/honor/microfono/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/htc/microfono",
+      "destination": "/reparar-movil/htc/microfono/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/huawei/microfono",
+      "destination": "/reparar-movil/huawei/microfono/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/lg/microfono",
+      "destination": "/reparar-movil/lg/microfono/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/motorola/microfono",
+      "destination": "/reparar-movil/motorola/microfono/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/nokia/microfono",
+      "destination": "/reparar-movil/nokia/microfono/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/oneplus/microfono",
+      "destination": "/reparar-movil/oneplus/microfono/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/oppo/microfono",
+      "destination": "/reparar-movil/oppo/microfono/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/realme/microfono",
+      "destination": "/reparar-movil/realme/microfono/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/samsung/microfono",
+      "destination": "/reparar-movil/samsung/microfono/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/sony/microfono",
+      "destination": "/reparar-movil/sony/microfono/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/xiaomi/microfono",
+      "destination": "/reparar-movil/xiaomi/microfono/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/zte/microfono",
+      "destination": "/reparar-movil/zte/microfono/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-apple-watch/pantalla",
+      "destination": "/reparar-apple-watch/pantalla/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-ipad/pantalla",
+      "destination": "/reparar-ipad/pantalla/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-iphone/pantalla",
+      "destination": "/reparar-iphone/pantalla/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/alcatel/pantalla",
+      "destination": "/reparar-movil/alcatel/pantalla/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/asus/pantalla",
+      "destination": "/reparar-movil/asus/pantalla/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/blackview/pantalla",
+      "destination": "/reparar-movil/blackview/pantalla/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/bq/pantalla",
+      "destination": "/reparar-movil/bq/pantalla/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/cubot/pantalla",
+      "destination": "/reparar-movil/cubot/pantalla/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/doogee/pantalla",
+      "destination": "/reparar-movil/doogee/pantalla/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/google/pantalla",
+      "destination": "/reparar-movil/google/pantalla/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/honor/pantalla",
+      "destination": "/reparar-movil/honor/pantalla/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/htc/pantalla",
+      "destination": "/reparar-movil/htc/pantalla/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/huawei/pantalla",
+      "destination": "/reparar-movil/huawei/pantalla/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/lg/pantalla",
+      "destination": "/reparar-movil/lg/pantalla/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/motorola/pantalla",
+      "destination": "/reparar-movil/motorola/pantalla/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/nokia/pantalla",
+      "destination": "/reparar-movil/nokia/pantalla/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/oneplus/pantalla",
+      "destination": "/reparar-movil/oneplus/pantalla/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/oppo/pantalla",
+      "destination": "/reparar-movil/oppo/pantalla/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/realme/pantalla",
+      "destination": "/reparar-movil/realme/pantalla/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/samsung/pantalla",
+      "destination": "/reparar-movil/samsung/pantalla/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/sony/pantalla",
+      "destination": "/reparar-movil/sony/pantalla/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/tcl/pantalla",
+      "destination": "/reparar-movil/tcl/pantalla/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/vivo/pantalla",
+      "destination": "/reparar-movil/vivo/pantalla/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/wiko/pantalla",
+      "destination": "/reparar-movil/wiko/pantalla/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/xiaomi/pantalla",
+      "destination": "/reparar-movil/xiaomi/pantalla/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/zte/pantalla",
+      "destination": "/reparar-movil/zte/pantalla/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-smartwatch/huawei/pantalla",
+      "destination": "/reparar-smartwatch/huawei/pantalla/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-smartwatch/samsung/pantalla",
+      "destination": "/reparar-smartwatch/samsung/pantalla/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-tablet/bq/pantalla",
+      "destination": "/reparar-tablet/bq/pantalla/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-tablet/huawei/pantalla",
+      "destination": "/reparar-tablet/huawei/pantalla/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-tablet/lenovo/pantalla",
+      "destination": "/reparar-tablet/lenovo/pantalla/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-tablet/realme/pantalla",
+      "destination": "/reparar-tablet/realme/pantalla/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-tablet/samsung/pantalla",
+      "destination": "/reparar-tablet/samsung/pantalla/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-tablet/xiaomi/pantalla",
+      "destination": "/reparar-tablet/xiaomi/pantalla/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-ipad/puerto-carga",
+      "destination": "/reparar-ipad/puerto-carga/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-iphone/puerto-carga",
+      "destination": "/reparar-iphone/puerto-carga/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/alcatel/puerto-carga",
+      "destination": "/reparar-movil/alcatel/puerto-carga/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/blackview/puerto-carga",
+      "destination": "/reparar-movil/blackview/puerto-carga/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/bq/puerto-carga",
+      "destination": "/reparar-movil/bq/puerto-carga/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/doogee/puerto-carga",
+      "destination": "/reparar-movil/doogee/puerto-carga/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/fairphone/puerto-carga",
+      "destination": "/reparar-movil/fairphone/puerto-carga/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/google/puerto-carga",
+      "destination": "/reparar-movil/google/puerto-carga/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/honor/puerto-carga",
+      "destination": "/reparar-movil/honor/puerto-carga/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/htc/puerto-carga",
+      "destination": "/reparar-movil/htc/puerto-carga/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/huawei/puerto-carga",
+      "destination": "/reparar-movil/huawei/puerto-carga/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/lg/puerto-carga",
+      "destination": "/reparar-movil/lg/puerto-carga/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/motorola/puerto-carga",
+      "destination": "/reparar-movil/motorola/puerto-carga/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/nokia/puerto-carga",
+      "destination": "/reparar-movil/nokia/puerto-carga/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/oneplus/puerto-carga",
+      "destination": "/reparar-movil/oneplus/puerto-carga/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/oppo/puerto-carga",
+      "destination": "/reparar-movil/oppo/puerto-carga/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/realme/puerto-carga",
+      "destination": "/reparar-movil/realme/puerto-carga/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/samsung/puerto-carga",
+      "destination": "/reparar-movil/samsung/puerto-carga/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/sony/puerto-carga",
+      "destination": "/reparar-movil/sony/puerto-carga/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/xiaomi/puerto-carga",
+      "destination": "/reparar-movil/xiaomi/puerto-carga/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/zte/puerto-carga",
+      "destination": "/reparar-movil/zte/puerto-carga/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-tablet/huawei/puerto-carga",
+      "destination": "/reparar-tablet/huawei/puerto-carga/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-tablet/lenovo/puerto-carga",
+      "destination": "/reparar-tablet/lenovo/puerto-carga/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-tablet/samsung/puerto-carga",
+      "destination": "/reparar-tablet/samsung/puerto-carga/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-iphone/sensor-proximidad",
+      "destination": "/reparar-iphone/sensor-proximidad/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/bq/sensor-proximidad",
+      "destination": "/reparar-movil/bq/sensor-proximidad/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/google/sensor-proximidad",
+      "destination": "/reparar-movil/google/sensor-proximidad/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/honor/sensor-proximidad",
+      "destination": "/reparar-movil/honor/sensor-proximidad/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/htc/sensor-proximidad",
+      "destination": "/reparar-movil/htc/sensor-proximidad/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/huawei/sensor-proximidad",
+      "destination": "/reparar-movil/huawei/sensor-proximidad/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/lg/sensor-proximidad",
+      "destination": "/reparar-movil/lg/sensor-proximidad/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/motorola/sensor-proximidad",
+      "destination": "/reparar-movil/motorola/sensor-proximidad/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/oneplus/sensor-proximidad",
+      "destination": "/reparar-movil/oneplus/sensor-proximidad/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/oppo/sensor-proximidad",
+      "destination": "/reparar-movil/oppo/sensor-proximidad/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/samsung/sensor-proximidad",
+      "destination": "/reparar-movil/samsung/sensor-proximidad/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/xiaomi/sensor-proximidad",
+      "destination": "/reparar-movil/xiaomi/sensor-proximidad/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-apple-watch/tapa-trasera",
+      "destination": "/reparar-apple-watch/tapa-trasera/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-ipad/tapa-trasera",
+      "destination": "/reparar-ipad/tapa-trasera/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-iphone/tapa-trasera",
+      "destination": "/reparar-iphone/tapa-trasera/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/blackview/tapa-trasera",
+      "destination": "/reparar-movil/blackview/tapa-trasera/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/bq/tapa-trasera",
+      "destination": "/reparar-movil/bq/tapa-trasera/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/google/tapa-trasera",
+      "destination": "/reparar-movil/google/tapa-trasera/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/honor/tapa-trasera",
+      "destination": "/reparar-movil/honor/tapa-trasera/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/htc/tapa-trasera",
+      "destination": "/reparar-movil/htc/tapa-trasera/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/huawei/tapa-trasera",
+      "destination": "/reparar-movil/huawei/tapa-trasera/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/lg/tapa-trasera",
+      "destination": "/reparar-movil/lg/tapa-trasera/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/motorola/tapa-trasera",
+      "destination": "/reparar-movil/motorola/tapa-trasera/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/nokia/tapa-trasera",
+      "destination": "/reparar-movil/nokia/tapa-trasera/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/oneplus/tapa-trasera",
+      "destination": "/reparar-movil/oneplus/tapa-trasera/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/oppo/tapa-trasera",
+      "destination": "/reparar-movil/oppo/tapa-trasera/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/realme/tapa-trasera",
+      "destination": "/reparar-movil/realme/tapa-trasera/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/samsung/tapa-trasera",
+      "destination": "/reparar-movil/samsung/tapa-trasera/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/sony/tapa-trasera",
+      "destination": "/reparar-movil/sony/tapa-trasera/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/xiaomi/tapa-trasera",
+      "destination": "/reparar-movil/xiaomi/tapa-trasera/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-smartwatch/huawei/tapa-trasera",
+      "destination": "/reparar-smartwatch/huawei/tapa-trasera/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-smartwatch/samsung/tapa-trasera",
+      "destination": "/reparar-smartwatch/samsung/tapa-trasera/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-tablet/samsung/tapa-trasera",
+      "destination": "/reparar-tablet/samsung/tapa-trasera/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-apple-watch/vibrador",
+      "destination": "/reparar-apple-watch/vibrador/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-iphone/vibrador",
+      "destination": "/reparar-iphone/vibrador/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/google/vibrador",
+      "destination": "/reparar-movil/google/vibrador/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/honor/vibrador",
+      "destination": "/reparar-movil/honor/vibrador/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/htc/vibrador",
+      "destination": "/reparar-movil/htc/vibrador/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/huawei/vibrador",
+      "destination": "/reparar-movil/huawei/vibrador/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/lg/vibrador",
+      "destination": "/reparar-movil/lg/vibrador/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/motorola/vibrador",
+      "destination": "/reparar-movil/motorola/vibrador/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/nokia/vibrador",
+      "destination": "/reparar-movil/nokia/vibrador/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/oneplus/vibrador",
+      "destination": "/reparar-movil/oneplus/vibrador/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/realme/vibrador",
+      "destination": "/reparar-movil/realme/vibrador/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/samsung/vibrador",
+      "destination": "/reparar-movil/samsung/vibrador/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/sony/vibrador",
+      "destination": "/reparar-movil/sony/vibrador/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-movil/xiaomi/vibrador",
+      "destination": "/reparar-movil/xiaomi/vibrador/sevilla",
+      "permanent": true
+    },
+    {
+      "source": "/reparar-tablet/huawei/vibrador",
+      "destination": "/reparar-tablet/huawei/vibrador/sevilla",
+      "permanent": true
+    }
+  ]
+}

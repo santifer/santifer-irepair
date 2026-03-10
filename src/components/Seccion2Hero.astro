@@ -1,0 +1,30 @@
+---
+interface SeccionProps {
+  bgColor?: string;
+  id?: string;
+  modoLegal?: boolean;
+  pad?: string;
+}
+
+// Accede a las props pasadas al componente
+const {
+  bgColor = '',
+  id = '',
+  modoLegal = false,
+  pad = '',
+} = Astro.props as SeccionProps;
+
+// Determina la dirección basándose en la prop modoLegal
+let direccion = modoLegal ? 'items-start' : 'items-center';
+
+const baseClass = `flex flex-col ${pad === 'Reseña' ? 'pb-8' : 'py-3 sm:py-8'}`;
+// Clase base para el contenedor del contenido
+const contentClass = 'mx-auto max-w-5xl'; // Clases para controlar el padding y el ancho máximo del contenido
+const bgClase = bgColor ? bgColor : ''; // Siempre aplicamos bg-${bgColor} a la section si bgColor está definido
+---
+
+<section class={`w-full ${bgClase}`} id={id}>
+  <div class={`${contentClass} ${baseClass} ${direccion}`}>
+    <slot />
+  </div>
+</section>

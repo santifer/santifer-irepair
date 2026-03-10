@@ -1,0 +1,66 @@
+---
+type Props = {
+  quote: string;
+  imageUrlPrevia: string;
+  imageUrlReparado: string;
+  dateCreated: string;
+  altPrevia: string;
+  altPosterior: string;
+};
+
+const {
+  quote,
+  imageUrlPrevia,
+  imageUrlReparado,
+  dateCreated,
+  altPrevia,
+  altPosterior,
+} = Astro.props as Props;
+
+const fecha = new Date(dateCreated).toLocaleDateString('es-ES');
+---
+
+<article
+  class="flex flex-col sm:flex-row w-full items-center justify-center my-4 p-6 gap-4 h-22"
+>
+  <!-- Texto / Testimonio -->
+  <div class="flex flex-col sm:w-3/5 font-georgia">
+    <p
+      class="relative pl-8 sm:text-sm md:text-lg italic before:content-['“'] before:absolute before:-left-4 before:text-7xl"
+    >
+      {quote}
+    </p>
+    <time
+      datetime={dateCreated}
+      class="mt-2 text-sm text-black text-right block w-full"
+    >
+      {fecha}
+    </time>
+  </div>
+
+  <!-- Imágenes antes / después -->
+  <div
+    class="flex sm:flex-col md:w-2/5 justify-start items-start lg:flex-row rounded-xl overflow-hidden"
+  >
+    <div class="w-full flex">
+      <img
+        src={imageUrlPrevia}
+        alt={altPrevia}
+        width="270"
+        height="480"
+        class="w-1/2 h-auto object-contain"
+        loading="lazy"
+        decoding="async"
+      />
+      <img
+        src={imageUrlReparado}
+        alt={altPosterior}
+        width="270"
+        height="480"
+        class="w-1/2 h-auto object-contain"
+        loading="lazy"
+        decoding="async"
+      />
+    </div>
+  </div>
+</article>

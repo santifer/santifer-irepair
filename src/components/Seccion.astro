@@ -1,0 +1,21 @@
+---
+type Props = {
+  fondo?: string; // Propiedad opcional
+};
+
+// Mapeo de colores opuestos para el div
+const colorMapDiv: { [key: string]: string } = {
+  gris: 'bg-gray-50',
+  grisOscuro: 'bg-gradient-to-t from-gray-500 to-stone-500',
+  blanco: 'bg-white',
+};
+
+// Obtén la propiedad fondo de Astro.props y proporciona un valor predeterminado
+const { fondo = 'blanco' } = Astro.props;
+
+const colorClaseDiv = colorMapDiv[fondo] || 'bg-white';
+---
+
+<section class={`flex flex-col items-center w-full relative ${colorClaseDiv}`}>
+  <slot />
+</section>

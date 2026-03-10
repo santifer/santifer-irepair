@@ -1,0 +1,224 @@
+---
+import { Image } from 'astro:assets';
+import type { IDetails } from '../lib/schema';
+import GridCard from './GridCard.astro';
+
+
+const {
+  modo = '',
+  modoEnlace = '',
+  modoModelo = '',
+  modeloImg = '',
+  citaDiag = '',
+  urlPresupuesto = '',
+  modoMarca = '',
+  marcaImg = '',
+  anchor = '',
+} = Astro.props;
+
+const details = Astro.props.details as IDetails[];
+const idAnexo = Astro.props.idAnexo as string;
+// Dividimos en indexables y no indexables
+const indexableDetails = details.filter((detail: IDetails) => detail.indexable);
+const nonIndexableDetails = details.filter((detail: IDetails) => !detail.indexable);
+---
+
+<div
+  class={`w-full grid grid-cols-1 ${
+    !modoEnlace
+      ? 'sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4'
+      : 'sm:grid-cols-2'
+  } gap-2 sm:gap-4 p-2 sm:p-4 justify-center`}
+  id={`grid-container-${idAnexo}`}
+>
+
+  {modoModelo !== '' && modeloImg && (
+    <button
+      id="diag-modelo"
+      data-url={citaDiag}
+      data-modal="sharedModal"
+      data-type="modal"
+      class="button border-2 border-green-200 hover:border-green-400 w-full card group bg-white flex flex-row sm:flex-col items-center justify-center overflow-hidden rounded-3xl shadow-lg hover:shadow-xl transition-shadow duration-300"
+    >
+      <Image
+        src={modeloImg}
+        alt={`Diagnóstico de ${modeloImg}`}
+        width={384}
+        height={256}
+        title={`Diagnóstico de ${modoModelo}`}
+        class="w-1/2 h-36 sm:w-[384px] max-h-[256px] object-contain p-2 transition-transform duration-300 ease-in-out group-hover:scale-105"
+        loading="lazy"
+      />
+      <div
+        class="relative bg-gradient-to-r from-green-50 to-white p-4 flex flex-col items-center justify-center sm:items-center sm:justify-start w-full h-full text-center group-hover:bg-gradient-to-r group-hover:from-green-100 group-hover:to-green-50"
+      >
+        <h3 class="text-lg font-light">
+          <span class="text-lg sm:text-xl font-semibold text-blue-600">
+            Diagnóstico:
+          </span>
+          <br />
+          ¿Qué le ocurre a mi{' '}
+          <span class="text-lg sm:text-xl font-semibold text-blue-600">
+            {modoModelo}
+          </span>
+          ?
+        </h3>
+      </div>
+    </button>
+  )}
+
+
+  {indexableDetails.map((detail: IDetails) => {
+    const saltofinal = modo === 'alternativo' ? detail.salto2 : detail.salto;
+    const textoDestacadoFinal = modo === 'alternativo'
+      ? detail.textoDestacado2
+      : detail.textoDestacado;
+
+    // Reemplazar el texto destacado en el h1
+    const replacedH1 = detail.h1.replace(textoDestacadoFinal || '', 'PLACEHOLDERTEXT');
+    const highlightIndex = replacedH1.indexOf('PLACEHOLDERTEXT');
+    let firstPart
+    let secondPart;
+    if (saltofinal === 'después' || saltofinal === 'ambos') {
+      secondPart = replacedH1.slice(highlightIndex + 'PLACEHOLDERTEXT'.length);
+    } else {
+      secondPart = '';
+    }
+
+    if (saltofinal === 'antes' || saltofinal === 'ambos') {
+      firstPart = replacedH1.slice(0, highlightIndex);
+    } else {
+      firstPart = replacedH1.slice(
+        0,
+        highlightIndex + 'PLACEHOLDERTEXT'.length
+      );
+    };
+    const destinationUrl = anchor
+      ? detail.slugTotal + anchor
+      : detail.slugTotal;
+
+    return (
+      <GridCard
+        detail={detail}
+        isIndexable={true}
+        highlightText={textoDestacadoFinal}
+        firstPart={firstPart.replace('PLACEHOLDERTEXT', '')}
+        secondPart={secondPart}
+        microcopy={detail.microcopy || ''}
+        onclickUrl={destinationUrl}
+      />
+    )
+  })}
+
+
+  {nonIndexableDetails.map((detail: IDetails) => {
+    const saltofinal = modo === 'alternativo' ? detail.salto2 : detail.salto;
+    const textoDestacadoFinal = modo === 'alternativo'
+      ? detail.textoDestacado2
+      : detail.textoDestacado;
+
+    // Reemplazar el texto destacado en el h1
+    const replacedH1 = detail.h1.replace(textoDestacadoFinal || '', 'PLACEHOLDERTEXT');
+    const highlightIndex = replacedH1.indexOf('PLACEHOLDERTEXT');
+
+    let firstPart, secondPart, highlightSpan;
+    if (saltofinal === 'antes' || saltofinal === 'ambos') {
+      firstPart = replacedH1.slice(0, highlightIndex);
+    } else {
+      firstPart = replacedH1.slice(
+        0,
+        highlightIndex + 'PLACEHOLDERTEXT'.length
+      );
+    }
+
+    if (saltofinal === 'después' || saltofinal === 'ambos') {
+      secondPart = replacedH1.slice(highlightIndex + 'PLACEHOLDERTEXT'.length);
+    } else {
+      secondPart = '';
+    };
+
+    const destinationUrl = anchor
+      ? detail.slugTotal + anchor
+      : detail.slugTotal;
+
+    return (
+      <GridCard
+        detail={detail}
+        isIndexable={false}
+        highlightText={textoDestacadoFinal}
+        firstPart={firstPart.replace('PLACEHOLDERTEXT', '')}
+        secondPart={secondPart}
+        microcopy={detail.microcopy || ''}
+        onclickUrl={destinationUrl}
+      />
+    )
+  })}
+
+  {modoModelo !== '' && modeloImg && (
+    <button
+      id="presupuesto-modelo"
+      data-url={urlPresupuesto}
+      data-modal="sharedModal"
+      data-type="modal"
+      class="button border-2 border-green-200 hover:border-green-400 w-full card group bg-white flex flex-row sm:flex-col items-center justify-center overflow-hidden rounded-3xl shadow-lg hover:shadow-xl transition-shadow duration-300"
+    >
+      <Image
+        src={modeloImg}
+        alt={`Imagen desenfocada de ${modoModelo}, invitando a pedir presupuesto`}
+        width={384}
+        height={256}
+        title={`Presupuesto de ${modoModelo}`}
+        class="w-1/2 h-36 sm:w-[384px] max-h-[256px] object-contain p-2 transition-transform duration-300 ease-in-out group-hover:scale-105"
+        loading="lazy"
+      />
+      <div
+        class="relative bg-gradient-to-r from-green-50 to-white p-4 flex flex-col items-center justify-center sm:items-center sm:justify-start w-full h-full text-center group-hover:bg-gradient-to-r group-hover:from-green-100 group-hover:to-green-50"
+      >
+        <h3 class="text-lg font-light">
+          <span class="text-lg sm:text-xl font-semibold text-blue-600">
+            Presupuesto:
+          </span>
+          <br />
+          Otra avería de <br />
+          <span class="text-lg sm:text-xl font-semibold text-blue-600">
+            {modoModelo}
+          </span>
+        </h3>
+      </div>
+    </button>
+  )};
+
+{modoMarca !== '' && marcaImg && (
+    <button
+      id="presupuesto-marca"
+      data-url={urlPresupuesto}
+      data-modal="sharedModal"
+      data-type="modal"
+      class="button border-2 border-green-200 hover:border-green-400 w-full card group bg-white flex flex-row sm:flex-col items-center justify-center overflow-hidden rounded-3xl shadow-lg hover:shadow-xl transition-shadow duration-300"
+    >
+      <Image
+        src={marcaImg}
+        alt={`Imagen desenfocada de ${modoMarca}, invitando a pedir presupuesto`}
+        width={384}
+        height={256}
+        title={`Presupuesto de ${modoMarca}`}
+        class="w-1/2 h-auto sm:w-[384px] max-h-[256px] object-contain p-2 transition-transform duration-300 ease-in-out group-hover:scale-105"
+        loading="lazy"
+      />
+      <div
+        class="relative bg-gradient-to-r from-green-50 to-white p-4 flex flex-col items-center justify-center sm:items-center sm:justify-start w-full group-hover:from-green-100 group-hover:to-green-50"
+      >
+        <h3 class="text-lg font-light">
+          <span class="text-lg sm:text-xl font-semibold text-blue-600">
+            Presupuesto:
+          </span>
+          <br />
+          No aparece mi <br />
+          <span class="text-lg sm:text-xl font-semibold text-blue-600">
+            {modoMarca}
+          </span>
+        </h3>
+      </div>
+    </button>
+  )}
+</div>

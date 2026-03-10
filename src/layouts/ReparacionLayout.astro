@@ -1,0 +1,369 @@
+---
+import Breadcrumb from '../components/Breadcrumb.astro';
+import type { CasoExito, IDetails, IReparaciones, Reseña } from '../lib/schema';
+import H2Specs from '../components/H2specs.astro';
+import ImageTextContainer from '../components/ImageTextContainer.astro';
+import BaseLayout from './BaseLayout.astro';
+import { cleanAndSplitText } from '../lib/textProcessing';
+import Cabecera from '../components/Cabecera.astro';
+import Main2 from '../components/Main2.astro';
+import Seccion2 from '../components/Seccion2.astro';
+import ascensor2 from '../images/home/ascensor3.webp';
+import TarjetaPrecioReparacion from '../components/TarjetaPrecioReparacion.astro';
+import FAQs from '../components/FAQs.astro';
+import { getCasosExito, getRecordDetailById, getReseñas } from '../lib/airtable';
+import GridDetails from '../components/GridDetails.astro';
+import PillBox from '../components/PillBox.astro';
+import CabeceraSeccion from '../components/CabeceraSeccion.astro';
+import { Image } from 'astro:assets';
+import Span from '../components/Span.astro';
+import ReviewsContainer from '../components/ReviewsContainer.astro';
+import { ensureCachesLoaded } from '../lib/reseñasCache';
+import { ensureCachesCasosExitoLoaded } from '../lib/casosExitoCache';
+import CasosExitoContainer from '../components/CasosExitoContainer.astro';
+import CabeceraCRO from '../components/CabeceraCRO.astro';
+import BotonCTACRO from '../components/BotonCTACRO.astro';
+import ReviewsContainerCRO from '../components/ReviewsContainerCRO.astro';
+
+const props = Astro.props as IReparaciones;
+// console.log(props);
+
+//auto hola
+let reseñas: Reseña[] = [];
+let reseñasInternas: Reseña[] = [];
+
+try {
+  await ensureCachesLoaded();
+  if (props.Reseñas && props.Reseñas.length > 0) {
+    reseñas = await Promise.all(
+      props.Reseñas.map((id) => getReseñas(id, 'cachedReseñas'))
+    );
+  }
+  if (props.ReseñasInternas && props.ReseñasInternas.length > 0) {
+    reseñasInternas = await Promise.all(
+      props.ReseñasInternas.map((id) => getReseñas(id, 'cachedReseñasInternas'))
+    );
+  }
+} catch (error) {
+  console.error('Error fetching reseñas', error);
+}
+
+let metadatos: string[] = [];
+let reseñasCombinadas: Reseña[] = [];
+let faqs: { title: string; response: string }[] = [];
+let reparacionesDetails: IDetails[] = [];
+
+
+// Filtrar reseñas y reseñas internas donde quote no está vacío ni undefined y ordenar por fecha
+const reseñasConQuote = reseñas
+  .filter((reseña) => reseña.quote)
+  .sort((a, b) => b.dateCreated.localeCompare(a.dateCreated));
+const reseñasInternasConQuote = reseñasInternas
+  .filter((reseña) => reseña.quote)
+  .sort((a, b) => b.dateCreated.localeCompare(a.dateCreated));
+
+// Filtrar reseñas y reseñas internas donde quote esté vacío o undefined y ordenar por fecha
+const reseñasSinQuote = reseñas
+  .filter((reseña) => !reseña.quote)
+  .sort((a, b) => b.dateCreated.localeCompare(a.dateCreated));
+const reseñasInternasSinQuote = reseñasInternas
+  .filter((reseña) => !reseña.quote)
+  .sort((a, b) => b.dateCreated.localeCompare(a.dateCreated));
+
+// Concatenar los arrays en el orden deseado
+reseñasCombinadas = [
+  ...reseñasConQuote,
+  ...reseñasInternasConQuote,
+  ...reseñasSinQuote,
+  ...reseñasInternasSinQuote
+];
+
+let casosExito: CasoExito[] = [];
+
+try {
+  await ensureCachesCasosExitoLoaded();
+  if (props.CasosDeExito && props.CasosDeExito.length > 0) {
+    casosExito = await Promise.all(
+      props.CasosDeExito.map((id) => getCasosExito(id, 'casosExito'))
+    );
+  }
+} catch (error) {
+  console.error('Error fetching casos de éxito', error);
+}
+
+let casosExitoCombinados = casosExito.slice(-10).reverse();
+
+if (props.imagenCasoExito) {
+  casosExitoCombinados = casosExitoCombinados.map((caso) => {
+    if (props.imagenCasoExito === 'frontal') {
+      return {
+        ...caso,
+        imageUrlPrevia: caso.slugFrontalPrevio,
+        imageUrlReparado: caso.slugFrontalReparado,
+      };
+    } else if (props.imagenCasoExito === 'trasera') {
+      return {
+        ...caso,
+        imageUrlPrevia: caso.slugTraseraPrevio,
+        imageUrlReparado: caso.slugTraseraReparado,
+      };
+    }
+    return caso; // No changes if props.imagenCasoExito is not 'frontal' or 'trasera'
+  });
+}
+
+// console.log('casosExitoCombinados', casosExitoCombinados);
+
+let enlacePrimero: IDetails[] = [];
+let enlaceSegundo: IDetails[] = [];
+let baseModelos = 'Modelos';
+if (props.enlacePrimero && props.enlacePrimero.length > 0) {
+  enlacePrimero = await Promise.all(
+    props.enlacePrimero.map((id) => getRecordDetailById(id, baseModelos))
+  );
+}
+if (props.enlaceSegundo && props.enlaceSegundo.length > 0) {
+  enlaceSegundo = await Promise.all(
+    props.enlaceSegundo.map((id) => getRecordDetailById(id, baseModelos))
+  );
+}
+
+//une los arrays enlacePrimero y enlaceSegundo
+let enlacesInternos = enlacePrimero.concat(enlaceSegundo);
+
+faqs = [
+  { title: props.FAQ1tit, response: props.FAQ1res },
+  { title: props.FAQ2tit, response: props.FAQ2res },
+  { title: props.FAQ3tit, response: props.FAQ3res },
+  { title: props.FAQ4tit, response: props.FAQ4res },
+];
+
+
+let baseReparaciones = 'Reparaciones';
+
+if (props.reparacionesDestino && props.reparacionesDestino.length == 2) {
+  reparacionesDetails = await Promise.all(
+    props.reparacionesDestino.map((id: any) =>
+      getRecordDetailById(id, baseReparaciones)
+    )
+  );
+}
+metadatos = ['BreadcrumbList'];
+if (faqs) {
+  metadatos.push('FAQPage');
+}
+// console.log('Precio', props.precio)
+// console.log('PrecioCompatible', props.precioCompatible)
+if (props.precio) {
+  if (props.precioCompatible>0 && props.precio>props.precioCompatible)
+  {
+  metadatos.push('PriceRange');
+  // console.log('PrecioRange');
+  }
+  else {
+  metadatos.push('Product');
+  // console.log('Product');
+}
+
+} else if (props.precioCompatible) {
+  metadatos.push('Product');
+  // console.log('Product (compa)');
+}
+// // console.log('PROPS', Astro.props);
+// // console.log('RESEÑAS', reseñas);
+// // console.log('RESEÑAS INTERNAS', reseñasInternas);
+// console.log("ANTES DE MONTAR",props)
+// console.log(props)
+
+---
+<script is:inline src="/scripts/modal-handler.js" />
+<BaseLayout
+  title={props.title}
+  description={props.description}
+  slugTotal={props.slugTotal}
+   metadatos={metadatos}
+    hijo1={props.hijo1}
+    enlaceHijo1={props.enlaceHijo1}
+    hijo2={props.hijo2}
+    enlaceHijo2={props.enlaceHijo2}
+    hijo3={props.hijo3}
+    enlaceHijo3={props.enlaceHijo3}
+    hijo4={props.hijo4}
+    enlaceHijo4={props.enlaceHijo4}
+    hijo5={props.hijo5}
+    enlaceHijo5={props.slugTotal}
+    faqs={faqs}
+    precio={props.precio}
+    precioMin={props.precioCompatible}
+    precioMax={props.precio}
+    numRep={(props.precioCompatible && props.precio) ? 2 : 1}
+    tipoReparacion={props.reparacion}
+    imagenProducto={props.slugImagen}
+    descripcionProducto={props.description}
+    reseñasProduct={reseñasCombinadas}
+    hijoMax={props.hijo5}
+    enlaceHijoMax={props.slugTotal}
+    hijoNext={props.hijo4}
+    enlaceHijoNext={props.enlaceHijo4}
+    cadenaWhatsapp={`Hola, necesito una reparación de ${props.reparacion} de mi ${props.modelAmigable}`}
+
+>
+  <Breadcrumb
+    hijo1={props.hijo1}
+    enlaceHijo1={props.enlaceHijo1}
+    hijo2={props.hijo2}
+    enlaceHijo2={props.enlaceHijo2}
+    hijo3={props.hijo3}
+    enlaceHijo3={props.enlaceHijo3}
+    hijo4={props.hijo4}
+    enlaceHijo4={props.enlaceHijo4}
+    hijo5={props.hijo5}
+    modoApple={props.modoApple}
+  />
+  <Main2>
+    <Seccion2 slugImagenBackground={props.slugImagenBackground}>
+      <CabeceraCRO
+        h1={props.h1}
+        slugImagen={props.slugImagen}
+        altPrincipal={props.altPrincipal}
+        textolimpio={cleanAndSplitText(props.textoH1)}
+        cabeceraReparacion="true"
+        paramTipo={props.TipoDispositivo[0].toLowerCase()}
+      >
+   
+       <BotonCTACRO
+        destino="reparar"
+        texto={props.h1}
+        subtexto={`Pide tu cita y repáralo hoy mismo`}
+        tarifas={true}
+      />
+       </CabeceraCRO>
+           {
+      reseñasCombinadas && reseñasCombinadas.length > 0 && 
+
+          <ReviewsContainerCRO reviews={reseñasCombinadas} />
+
+    }
+    </Seccion2>
+
+    <Seccion2 bgColor="bg-stone-100" id="reparar">
+      <H2Specs>{props.h2_ficha}</H2Specs>
+    { props.modoPuente != 2 &&
+      <TarjetaPrecioReparacion
+        precio={props.precio}
+        cita={props.cita}
+        preciocompa={props.precioCompatible}
+        citacompa={props.citaCompatible}
+        imagenModelo={props.slugImagen}
+        altPrincipal={props.altPrincipal}
+        titulo={props.h1}
+        pieza={props.pieza}
+        textoCard1={props.textoCard1}
+        textoCard2={props.textoCard2}
+        tiempoCita={props.tiempoCita}
+        modoPuente={props.modoPuente}
+        textoPuente={props.textoPuente}
+        reparacionesDestino={props.reparacionesDestino}
+        citaDestino={props.citaDestino}
+        precioDestino={props.precioDestino}
+        citaDestinoCompa={props.citaDestinoCompa}
+        precioDestinoCompa={props.precioDestinoCompa}
+        generoPieza={props.generoPieza}
+        urlRevFinal={props.urlRevFinal}
+      />
+      }
+      { props.modoPuente == 2 && <>
+        <PillBox texts={cleanAndSplitText(props.textoPuente)} />
+        <GridDetails
+          details={reparacionesDetails}
+          idAnexo="Reparaciones"
+          stringPrincipal={props.modelAmigable}
+          modoEnlace="true"
+        />
+      </>}
+
+
+
+
+
+
+{
+      casosExitoCombinados && casosExitoCombinados.length > 0 && (
+        <div id="casosexito" class="h-0"></div>
+
+          <CasosExitoContainer casosExito={casosExitoCombinados} />
+          <BotonCTACRO
+        destino="reparar"
+        texto={props.h1}
+        subtexto={`Pide tu cita y repáralo hoy mismo`}
+      />
+
+      )
+}
+    </Seccion2>
+
+{
+  props.imagenFamilia ?
+    (<Seccion2>
+      <H2Specs>{props.h2_2}</H2Specs>
+      {/* <PillBox modo="horizontal" texts={cleanAndSplitText(props.textoH2_2)} /> */}
+      <ImageTextContainer
+        ImagesUploadedBig={props.imagesUploadedBigHeredadoFamilia}
+        texts={cleanAndSplitText(props.textoH2_2)}
+        modo="horizontal"
+      />
+    </Seccion2>) :
+    (<Seccion2>
+      <H2Specs>{props.h2_2}</H2Specs>
+      {/* <PillBox modo="horizontal" texts={cleanAndSplitText(props.textoH2_2)} /> */}
+      <ImageTextContainer
+        ImagesUploadedBig={props.imagesUploadedBigHeredado}
+        slugImagenBackground={props.slugImagenBackgroundPrevio}
+        texts={cleanAndSplitText(props.textoH2_2)}
+        modo="horizontal"
+      />
+    </Seccion2>)
+}
+       <Seccion2 bgColor="bg-stone-100">
+      <H2Specs>{props.h2_FAQs}</H2Specs>
+      <FAQs faqs={faqs} />
+      <BotonCTACRO
+        destino="reparar"
+        texto={props.h1}
+        subtexto={`Pide tu cita y repáralo hoy mismo`}
+      />
+    </Seccion2>
+
+        <Seccion2>
+      <H2Specs>{props.h2_0}</H2Specs>
+      <ImageTextContainer
+        ImagesUploadedBig={props.imagesUploadedBig}
+        slugImagenBackground={props.slugImagenBackground}
+        texts={cleanAndSplitText(props.textoPreH2_1)}
+      >
+      <BotonCTACRO
+      destino="reparar"
+      texto={props.h1}
+      subtexto={`Pide tu cita y repáralo hoy mismo`}
+      />
+    </ImageTextContainer>
+    </Seccion2>
+
+
+
+
+    {
+      enlacesInternos.length > 0 && (
+        <Seccion2 bgColor="bg-stone-100">
+          <H2Specs>Otras reparaciones de interés</H2Specs>
+          <GridDetails
+            details={enlacesInternos}
+            idAnexo="Reparaciones"
+            stringPrincipal={props.modelAmigable}
+            modoEnlace="true"
+          />
+        </Seccion2>
+      )
+    }
+  </Main2>
+</BaseLayout>

@@ -1,0 +1,36 @@
+---
+import type { ITipos } from '../../lib/schema';
+import { getRecordsTipos } from '../../lib/airtable';
+import TipoLayout from '../../layouts/TipoLayout.astro';
+import { version } from 'typescript';
+
+export async function getStaticPaths() {
+  // Tipos de dispositivos que manejas
+  const version = 'local';
+  const records = await getRecordsTipos(version);
+
+  // Construye los paths a partir de los registros de Airtable
+  const paths = records
+    .filter((record) =>
+      ['movil', 'tablet', 'smartwatch'].includes(record.paramTipo)
+    )
+    .map((record) => {
+      return {
+        params: {
+          paramTipo: record.paramTipo,
+        },
+
+        props: {
+          ...record,
+        },
+        indexable: record.indexable,
+      };
+    });
+
+  return paths;
+}
+
+const tipoLayoutProps = Astro.props as ITipos;
+---
+
+<TipoLayout {...tipoLayoutProps} version="local" />

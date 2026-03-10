@@ -1,0 +1,33 @@
+---
+import type { ITipoReparaciones } from '../../../lib/schema';
+import { getRecordsTipoReparaciones } from '../../../lib/airtable';
+import TipoReparacionLayout from '../../../layouts/TipoReparacionLayout.astro';
+
+export async function getStaticPaths() {
+  // Tipos de dispositivos que manejas
+  const version = 'local';
+  const records = await getRecordsTipoReparaciones(version);
+
+  // Construye los paths a partir de los registros de Airtable
+  const paths = records.map((record) => {
+    return {
+      params: {
+        paramTipo: record.paramTipo,
+        paramTipoReparacion: record.paramTipoReparacion,
+      },
+
+      props: {
+        ...record,
+      },
+      indexable: record.indexable,
+    };
+  });
+
+  return paths;
+}
+
+const tipoReparacionLayoutProps = Astro.props as ITipoReparaciones;
+Astro.props as ITipoReparaciones;
+---
+
+<TipoReparacionLayout {...tipoReparacionLayoutProps} version="local" />

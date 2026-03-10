@@ -1,0 +1,11 @@
+---
+import { Image } from 'astro:assets';
+import logo from '../images/logo.png';
+---
+
+<div class="flex flex-row items-center justify-center gap-2 mt-8 px-4">
+  <Image src={logo} alt="Logo de Santifer iRepair" width={80} height={80} />
+  <p class="text-left max-w-80 sm:max-w-96 md:text-lg text-white">
+    <slot />
+  </p>
+</div>

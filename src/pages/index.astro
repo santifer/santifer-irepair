@@ -1,0 +1,554 @@
+---
+import { Image } from 'astro:assets';
+import Main from '../components/Main.astro';
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Buscador from '../components/Buscador.astro';
+import Span from '../components/Span.astro';
+
+import ascensor from '../images/home/ascensor2.webp';
+import taller from '../images/home/taller2.webp';
+import ascensor2 from '../images/home/ascensor3.webp';
+import movil from '../images/home/reparar-moviles.jpg';
+import tablet from '../images/home/reparar-tablet.webp';
+import ipad from '../images/home/reparar-ipad.webp';
+import appleWatch from '../images/home/reparar-apple-watch.jpg';
+import smartWatch from '../images/home/reparar-smartwatch.jpg';
+import iphone from '../images/home/reparar-iphone.jpg';
+import servicioTecnicoApple from '../images/home/apple3.webp';
+import tienda from '../images/home/tienda.webp';
+
+import Hero from '../components/Hero.astro';
+import H1 from '../components/H1.astro';
+import PostH1 from '../components/PostH1.astro';
+import Marcas from '../components/Marcas.astro';
+import TarjetasServicios from '../components/TarjetasServicios.astro';
+import TarjetaServicio from '../components/TarjetaServicio.astro';
+import CabeceraSeccion from '../components/CabeceraSeccion.astro';
+import Seccion from '../components/Seccion.astro';
+import GridCaracteristicas from '../components/GridCaracteristicas.astro';
+import Caracteristica from '../components/Caracteristica.astro';
+import ReviewsContainer from '../components/ReviewsContainer.astro';
+import SlidesContainer from '../components/SlidesContainer.astro';
+
+import taller3 from '../images/home/caracteristicas/taller.webp';
+import citaPrevia from '../images/home/caracteristicas/cita-previa.webp';
+import mensajeria from '../images/home/caracteristicas/mensajeria.webp';
+import garantia from '../images/home/caracteristicas/garantia.webp';
+
+import parte1 from '../images/home/specs/parte1peq.webp';
+import parte2 from '../images/home/specs/parte2peq.webp';
+import parte3 from '../images/home/specs/parte3peq.webp';
+import parte4 from '../images/home/specs/parte4peq.webp';
+import { getReseñasHome } from '../lib/airtable';
+
+import hero from '../images/home/santifer-irepair-tienda-reparaciones-moviles-sevilla.webp';
+
+const indexable = true;
+
+const slidesData = [
+  {
+    indiceImagen: 0,
+    titulo: 'No permitas que un golpe detenga tu marcha ni un día más.',
+    texto: 'Repáralo, revívelo.',
+  },
+  {
+    indiceImagen: 1,
+    titulo: 'No sólo es tu compañero y tu oficina: ',
+    texto: 'es tu conexión con el mundo.',
+  },
+  {
+    indiceImagen: 2,
+    titulo: 'Cada píxel, cada circuito, lleva una parte de ti:',
+    texto: 'no sólo reparamos, te devolvemos tu vida.',
+  },
+  {
+    indiceImagen: 3,
+    titulo: 'No es sólo una reparación: es cuidar lo que te importa.',
+    texto: 'Tu teléfono se lo merece.',
+  },
+];
+
+let baseReseñas = 'Reseñas sincronizar Astro';
+let viewName = 'VistaDetailsHome';
+let reseñas = null;
+
+try {
+  reseñas = await getReseñasHome(baseReseñas, viewName);
+  // // console.log('Reseñas cargadas:', reseñas);
+} catch (error) {
+  console.error('Error loading reseñas for home:', error);
+}
+---
+
+<BaseLayout
+  title="Santifer iRepair: Tienda de Reparación Móviles en Sevilla"
+  description="En Santifer iRepair te damos 6 meses de garantía en reparaciones de tus dispositivos en Sevilla. Sistema de cita online con reserva de stock ™️"
+  slugTotal=""
+  metadatos={['LocalBusiness']}
+  imagenProducto={'/santifer-irepair-tienda-reparaciones-moviles-sevilla.webp'}
+  paginaInicio={true}
+>
+  <Main>
+    <!-- HERO -->
+    <Hero />
+
+    <!-- POST HERO -->
+    <!-- <section
+      id="intro"
+      class="py-4 flex flex-col items-center bg-gray-50 w-full relative"
+    > -->
+    <Seccion fondo="grisOscuro">
+      <div class="absolute -top-10">
+        <Buscador />
+      </div>
+
+      <!-- H1 -->
+      <H1>
+        Tu tienda de <Span>reparación</Span>
+        de <Span>dispositivos móviles</Span> en <Span>Sevilla</Span>
+      </H1>
+
+      <!-- POST h1 -->
+      <PostH1>
+        Bienvenido a <Span>Santifer iRepair</Span>, tu tienda de confianza para
+        <Span>arreglar</Span> tus dispositivos <Span>móviles</Span>
+        en <Span>Sevilla</Span> y en toda España 📦
+      </PostH1>
+
+      <!-- Slots Marcas -->
+      <Marcas />
+      <!-- <SlidesContainer slides={slidesData} /> -->
+
+      <!-- </section> -->
+    </Seccion>
+
+    <!-- Verticales -->
+    <Seccion>
+      <CabeceraSeccion>
+        <Image
+          src={ascensor}
+          alt="Imagen del ascensor de terminales hacia el taller de la tienda de reparaciones móviles Santifer iRepair"
+          class="object-cover absolute right:0 z-1 min-h-full min-w-full"
+          height={1000}
+          width={1500}
+          slot="imagen"
+        />
+        <Fragment slot="encabezado">
+          Servicio técnico de <Span>móviles, tablets y smartwatches</Span>
+        </Fragment>
+        <Fragment slot="contenido">
+          Nos encantan los dispositivos móviles (y a nuestros clientes). Repara
+          tu dispositivo móvil, la mejor decisión para el planeta (y para tu
+          bolsillo).
+        </Fragment>
+      </CabeceraSeccion>
+
+      <TarjetasServicios>
+        <!-- Vertical móvil -->
+        <TarjetaServicio fondo="blanco" enlace="/reparar-movil/sevilla">
+          <Image
+            src={movil}
+            alt="Teléfono móvil operativo mostrando los componentes internos, destacando el servicio de reparación de móviles en Santifer iRepair"
+            width={200}
+            class="content-cover"
+            slot="imagen"
+          />
+          <Fragment slot="cabecera">
+            Reparación de Móviles en Sevilla
+          </Fragment>
+          <Fragment slot="contenido">
+            Arreglamos pantallas, baterías y otros componentes de tu móvil en 45
+            minutos con cita previa online. <a
+              href="/reparar-movil/sevilla"
+              class="underline"
+              >Conoce más sobre nuestros servicios de reparación de móviles en
+              Sevilla →</a
+            >
+          </Fragment>
+        </TarjetaServicio>
+
+        <!-- Vertical tablet -->
+        <TarjetaServicio fondo="gris" enlace="/reparar-tablet/sevilla">
+          <Image
+            src={tablet}
+            alt="Tablet operativa mostrando los componentes internos, destacando el servicio de reparación de tablets en Santifer iRepair"
+            width={200}
+            class="content-cover"
+            slot="imagen"
+          />
+          <Fragment slot="cabecera">
+            Reparación de Tablets en Sevilla
+          </Fragment>
+          <Fragment slot="contenido">
+            Solucionamos averías de pantallas, baterías o lo que se te haya
+            estropeado en tu tablet en una hora con cita previa online. <a
+              href="/reparar-tablet/sevilla"
+              class="underline"
+              >Conoce más sobre nuestros servicios de reparación de tablets en
+              Sevilla →</a
+            >
+          </Fragment>
+        </TarjetaServicio>
+
+        <!-- Vertical Smart Watch -->
+        <TarjetaServicio fondo="blanco" enlace="/reparar-smartwatch/sevilla">
+          <Image
+            src={smartWatch}
+            alt="Smartwatch mostrando los componentes internos, destacando el servicio de reparación de smartwatches en Santifer iRepair"
+            width={200}
+            class="content-cover"
+            slot="imagen"
+          />
+          <Fragment slot="cabecera">
+            Reparación de Smartwatch en Sevilla
+          </Fragment>
+          <Fragment slot="contenido">
+            Si tu Smartwatch tiene problemas que te impiden usarlo día a día,
+            podemos arreglarlo en una hora con cita previa online. <a
+              href="/reparar-smartwatch/sevilla"
+              class="underline"
+              >Conoce más sobre nuestros servicios de reparación de tablets en
+              Sevilla →</a
+            >
+          </Fragment>
+        </TarjetaServicio>
+      </TarjetasServicios>
+    </Seccion>
+
+    <!-- Reseñas -->
+    <Seccion>
+      <CabeceraSeccion>
+        <Image
+          src={ascensor2}
+          alt="Logo de Santifer iRepair con lámpara del mostrador"
+          class="content-cover absolute right:0 z-1 min-h-full min-w-full"
+          height={1000}
+          width={1500}
+          slot="imagen"
+        />
+        <Fragment slot="encabezado">
+          ¿Qué <Span>opinan</Span> quienes han
+          <Span>arreglado su dispositivo móvil</Span> en <Span
+            >Santifer iRepair?</Span
+          >
+        </Fragment>
+
+        <Fragment slot="contenido">
+          Nuestros clientes están encantados con nuestros servicios. Aquí tienes
+          algunos testimonios:
+        </Fragment>
+      </CabeceraSeccion>
+      <ReviewsContainer reviews={reseñas} />
+      <div class="h-8"></div>
+    </Seccion>
+
+    <!-- Diferencias con otras tiendas -->
+    <Seccion>
+      <CabeceraSeccion>
+        <Image
+          src={taller}
+          alt="Imagen de un monitor haciendo una reparación microelectrónica de placa base, reparando un dispositivo móvil en Santifer iRepair"
+          class="content-cover absolute right:0 z-1 min-h-full min-w-full"
+          height={1000}
+          width={1500}
+          slot="imagen"
+        />
+        <Fragment slot="encabezado">
+          ¿Qué <Span>nos separa</Span> de otros <Span>servicios técnicos</Span>
+          en Sevilla?
+        </Fragment>
+
+        <Fragment slot="contenido">
+          Ofrecemos una serie de ventajas que nos hacen destacar:
+        </Fragment>
+      </CabeceraSeccion>
+
+      <GridCaracteristicas>
+        <!-- Tarjeta 1 -->
+        <Caracteristica clase="bg-gray-50">
+          <!-- Contenido de la tarjeta -->
+          <Image
+            src={garantia}
+            alt="Ilustración indicando una garantía de 6 meses en reparaciones en Santifer iRepair"
+            class="mx-auto"
+            slot="imagen"
+            width={244}
+            height={240}
+          />
+          <Fragment slot="encabezado">
+            <Span>Garantía de 6 meses</Span> en todas las reparaciones
+          </Fragment>
+          <Fragment slot="abc">
+            Donde otros dan lo mínimo, nosotros te damos 6 meses de garantía en
+            todas las reparaciones en nuestro centro de reparación de móviles y
+            tablets
+          </Fragment>
+        </Caracteristica>
+
+        <!-- Tarjeta 2 -->
+        <Caracteristica>
+          <!-- Contenido de la tarjeta -->
+          <Image
+            src={citaPrevia}
+            alt="Imagen de un reloj indicando la hora de la cita previa en Santifer iRepair"
+            class="mx-auto"
+            slot="imagen"
+            width={244}
+            height={240}
+          />
+          <Fragment slot="encabezado">
+            <Span>Cita previa para reparar tu dispositivo</Span>
+          </Fragment>
+          <Fragment slot="abc">
+            Con nuestro sistema de cita previa, te reservamos el hueco que mejor
+            te venga, y si vienes sin cita, nos adaptamos en función de la
+            urgencia y la carga de trabajo.
+          </Fragment>
+        </Caracteristica>
+
+        <!-- Tarjeta 3 -->
+        <Caracteristica clase="bg-gray-50 sm:bg-white lg:bg-gray-50">
+          <!-- Contenido de la tarjeta -->
+          <Image
+            src={taller3}
+            alt="Pistas electrónicas internas de una placa base reparada en Santifer iRepair"
+            class="mx-auto"
+            slot="imagen"
+            width={244}
+            height={240}
+          />
+          <Fragment slot="encabezado">
+            Taller <Span> microelectrónico</Span> para <Span>
+              reparaciones
+            </Span> de <Span>placa base </Span>
+          </Fragment>
+          <Fragment slot="abc">
+            Disponemos de taller microelectrónico propio, con el mejor
+            equipamiento JBC para reparar profesionalmente la placa base de tu
+            terminal
+          </Fragment>
+        </Caracteristica>
+        <!-- Tarjeta 4 -->
+        <Caracteristica clase="bg-white sm:bg-gray-50 lg:bg-white">
+          <!-- Contenido de la tarjeta -->
+          <Image
+            src={mensajeria}
+            alt="Ilustración de un mensajero llevando un paquete con un móvil para reparar en Santifer iRepair, indicando fast en la parte trasera"
+            class="mx-auto"
+            slot="imagen"
+            width={244}
+            height={240}
+          />
+          <Fragment slot="encabezado">
+            <Span>Reparación</Span> a domicilio en toda la <Span>Península</Span
+            >
+          </Fragment>
+          <Fragment slot="abc">
+            Te recogemos tu dispositivo y lo llevamos a nuestro taller para
+            repararlo. Si estás en Sevilla (del 41001 al 41013 y 41018) el
+            servicio es gratuito al reparar tu terminal, en otro caso 9 €.
+          </Fragment>
+        </Caracteristica>
+      </GridCaracteristicas>
+    </Seccion>
+
+    <!-- Servicio técnico Apple  -->
+    <Seccion>
+      <CabeceraSeccion>
+        <Image
+          src={servicioTecnicoApple}
+          alt="Imagen de varios dispositivos de la marca Apple a reparar en el Servicio Técnico Apple en Sevilla de Santifer iRepair"
+          class="object-cover absolute right:0 z-2 min-h-full min-w-full"
+          height={1000}
+          slot="imagen"
+        />
+        <Fragment slot="encabezado">
+          <Span>Servicio Técnico</Span> en dispositivos <Span>Apple</Span>
+        </Fragment>
+        <Fragment slot="contenido">
+          Nos encantan los dispositivos de Apple (y a nuestros clientes). Estos
+          son los dispositivos que reparamos en nuestro Servicio Técnico Apple.
+        </Fragment>
+      </CabeceraSeccion>
+
+      <TarjetasServicios>
+        <TarjetaServicio fondo="blanco" enlace="/reparar-iphone/sevilla">
+          <Image
+            src={iphone}
+            alt="iPhone mostrando componentes internos y la hora 9:41, indicando servicio especializado de reparación de iPhone en Santifer iRepair"
+            width={200}
+            class="content-cover"
+            slot="imagen"
+          />
+          <Fragment slot="cabecera"> Reparación de iPhone en Sevilla </Fragment>
+          <Fragment slot="contenido">
+            Arreglamos pantallas, baterías y otros componentes de tu iPhone en
+            45 minutos con cita previa online. <a
+              href="/reparar-iphone/sevilla"
+              class="underline"
+              >Conoce más sobre nuestros servicios de reparación de iPhone en
+              Sevilla →</a
+            >
+          </Fragment>
+        </TarjetaServicio>
+
+        <TarjetaServicio fondo="gris" enlace="/reparar-ipad/sevilla">
+          <Image
+            src={ipad}
+            alt="iPad entendido mostrando componentes internos, indicando servicio especializado de reparación de iPad en Santifer iRepair"
+            width={200}
+            class="content-cover"
+            slot="imagen"
+          />
+          <Fragment slot="cabecera"> Reparación de iPad en Sevilla </Fragment>
+          <Fragment slot="contenido">
+            Solucionamos averías de pantallas, baterías o lo que se te haya
+            estropeado en tu iPad en una hora con cita previa online. <a
+              href="/reparar-ipad/sevilla"
+              class="underline"
+              >Conoce más sobre nuestros servicios de reparación de iPad en
+              Sevilla →</a
+            >
+          </Fragment>
+        </TarjetaServicio>
+
+        <TarjetaServicio fondo="blanco" enlace="/reparar-apple-watch/sevilla">
+          <Image
+            src={appleWatch}
+            alt="Apple Watch mostrando componentes internos, indicando servicio especializado de reparación de Apple Watch en Santifer iRepair"
+            width={200}
+            class="content-cover"
+            slot="imagen"
+          />
+          <Fragment slot="cabecera">
+            Reparación de Apple Watch en Sevilla
+          </Fragment>
+          <Fragment slot="contenido">
+            Si tu Apple Watch tiene problemas que te impiden usarlo día a día,
+            podemos arreglarlo en una hora con cita previa online. <a
+              href="/reparar-apple-watch/sevilla"
+              class="underline"
+              >Conoce más sobre nuestros servicios de reparación de Apple Watch
+              en Sevilla →</a
+            >
+          </Fragment>
+        </TarjetaServicio>
+      </TarjetasServicios>
+    </Seccion>
+
+    <!-- Specs 2 -->
+    <Seccion>
+      <CabeceraSeccion>
+        <Image
+          src={tienda}
+          alt="Imagen desenfocada de la portada de la tienda Santifer iRepair en Sevilla"
+          class="content-cover absolute top:0 z-1 min-h-full min-w-full"
+          height={1000}
+          width={1500}
+          slot="imagen"
+        />
+        <Fragment slot="encabezado">
+          ¿Cómo es nuestra <Span>tienda de reparación</Span> de dispositivos móviles
+          en Sevilla?
+        </Fragment>
+
+        <Fragment slot="contenido">
+          Con más de 15 años de experiencia en el sector, somos expertos en la
+          reparación de todo tipo de dispositivos móviles en Sevilla o en toda
+          España.
+        </Fragment>
+      </CabeceraSeccion>
+
+      <!-- <div class="-mt-10">
+        <Buscador />
+      </div> -->
+
+      <GridCaracteristicas>
+        <!-- Tarjeta 1 -->
+        <Caracteristica clase="bg-gray-50">
+          <!-- Contenido de la tarjeta -->
+          <Image
+            src={parte1}
+            alt="Imágenes de sobres cerrados con equipos reparados, con la orden de trabajo de Santifer iRepair grapada en el sobre"
+            class="mx-auto p-5"
+            slot="imagen"
+            width={240}
+            height={240}
+          />
+          <Fragment slot="encabezado">
+            <Span>+25000 arreglos de dispositivos móviles</Span>
+          </Fragment>
+          <Fragment slot="abc">
+            Miles de personas y profesionales satisfechos con su dispositivo
+            arreglado nos han convertido en el referente en la reparación de
+            dispositivos en Sevilla. Desde hace 15 años.
+          </Fragment>
+        </Caracteristica>
+
+        <!-- Tarjeta 2 -->
+        <Caracteristica>
+          <!-- Contenido de la tarjeta -->
+          <Image
+            src={parte2}
+            alt="Imagen de un monitor enfocando con el microscopio un componente interno de una placa base en el taller de Santifer iRepair"
+            class="mx-auto p-5"
+            slot="imagen"
+            width={240}
+            height={240}
+          />
+          <Fragment slot="encabezado">
+            <Span>El mejor equipo técnico y humano</Span>
+          </Fragment>
+          <Fragment slot="abc">
+            Trabajamos con componentes y equipo de máxima calidad, apoyados
+            sobre la experiencia de un equipo que no tiene otra misión que
+            ayudar a devolver la vida a tu dispositivo.
+          </Fragment>
+        </Caracteristica>
+        <!-- Tarjeta 3 -->
+        <Caracteristica clase="bg-gray-50 sm:bg-white lg:bg-gray-50">
+          <!-- Contenido de la tarjeta -->
+          <Image
+            src={parte3}
+            alt="Imagen de un monitor de gran tamaño enfocando con el microscopio un componente interno de una placa base en el taller de Santifer iRepair"
+            class="mx-auto p-5"
+            slot="imagen"
+            width={240}
+            height={240}
+          />
+          <Fragment slot="encabezado">
+            <Span>Soluciones a medida para profesionales</Span>
+          </Fragment>
+          <Fragment slot="abc">
+            Ofrecemos una interfaz unificada para gestionar las reparaciones de
+            dispositivos en Sevilla de empresas, como Abengoa o el Hotel Alfonso
+            XIII, que confían en nosotros.
+          </Fragment>
+        </Caracteristica>
+        <!-- Tarjeta 4 -->
+        <Caracteristica clase="bg-white sm:bg-gray-50 lg:bg-white">
+          <!-- Contenido de la tarjeta -->
+          <Image
+            src={parte4}
+            alt="Imagen de un mostrador en Santifer iRepair con diferentes tipos de accesorios para móviles, tablets y smartwatches"
+            class="mx-auto p-5"
+            slot="imagen"
+            width={240}
+            height={240}
+          />
+          <Fragment slot="encabezado">
+            <Span>Accesorios para tu dispositivo</Span>
+          </Fragment>
+          <Fragment slot="abc">
+            Aprovecha tu visita para adquirir accesorios para tu móvil, tablet o
+            smartwatch. Fundas, protectores de pantalla, cargadores, baterías,
+            etc.
+          </Fragment>
+        </Caracteristica>
+      </GridCaracteristicas>
+    </Seccion>
+  </Main>
+</BaseLayout>
+<!-- <script is:inline>
+  
+</script> -->

@@ -1,0 +1,344 @@
+---
+import { Image } from 'astro:assets';
+import Main from '../components/Main.astro';
+import Breadcrumb from '../components/Breadcrumb.astro';
+import type { CasoExito, IDetails, IFamilias, Reseña } from '../lib/schema';
+import {
+  getCasosExito,
+  getRecordDetailById,
+  getReseñas,
+} from '../lib/airtable';
+import H1Specs from '../components/H1specs.astro';
+import Buscador from '../components/Buscador.astro';
+import GridDetails from '../components/GridDetails.astro';
+import H2Specs from '../components/H2specs.astro';
+import BaseLayout from './BaseLayout.astro';
+import Main2 from '../components/Main2.astro';
+import Seccion2 from '../components/Seccion2.astro';
+import Cabecera from '../components/Cabecera.astro';
+import { cleanAndSplitText } from '../lib/textProcessing';
+import PillBox from '../components/PillBox.astro';
+import ImageTextContainer from '../components/ImageTextContainer.astro';
+import FAQs from '../components/FAQs.astro';
+import ascensor2 from '../images/home/ascensor3.webp';
+import CabeceraSeccion from '../components/CabeceraSeccion.astro';
+import Span from '../components/Span.astro';
+import ReviewsContainer from '../components/ReviewsContainer.astro';
+import Modal from '../components/Modal.astro';
+import { ensureCachesLoaded } from '../lib/reseñasCache';
+import { ensureCachesCasosExitoLoaded } from '../lib/casosExitoCache';
+import CasosExitoContainer from '../components/CasosExitoContainer.astro';
+import BotonCTA from '../components/BotonCTA.astro';
+import CabeceraCRO from '../components/CabeceraCRO.astro';
+import BotonCTACRO from '../components/BotonCTACRO.astro';
+import ReviewsContainerCRO from '../components/ReviewsContainerCRO.astro';
+
+const telefonoGenerico = '/m/telefono-generico.webp';
+const tabletGenerica = '/t/tablet-generica.webp';
+const smartwatchGenerico = '/s/smartwatch-generico.webp';
+
+const props = Astro.props as IFamilias;
+
+let familiaModelosDetails: IDetails[] = [];
+let baseFamiliaModelos = 'Marca: Familia';
+let familiaReparacionesDetails: IDetails[] = [];
+let baseFamiliaReparaciones = 'Familia: Reparaciones';
+if (props.familiaModelos && props.familiaModelos.length > 0) {
+  familiaModelosDetails = await Promise.all(
+    props.familiaModelos.map((id) =>
+      getRecordDetailById(id, baseFamiliaModelos)
+    )
+  );
+}
+if (props.familiaReparaciones && props.familiaReparaciones.length > 0) {
+  familiaReparacionesDetails = await Promise.all(
+    props.familiaReparaciones.map((id) =>
+      getRecordDetailById(id, baseFamiliaReparaciones)
+    )
+  );
+}
+
+let reseñas: Reseña[] = [];
+let reseñasInternas: Reseña[] = [];
+
+try {
+  await ensureCachesLoaded();
+  if (props.Reseñas && props.Reseñas.length > 0) {
+    reseñas = await Promise.all(
+      props.Reseñas.map((id) => getReseñas(id, 'cachedReseñas'))
+    );
+  }
+  if (props.ReseñasInternas && props.ReseñasInternas.length > 0) {
+    reseñasInternas = await Promise.all(
+      props.ReseñasInternas.map((id) => getReseñas(id, 'cachedReseñasInternas'))
+    );
+  }
+} catch (error) {
+  console.error('Error fetching reseñas', error);
+}
+// Filtrar reseñas y reseñas internas donde quote no está vacío ni undefined y ordenar por fecha
+const reseñasConQuote = reseñas
+  .filter((reseña) => reseña.quote)
+  .sort((a, b) => b.dateCreated.localeCompare(a.dateCreated));
+const reseñasInternasConQuote = reseñasInternas
+  .filter((reseña) => reseña.quote)
+  .sort((a, b) => b.dateCreated.localeCompare(a.dateCreated));
+
+// Filtrar reseñas y reseñas internas donde quote esté vacío o undefined y ordenar por fecha
+const reseñasSinQuote = reseñas
+  .filter((reseña) => !reseña.quote)
+  .sort((a, b) => b.dateCreated.localeCompare(a.dateCreated));
+const reseñasInternasSinQuote = reseñasInternas
+  .filter((reseña) => !reseña.quote)
+  .sort((a, b) => b.dateCreated.localeCompare(a.dateCreated));
+
+// Concatenar los arrays en el orden deseado
+const reseñasCombinadas = [
+  ...reseñasConQuote,
+  ...reseñasInternasConQuote,
+  ...reseñasSinQuote,
+  ...reseñasInternasSinQuote,
+];
+
+let casosExito: CasoExito[] = [];
+
+try {
+  await ensureCachesCasosExitoLoaded();
+  if (props.CasosDeExito && props.CasosDeExito.length > 0) {
+    casosExito = await Promise.all(
+      props.CasosDeExito.map((id) => getCasosExito(id, 'casosExito'))
+    );
+  }
+} catch (error) {
+  console.error('Error fetching casos de éxito', error);
+}
+
+const casosExitoCombinados = casosExito.slice(-10).reverse();
+
+// console.log('casosExitoCombinados', casosExitoCombinados);
+
+let enlacePrimero: IDetails[] = [];
+let enlaceSegundo: IDetails[] = [];
+let baseModelos = 'Modelos';
+if (props.EnlacePrimero && props.EnlacePrimero.length > 0) {
+  enlacePrimero = await Promise.all(
+    props.EnlacePrimero.map((id) => getRecordDetailById(id, baseModelos))
+  );
+}
+if (props.EnlaceSegundo && props.EnlaceSegundo.length > 0) {
+  enlaceSegundo = await Promise.all(
+    props.EnlaceSegundo.map((id) => getRecordDetailById(id, baseModelos))
+  );
+}
+
+//une los arrays enlacePrimero y enlaceSegundo
+let enlacesInternos = enlacePrimero.concat(enlaceSegundo);
+// // // console.log(props);
+const faqs = [
+  { title: props.FAQ1tit, response: props.FAQ1res },
+  { title: props.FAQ2tit, response: props.FAQ2res },
+  { title: props.FAQ3tit, response: props.FAQ3res },
+  { title: props.FAQ4tit, response: props.FAQ4res },
+  { title: props.FAQ5tit, response: props.FAQ5res },
+  { title: props.FAQ6tit, response: props.FAQ6res },
+];
+const metadatos = ['BreadcrumbList'];
+if (faqs) {
+  metadatos.push('FAQPage');
+}
+if (props.precioMin && props.precioMax && props.numRep) {
+  metadatos.push('PriceRange');
+}
+
+props.numModelos > 4 && metadatos.push('WebSite');
+// console.log('props', props);
+---
+
+<BaseLayout
+  title={props.title}
+  description={props.description}
+  slugTotal={props.slugTotal}
+  metadatos={metadatos}
+  hijo1={props.hijo1}
+  enlaceHijo1={props.enlaceHijo1}
+  hijo2={props.hijo2}
+  enlaceHijo2={props.enlaceHijo2}
+  hijo3={props.hijo3}
+  enlaceHijo3={props.slugTotal}
+  modoApple={props.modoApple}
+  faqs={faqs}
+  reseñasProduct={reseñasCombinadas}
+  precioMin={props.precioMin}
+  precioMax={props.precioMax}
+  numRep={props.numRep}
+  imagenProducto={props.slugImagen}
+  descripcionProducto={props.description}
+  hijoMax={props.hijo3}
+  enlaceHijoMax={props.slugTotal}
+  hijoNext={props.hijo2}
+  enlaceHijoNext={props.enlaceHijo2}
+  idBuscador={props.numModelos > 4 ? 'modelos' : ''}
+  cadenaWhatsapp={`Hola, necesito reparar mi ${props.nombreAstro}`}
+>
+  <Breadcrumb
+    hijo1={props.hijo1}
+    enlaceHijo1={props.enlaceHijo1}
+    hijo2={props.hijo2}
+    enlaceHijo2={props.enlaceHijo2}
+    hijo3={props.hijo3}
+    modoApple={props.modoApple}
+  />
+  <Main2>
+    <Seccion2 id="cabecera y CTA"  slugImagenBackground={props.slugImagenBackground}>
+      <CabeceraCRO
+        h1={props.h1}
+        slugImagen={props.slugImagen}
+        altPrincipal={props.altPrincipal}
+        textolimpio={cleanAndSplitText(props.textoH1)}
+        paramTipo={props.paramTipo}
+      >
+      <BotonCTACRO texto={`Repara mi ${props.nombreAstro}`} destino="modelos" subtexto={`Selecciona tu modelo y repáralo hoy mismo`} tarifas={true} />
+    </CabeceraCRO>
+
+      
+          {
+      reseñasCombinadas && reseñasCombinadas.length > 0 && 
+
+          <ReviewsContainerCRO reviews={reseñasCombinadas} />
+
+    }
+
+    </Seccion2>
+
+
+    <Seccion2 bgColor="bg-stone-100" id="modelos">
+      <H2Specs>{props.h2_1}</H2Specs>
+      {
+        props.numModelos > 4 && (
+          <Buscador
+            filtroTipo={props.filtroTipo}
+            filtroMarca={props.filtroMarca}
+            placeholderBuscador={props.placeholderBuscador}
+          />
+        )
+      }
+
+      <PillBox texts={cleanAndSplitText(props.textoH2_1)} />
+      <GridDetails
+      mostrarPrecio="desdeHasta"
+        details={familiaModelosDetails}
+        idAnexo={props.idAnexo}
+        stringPrincipal={props.stringPrincipal}
+        modoMarca={props.stringPrincipal}
+        marcaImg={props.filtroTipo === 'm'
+          ? telefonoGenerico
+          : props.filtroTipo === 't'
+            ? tabletGenerica
+            : smartwatchGenerico}
+        urlPresupuesto="https://airtable.com/embed/appN42IHvEvpTsxSH/shrq9s0aqlzs7CFlD"
+        anchor="#reparaciones"
+      />
+   
+
+
+
+    {
+      casosExitoCombinados && casosExitoCombinados.length > 0 && (
+        <div id="casosexito" class="h-0"></div>
+
+          <CasosExitoContainer casosExito={casosExitoCombinados} />
+          <BotonCTACRO texto={`Repara mi ${props.nombreAstro}`} destino="modelos" subtexto={`Selecciona tu modelo y repáralo hoy mismo`} />
+      )
+    }
+
+     </Seccion2>
+
+    <Seccion2 id="por que reparar tu ?">
+      <H2Specs>{props.h2_0}</H2Specs>
+      <ImageTextContainer
+        ImagesUploadedBig={props.imagesUploadedBig}
+        texts={cleanAndSplitText(props.textoPreH2_1)}
+        slugImagenBackground={props.slugImagenBackground}
+      />
+    </Seccion2>
+
+    <Seccion2 bgColor="bg-stone-100" id="averias de familia">
+      <div id="averias"></div>
+      <H2Specs>{props.h2_2}</H2Specs>
+      <PillBox texts={cleanAndSplitText(props.textoH2_2)} />
+      <GridDetails
+      mostrarPrecio="desdeHasta"
+        details={familiaReparacionesDetails}
+        idAnexo="reparaciones"
+        stringPrincipal={props.stringPrincipal}
+        anchor="#modelos"
+      />
+    </Seccion2>
+
+    <Seccion2>
+      <H2Specs>{props.h2_FAQs}</H2Specs>
+      <FAQs faqs={faqs} />
+      <BotonCTACRO texto={`Repara mi ${props.nombreAstro}`} destino="modelos" subtexto={`Selecciona tu modelo y repáralo hoy mismo`} />
+    </Seccion2>
+
+    {
+      enlacesInternos.length > 0 && (
+        <Seccion2 bgColor="bg-stone-100">
+          <H2Specs>Otras familias de interés</H2Specs>
+          <GridDetails
+            details={enlacesInternos}
+            idAnexo="Marcas"
+            stringPrincipal=""
+            modoEnlace="true"
+          />
+        </Seccion2>
+      )
+    }
+    <Modal id="sharedModal" isOpen={false} />
+  </Main2>
+</BaseLayout>
+
+<script>
+  function setupModal(modalId: any, iframeUrl: any) {
+    const modal = document.getElementById(modalId);
+    const dentroModal = document.getElementById('dentro-modal');
+    // // console.log('PULSADO SETUPMODAL');
+    // Manejador para abrir el modal e insertar el iframe
+
+    if (modal && dentroModal) {
+      dentroModal.innerHTML = ''; // Limpia el contenido previo
+      modal.style.display = 'flex'; // Muestra el modal
+      // // console.log('SE ABRE MODAL');
+      const iframe = document.createElement('iframe');
+      iframe.setAttribute('src', iframeUrl);
+      iframe.setAttribute('frameborder', '0');
+      iframe.style.width = '100%'; // Ajusta según tus necesidades
+      iframe.style.height = '100%'; // Ajusta según tus necesidades
+      iframe.style.zIndex = '40'; // Establece z-index como solicitado
+      iframe.style.position = 'relative'; // Asegura que z-index funcione
+      iframe.style.borderRadius = '0.75rem'; // Aplica border-radius equivalente a rounded-xl en Tailwind
+      iframe.style.overflow = 'hidden'; // Aplica overflow-hidden
+      dentroModal.appendChild(iframe);
+    } else {
+      console.error('No se encontró el modal');
+    }
+  }
+  const buttons = document.querySelectorAll('button[data-type="modal"]');
+  if (buttons) {
+    // // console.log('Botones de modal', buttons);
+  } else {
+    console.error('No se encontraron botones');
+  }
+  buttons.forEach((button) => {
+    const modalId = button.getAttribute('data-modal');
+    const iframeUrl = button.getAttribute('data-url');
+    // // console.log('openButtonId', openButtonId);
+    // // console.log('modalId', modalId);
+    // // console.log('iframeUrl', iframeUrl);
+    // // console.log('asignado setupModal al click de ', openButtonId);
+
+    button.addEventListener('click', () => {
+      setupModal(modalId, iframeUrl);
+    });
+  });
+</script>

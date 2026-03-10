@@ -1,0 +1,37 @@
+---
+import type { IFamiliaReparaciones } from '../../../../lib/schema';
+import { getRecordsFamiliaReparaciones } from '../../../../lib/airtable';
+import FamiliaReparacionesLayout from '../../../../layouts/FamiliaReparacionesLayout.astro';
+
+export async function getStaticPaths() {
+  const modoApple = true;
+  const records = await getRecordsFamiliaReparaciones(modoApple);
+
+  const paths = records.map((record) => {
+    // // console.log('INDEXABLE: ', record.indexable, ' URL: ', record.slugTotal);
+
+    return {
+      params: {
+        paramMarcaApple: record.paramMarca,
+        paramFamiliaApple: record.paramFamilia,
+        paramFamiliaReparacionApple: record.paramFamiliaReparacion,
+      },
+
+      props: {
+        ...record,
+      },
+      indexable: record.indexable,
+    };
+  });
+
+  return paths;
+}
+
+const familiaReparacionesProps = Astro.props;
+const familiaReparacionesLayoutProps = {
+  modoApple: true,
+  ...familiaReparacionesProps,
+} as IFamiliaReparaciones;
+---
+
+<FamiliaReparacionesLayout {...familiaReparacionesLayoutProps} />

@@ -1,0 +1,80 @@
+---
+import { Image } from 'astro:assets';
+
+const {
+  detail,
+  isIndexable,
+  highlightText,
+  firstPart,
+  secondPart,
+  microcopy,
+  onclickUrl = '#',
+} = Astro.props;
+
+// Para la imagen, alt y title
+const altText = `Imagen de ${detail.h1}`;
+const titleText = detail.h1;
+
+---
+
+<div
+  class="border-2 border-green-200 hover:border-green-400 w-full card group bg-white
+         flex flex-row sm:flex-col items-center justify-center overflow-hidden
+         rounded-3xl shadow-lg hover:shadow-xl transition-shadow duration-300"
+role="link"
+        tabindex="0"
+        style="cursor: pointer;"
+        onclick={`window.location.href='${onclickUrl}'`}
+        onkeydown={`if (event.key === 'Enter' || event.key === ' ') {
+          window.location.href='${onclickUrl}'
+        }`}
+>
+  <Image
+    src={detail.slugImagen}
+    alt={altText}
+    width={384}
+    height={256}
+    title={titleText}
+    class="w-1/2 h-auto sm:w-auto max-h-[256px] object-contain p-2
+           transition-transform duration-300 ease-in-out group-hover:scale-105"
+    loading="lazy"
+  />
+  <div
+    class="bg-gradient-to-r from-green-50 to-white p-4 flex flex-col
+           items-center justify-center sm:items-center sm:justify-between
+           w-full h-full text-center group-hover:bg-gradient-to-r
+           group-hover:from-green-100 group-hover:to-green-50"
+  >
+    <h3 class="text-lg font-light">
+      {
+        isIndexable
+        ? (
+          <a href={onclickUrl} class="text-inherit no-underline">
+            {firstPart}
+            <span class="text-lg sm:text-xl font-semibold text-blue-600">
+              {highlightText}
+            </span>
+            {secondPart}
+          </a>
+        )
+        : (
+          <>
+            {firstPart}
+            <span class="text-lg sm:text-xl font-semibold text-blue-600">
+              {highlightText}
+            </span>
+            {secondPart}
+          </>
+        )
+      }
+    </h3>
+
+    {
+      microcopy && (
+        <p class="text-sm text-gray-700 mt-2">
+          {microcopy}
+        </p>
+      )
+    }
+  </div>
+</div>

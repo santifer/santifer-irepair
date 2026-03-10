@@ -1,0 +1,44 @@
+---
+import Boton from './Boton.astro';
+type Props = {
+  fondo?: string; // Propiedad opcional
+  enlace?: string;
+};
+
+// Mapeo de colores a clases de Tailwind para el article
+
+// Mapeo de colores opuestos para el div
+// const colorMapDiv: { [key: string]: string } = {
+//   blanco: 'bg-gray-50',
+//   gris: 'bg-white',
+// };
+
+// Obtén la propiedad fondo de Astro.props y proporciona un valor predeterminado
+const { fondo = 'blanco', enlace = '' } = Astro.props;
+
+// Determina la clase de color para el article y el div
+const colorMapArticle: { [key: string]: string } = {
+  blanco: 'bg-white',
+  gris: 'bg-gray-50',
+};
+
+const colorClaseArticle = colorMapArticle[fondo] || 'bg-white';
+// const colorClaseDiv = colorMapDiv[fondo] || 'bg-gray-50';
+
+// Establece la dirección flex en base al color de fondo
+const flexDirection = fondo === 'gris' ? 'sm:flex-row-reverse' : 'sm:flex-row-reverse';
+---
+
+<article
+  class={`p-4 flex flex-1 flex-col items-center sm:px-16 sm:py-8 text-center  ${flexDirection} lg:flex-col lg:px-0 lg:gap-y-6 ${colorClaseArticle}`}
+>
+  <slot name="imagen" />
+  <div class="py-2 flex flex-col flex-1 items-center">
+    <Boton enlace={enlace}>
+      <slot name="cabecera" />
+    </Boton>
+    <p class="mt-4 sm:w-10/12 lg:w-full md:text-lg px-4">
+      <slot name="contenido" />
+    </p>
+  </div>
+</article>

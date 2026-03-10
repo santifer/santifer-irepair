@@ -1,0 +1,138 @@
+---
+// Importa las imágenes
+import visa from '../images/footer/visa.svg';
+import mastercard from '../images/footer/mastercard.svg';
+import amex from '../images/footer/amex.svg';
+import applepay from '../images/footer/applepay.svg';
+import googlepay from '../images/footer/googlepay.svg';
+import twitter from '../images/footer/x.svg';
+import facebook from '../images/footer/facebook.svg';
+import instagram from '../images/footer/instagram.svg';
+import logo from '../images/logo.webp';
+import { Image } from 'astro:assets';
+import FooterMap from './FooterMap.astro';
+---
+
+<footer class="bg-gradient-to-t from-gray-700 to-stone-500 text-white p-5">
+  <div class="container mx-auto px-4 py-3 max-w-5xl">
+    <!-- Primera fila: Branding, contacto, horario, redes sociales -->
+    <div
+      class="flex flex-col lg:flex-row justify-between items-center lg:items-start gap-2"
+    >
+      <!-- Branding -->
+      <div class="flex flex-col items-center justify-between lg:justify-start">
+        <div
+          class="font-medium mb-4 lg:mb-0 sm:text-2xl tracking-tighter flex flex-row justify-center gap-3"
+        >
+          <Image
+            src={logo}
+            alt="Logo de Santifer iRepair"
+            width={72}
+            height={72}
+            class="object-contain"
+          />
+          <div class="flex flex-col">
+            <p class="text-3xl tracking-tighter mt-1 -mb-2">Santifer</p>
+            <p class="text-3xl tracking-tighter">iRepair</p>
+          </div>
+        </div>
+        <p class="text-lg tracking-tighter -mt-3 lg:mt-2">
+          quality express repairs
+        </p>
+      </div>
+      <!-- Información de contacto -->
+      <div
+        class="mb-4 lg:mb-0 flex flex-col items-center sm:items-start mt-8 lg:mt-0"
+      >
+        <p class="-mt-2 mb-2 font-medium">
+            Santifer iRepair <button
+            onclick="window.open('https://www.google.com/maps?cid=18118227849291820823', '_blank', 'noopener,noreferrer')"
+            class="underline hover:text-blue-500"
+            >
+            ver mapa <span class="text-2xl">⬈</span>
+            </button>
+        </p>
+        <p>Av. de Menéndez Pelayo, 36, 41003 Sevilla</p>
+        
+        <button onclick="window.location.href='tel:+34955542440'" class="hover:text-blue-500">955 54 24 40</button>
+        <button
+          onclick="window.location.href='mailto:contacto@santifer.me'"
+          class="underline hover:text-blue-500"
+        >
+          contacto@santifer.me
+        </button>
+      </div>
+      <!-- Horario -->
+      <div class="mb-4 lg:mb-0 flex flex-col items-center lg:items-start">
+        <p class="mb-2 font-medium">HORARIO</p>
+        <p>De Lunes a Viernes</p>
+        <p>Mañanas: 10:00 - 14:00</p>
+        <p>Tardes: 17:00 - 21:00</p>
+        <!-- <p>Tardes: 17:00 a 21:00</p> -->
+      </div>
+      <!-- Redes sociales -->
+      <div>
+        <p class="mb-2 font-medium text-center lg:text-left">SÍGUENOS</p>
+        <div class="flex space-x-4 p-4 -ml-3">
+            <button
+            onclick="window.open('https://www.facebook.com/SantiferiRepair/', '_blank', 'noopener,noreferrer')"
+            class="cursor-pointer"
+            >
+            <Image
+              src={facebook}
+              alt="Logotipo de Facebook"
+              class="h-6 w-6 hover:text-blue-500"
+            />
+            </button>
+            <button
+            onclick="window.open('https://instagram.com/santifer', '_blank', 'noopener,noreferrer')"
+            class="cursor-pointer"
+            >
+            <Image
+              src={instagram}
+              alt="Logotipo de Instagram"
+              class="h-6 w-6 hover:text-blue-500"
+            />
+            </button>
+          <button
+          onclick="window.open('https://x.com/santifer', '_blank', 'noopener,noreferrer')"
+          class="cursor-pointer"
+          >
+          <Image
+            src={twitter}
+            alt="Logotipo de X (antiguamente Twitter)" 
+            class="h-6 w-6 hover:text-blue-500"
+          />
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Cuarta fila: Links legales -->
+    <div
+      class="flex flex-col sm:flex-row text-sm gap-4 mt-10 text-center items-center justify-center mx-auto max-w-3xl"
+    >
+      <button onclick="window.location.href='/aviso-legal'" class="hover:underline cursor-pointer">Aviso Legal</button>
+      <button onclick="window.location.href='/politica-privacidad'" class="hover:underline cursor-pointer">Política de privacidad</button>
+      <button onclick="window.location.href='/politica-cookies'" class="hover:underline cursor-pointer">Política de cookies</button>
+      <button onclick="window.location.href='/condiciones-servicio'" class="hover:underline cursor-pointer">Condiciones del servicio</button>
+    </div>
+
+    <!-- Tercera fila: Métodos de pago -->
+    <div
+      class="flex items-center mt-10 justify-center gap-2 mt-5mx-auto bg-gradient-to-b from-stone-200 to-stone-500 rounded-full py-2"
+    >
+      <!-- Logos de métodos de pago -->
+      <Image src={visa} alt="Visa" class="h-8" />
+      <Image src={mastercard} alt="Mastercard" class="h-8" />
+      <Image src={amex} alt="American Express" class="h-8" />
+      <Image src={applepay} alt="Apple Pay" class="h-8" />
+      <Image src={googlepay} alt="Google Pay" class="h-8" />
+    </div>
+
+    <!-- Segunda fila: Enlaces internos -->
+    <div class="mt-10 text-center flex flex-col items-start">
+      <FooterMap />
+    </div>
+  </div>
+</footer>

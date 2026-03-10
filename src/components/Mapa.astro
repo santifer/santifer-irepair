@@ -1,0 +1,72 @@
+---
+const {
+  modo,
+  primeraPalabra = 'tu móvil',
+  segundaPalabra = 'teléfono',
+} = Astro.props;
+---
+
+<div class="flex flex-col lg:flex-row w-full gap-10 py-10">
+  <div class="w-full lg:w-1/2 border-rounded overflow-hidden">
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3170.166481657052!2d-5.988372287262593!3d37.38589497196956!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0xd126c1e8747275d%3A0xfb70e03c04a0ef17!2ssantifer%20iRepair%20%7C%20Reparaci%C3%B3n%20de%20M%C3%B3viles%20en%20Sevilla!5e0!3m2!1ses!2ses!4v1716531925710!5m2!1ses!2ses"
+      style="border:0; width: 100%; height: 750px;"
+      allowfullscreen=""
+      loading="lazy"
+      title="Mapa de ubicación de Santifer iRepair en Sevilla"
+      referrerpolicy="no-referrer-when-downgrade"></iframe>
+  </div>
+
+  <div
+    class={`flex flex-col ${modo && modo ? modo : 'bg-white'} bg-opacity-80 p-10 w-full lg:w-1/2 rounded-lg shadow-sm overflow-hidden`}
+  >
+    <div class="mb-4 lg:mb-0 flex flex-col items-center lg:items-start">
+      <p class="-mt-2 mb-2 font-medium">
+        Santifer iRepair <a
+          href="https://www.google.com/maps?cid=18118227849291820823"
+          class="underline hover:text-blue-500"
+          rel="noopener noreferrer"
+        >
+          ver mapa <span class="text-2xl">⬈</span>
+        </a>
+      </p>
+      <p>Av. de Menéndez Pelayo, 36, 41003 Sevilla</p>
+      <a href="tel:+34955542440" class="hover:text-blue-500">955 54 24 40</a>
+      <a
+        href="mailto:contacto@santifer.me"
+        class="underline hover:text-blue-500">contacto@santifer.me</a
+      >
+    </div>
+    <br />
+    <div
+      class="mb-4 lg:mb-0 flex flex-col items-center sm:items-start mt-8 lg:mt-0"
+    >
+      <p class="mb-2 font-medium">HORARIO</p>
+      <p>De Lunes a Viernes</p>
+      <p>Mañanas: 10:00 - 14:00</p>
+      <p>Tardes: 17:00 - 21:00</p>
+      <br />
+      <p>
+        Tanto si necesitas arreglar {primeraPalabra} en el centro de Sevilla, los
+        Remedios o Nervión, estamos a mitad de camino dando un paseo. Muchos clientes
+        vienen a reparar su {segundaPalabra} de todas las partes de Sevilla, para
+        lo cual te damos algunas indicaciones para llegar a nuestra tienda:
+      </p>
+      <br />
+      <p>Puedes venir en:</p>
+      <br />
+      <ul>
+        <li>
+          <strong>Coche:</strong> Te recomendamos aparcar en el parking público de
+          Cano y Cueto. (2 min).
+        </li>
+        <li>
+          <strong>Bus:</strong> Líneas de Tussam 1, 5, 21, C3, C4 (1 min).
+        </li>
+        <li><strong>Estación de Bus del Prado</strong> (7 min).</li>
+        <li><strong>Metrocentro</strong> (5 min).</li>
+        <li><strong>Metro:</strong> Línea 1 (8 min).</li>
+      </ul>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,207 @@
+---
+const {
+  titulo,
+  subtitulo,
+  precio,
+  pieza,
+  postPrecio,
+  cita,
+  modoCompa = false,
+  hideBadge = false, // si es true, no mostramos el sello "Mejor opción"
+  generoPieza,
+  tiempoCita,
+  urlRevFinal,
+} = Astro.props;
+
+// Asignamos IDs para el modal (ya presente en tu código)
+const modal1 = modoCompa ? 'modal1' : 'modal1c';
+const modal2 = modoCompa ? 'modal2' : 'modal2c';
+const modalId = 'sharedModal';
+const openModalBtn1 = modoCompa ? 'openModalBtn1' : 'openModalBtn1c';
+const openModalBtn2 = modoCompa ? 'openModalBtn2' : 'openModalBtn2c';
+
+// Clases adicionales para resaltar la versión Original (cuando modoCompa=false)
+const highlightOriginal = modoCompa
+  ? '' // si es compatible, sin anillo ni fondo destacado
+  : 'relative ring ring-orange-400 ring-offset-2 bg-green-50';
+
+const reservadoPieza = generoPieza === 'femenino' ? 'reservada' : 'reservado';
+---
+
+<div
+  class={`flex-1 rounded-xl border-2 border-gray-100 py-8 px-6 shadow-xl shadow-stone-200 bg-white flex flex-col justify-between gap-3 ${highlightOriginal} overflow-hidden`}
+>
+  {
+    /**
+     * Si es la tarjeta original (modoCompa=false)
+     * y NO queremos ocultar el sello (hideBadge=false),
+     * mostramos un sello "Mejor opción".
+     */
+  }
+  {
+    !modoCompa && !hideBadge && (
+      <div class="absolute top-0 right-0 bg-orange-400 text-white px-2 py-1 text-xs font-semibold rounded-bl-lg">
+        Mejor opción
+      </div>
+    )
+  }
+
+  <div>
+    <h3 class="text-xl font-bold">{titulo}</h3>
+    <p class="text-sm font-semibold text-gray-500">
+      {subtitulo}
+    </p>
+  </div>
+
+  <div class="flex flex-col items-start min-h-52">
+    <p class="text-xl font-semibold text-green-600">Todo incluido:</p>
+    <ul class="mt-2 space-y-1 font-semibold text-gray-500 text-sm">
+      <li class="flex items-center space-x-4">
+        <span class="h-2 w-2 rounded-full bg-black"></span>
+        <span>{pieza}</span>
+      </li>
+      <li class="flex items-center space-x-4">
+        <span class="h-2 w-2 rounded-full bg-black"></span>
+        <span>Mano de obra</span>
+      </li>
+      <li class="flex items-center space-x-4">
+        <span class="h-2 w-2 rounded-full bg-black"></span>
+        <span>Diagnóstico previo y posterior</span>
+      </li>
+    </ul>
+
+    <ul class="mt-1 space-y-1 font-semibold text-gray-500 text-sm">
+      <li class="flex items-center space-x-2 text-green-600">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-5 w-5 -ml-1 text-green-600"
+          fill="none"
+          viewBox="0 0 20 20"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+            clip-rule="evenodd"></path>
+        </svg>
+        <span>6 meses de garantía</span>
+      </li>
+      <li class="flex items-center space-x-2 text-green-600">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-5 w-5 -ml-1 text-green-600"
+          fill="none"
+          viewBox="0 0 20 20"
+          stroke="currentColor"
+          stroke-width="2"
+        >
+          <path
+            fill-rule="evenodd"
+            d="M10 5a1 1 0 011 1v3h3a1 1 0 110 2h-3v3a1 1 0 11-2 0v-3H6a1 1 0 110-2h3V6a1 1 0 011-1z"
+            clip-rule="evenodd"></path>
+        </svg>
+        <span>Bono descuento en futuras reparaciones</span>
+      </li>
+    </ul>
+  </div>
+
+  <div>
+    <div class="flex flex-row items-center text-center justify-between">
+      <div class="font-semibold text-xl">Por sólo:</div>
+      <div class="text-xl text-green-600 font-bold">
+        {precio} € <span class="text-xs text-gray-500 align-super">*</span>
+      </div>
+    </div>
+    <p class="text-sm font-semibold text-gray-500 mt-2 mb-2">
+      {postPrecio}
+    </p>
+
+    <button
+      id={openModalBtn1}
+      class="btn btn-dark mt-4 w-full rounded-full border-2 border-green-600 text-white px-4 py-2 text-xl font-semibold bg-green-600 hover:border-green-900 hover:bg-green-100 hover:text-black"
+      data-url={cita}
+      data-modal={modalId}
+      data-type="modal"
+    >
+      <span class="text-xl">Reserva tu cita </span><span
+        class="text-xl font-bold">ahora</span
+      >
+    </button>
+    <!-- {tiempoCita && <p class="text-center text-sm mt-1">{tiempoCita}</p>} -->
+    <p class="text-center text-sm mt-1 font-semibold">
+      ¡Confirmación inmediata!
+    </p>
+    <p
+      class={`text-center text-sm mt-1 ${modoCompa ? 'text-black' : 'text-orange-400 font-bold'}`}
+    >
+      {pieza} ✔️
+    </p>
+    <p class="text-center text-sm mt-1">{reservadoPieza} sin esperas</p>
+
+    <button
+      id={openModalBtn2}
+      class="btn btn-dark mt-4 w-full rounded-full border-2 border-green-600 text-green-600 px-4 py-2 text-lg font-semibold hover:border-green-900 hover:bg-green-100 hover:text-black"
+      data-url="https://airtable.com/embed/shrmactErQo9IQYqr"
+      data-modal={modalId}
+      data-type="modal"
+    >
+      <span class="text-xl">Recogida a domicilio</span>
+    </button>
+    <p class="mt-1 text-center text-sm text-bold">En toda la península:</p>
+    <p class="mt-1 text-center text-sm">de vuelta en 48 horas</p>
+
+    <!-- Botón pequeño para revisar precio -->
+    <button
+      id="openModalBtnCheckPrecio"
+      class="flex justify-center w-full text-center text-xs text-gray-500 mt-2 hover:text-gray-700"
+      data-url={urlRevFinal}
+      data-modal={modalId}
+      data-type="modal"
+    >
+      <span class="text-center">
+        * ¿Crees que este precio puede estar obsoleto o ser incorrecto?<br />
+        <span class="underline">Entra aquí y te lo revisamos</span>
+      </span>
+    </button>
+  </div>
+
+  <script>
+    function setupModal(modalId: any, iframeUrl: any) {
+      const modal = document.getElementById(modalId);
+      const dentroModal = document.getElementById('dentro-modal');
+
+      if (modal && dentroModal) {
+        dentroModal.innerHTML = '';
+        modal.style.display = 'flex';
+
+        const iframe = document.createElement('iframe');
+        iframe.setAttribute('src', iframeUrl);
+        iframe.setAttribute('frameborder', '0');
+        iframe.style.width = '100%';
+        iframe.style.height = '100%';
+        iframe.style.zIndex = '40';
+        iframe.style.position = 'relative';
+        iframe.style.borderRadius = '0.75rem';
+        iframe.style.overflow = 'hidden';
+        dentroModal.appendChild(iframe);
+      } else {
+        console.error('No se encontró el modal');
+      }
+    }
+
+    const buttons = document.querySelectorAll('button[data-type="modal"]');
+    if (!buttons) {
+      console.error('No se encontraron botones');
+    }
+
+    buttons.forEach((button) => {
+      const openButtonId = button.id;
+      const modalId = button.getAttribute('data-modal');
+      const iframeUrl = button.getAttribute('data-url');
+      button.addEventListener('click', () => {
+        setupModal(modalId, iframeUrl);
+      });
+    });
+  </script>
+</div>

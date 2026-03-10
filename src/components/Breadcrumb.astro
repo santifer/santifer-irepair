@@ -1,0 +1,180 @@
+---
+type Props = {
+  hijo1: string;
+  enlaceHijo1?: string;
+  hijo2?: string;
+  enlaceHijo2?: string;
+  hijo3?: string;
+  enlaceHijo3?: string;
+  hijo4?: string;
+  enlaceHijo4?: string;
+  hijo5?: string;
+  modoApple?: boolean;
+};
+
+const {
+  hijo1,
+  enlaceHijo1,
+  hijo2,
+  enlaceHijo2,
+  hijo3,
+  enlaceHijo3,
+  hijo4,
+  enlaceHijo4,
+  hijo5,
+  modoApple = false,
+} = Astro.props;
+---
+
+<nav
+  aria-label="breadcrumb"
+  class="
+    max-w-5xl
+    mx-auto
+    text-center
+    overflow-x-auto
+    whitespace-nowrap
+    relative
+    z-40
+    h-12
+    text-gray-900
+    lg:h-20
+    lg:sticky
+    lg:top-14
+  "
+>
+  <ul
+    class="
+    inline-flex
+      flex-nowrap
+      list-none
+      gap-1
+      sm:gap-2
+      sm:justify-center
+      sm:items-center
+          rounded-full
+    bg-white/95
+    mt-3
+    lg:mt-7
+    mx-2
+    px-4
+    py-1
+    border-2
+    border-grisuno/80
+    drop-shadow-lg
+    "
+  >
+    <!-- HOME -->
+    <li>
+      <a href="/" class="breadcrumb-link">Santifer iRepair</a>
+    </li>
+
+    <!-- Sección 1 -->
+    {
+      !modoApple && (
+        <>
+          <li class="text-stone-400">></li>
+          <li>
+            {enlaceHijo1 ? (
+              <a
+                href={`${
+                  typeof enlaceHijo1 === 'string' && enlaceHijo1.endsWith('/sevilla')
+                    ? enlaceHijo1
+                    : `${enlaceHijo1 || ''}/sevilla`
+                }`}
+                class="breadcrumb-link"
+              >
+                {hijo1}
+              </a>
+            ) : (
+              <span class="text-blue-800 font-semibold">{hijo1}</span>
+            )}
+          </li>
+        </>
+      )
+    }
+
+    <!-- Sección 2 -->
+    {hijo2 && (
+      <>
+        <li class="text-stone-400">></li>
+        <li>
+          {enlaceHijo2 ? (
+            <a
+              href={`${
+                typeof enlaceHijo2 === 'string' && enlaceHijo2.endsWith('/sevilla')
+                  ? enlaceHijo2
+                  : `${enlaceHijo2 || ''}/sevilla`
+              }`}
+              class="breadcrumb-link"
+            >
+              {hijo2}
+            </a>
+          ) : (
+            <span class="text-blue-800 font-semibold">{hijo2}</span>
+          )}
+        </li>
+      </>
+    )}
+
+    <!-- Sección 3 -->
+    {hijo3 && (
+      <>
+        <li class="text-stone-400">></li>
+        <li>
+          {enlaceHijo3 ? (
+            <a href={enlaceHijo3} class="breadcrumb-link">
+              {hijo3}
+            </a>
+          ) : (
+            <span class="text-blue-800 font-semibold">{hijo3}</span>
+          )}
+        </li>
+      </>
+    )}
+
+    <!-- Sección 4 -->
+    {hijo4 && (
+      <>
+        <li class="text-stone-400">></li>
+        <li>
+          {hijo5 === undefined ? (
+            <span class="text-blue-800 font-semibold">{hijo4}</span>
+          ) : enlaceHijo4 ? (
+            <a href={enlaceHijo4} class="breadcrumb-link">
+              {hijo4}
+            </a>
+          ) : (
+            <span class="text-blue-800 font-semibold">{hijo4}</span>
+          )}
+        </li>
+      </>
+    )}
+
+    <!-- Sección 5 -->
+    {hijo5 && (
+      <>
+        <li class="text-stone-400">></li>
+        <li>
+          <span class="text-blue-800 font-semibold">{hijo5}</span>
+        </li>
+      </>
+    )}
+  </ul>
+</nav>
+
+<style>
+/*
+  Añadimos un efecto hover en los enlaces. 
+  - Cambiamos el color del texto (un poco más oscuro) 
+  - Subrayamos, y agregamos una transición suave
+*/
+
+.breadcrumb-link {
+  @apply no-underline transition-colors duration-200 text-sm;
+}
+
+.breadcrumb-link:hover {
+  @apply text-blue-800;
+}
+</style>

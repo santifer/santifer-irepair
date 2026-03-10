@@ -1,0 +1,155 @@
+---
+import Image from 'astro/components/Image.astro';
+import TarjetaReparacionIndividual from './TarjetaReparacionIndividual.astro';
+import Modal from './Modal.astro';
+import PillBox from './PillBox.astro';
+import { cleanAndSplitText } from '../lib/textProcessing';
+
+const {
+  precio,
+  titulo,
+  cita,
+  preciocompa,
+  citacompa,
+  imagenModelo,
+  fotoPieza,
+  pieza,
+  textoCard1,
+  textoCard2,
+  tiempoCita,
+  modoPuente,
+  textoPuente,
+  citaDestino,
+  precioDestino,
+  citaDestinoCompa,
+  precioDestinoCompa,
+  altPrincipal,
+  generoPieza,
+  urlRevFinal
+} = Astro.props;
+
+// 1) Contamos cuántas tarjetas se mostrarán
+let cardCount = 0;
+
+// Estas variables hacen más legible la condición
+const showOriginal = precio && cita && modoPuente == 0;
+const showCompa = preciocompa && citacompa && modoPuente == 0;
+const showOriginalPuente = precioDestino && citaDestino && modoPuente == 1;
+const showCompaPuente =
+  precioDestinoCompa && citaDestinoCompa && modoPuente == 1;
+
+// Incrementamos cardCount según los casos
+if (showOriginal) cardCount++;
+if (showCompa) cardCount++;
+if (showOriginalPuente) cardCount++;
+if (showCompaPuente) cardCount++;
+---
+
+{textoPuente && <PillBox texts={cleanAndSplitText(textoPuente)} />}
+
+<div
+  class="flex flex-col-reverse md:flex-row w-full items-stretch justify-around gap-2"
+>
+  {/** COLUMNA IZQUIERDA: imagen del modelo/pieza */}
+  <div
+    class="bg-white min-w-40 rounded-xl border-2 border-gray-100 shadow-xl shadow-stone-200 overflow-hidden flex-1 flex flex-col items-center justify-center"
+  >
+    {
+      fotoPieza ? (
+        <Image
+          src={fotoPieza[0].url}
+          alt={altPrincipal}
+          width={512}
+          height={512}
+          class="object-cover"
+        />
+      ) : (
+        <Image
+          src={imagenModelo}
+          alt={altPrincipal}
+          width={384}
+          height={256}
+          class="object-cover"
+        />
+      )
+    }
+  </div>
+
+  {/** COLUMNA DERECHA: tarjetas (original / compatible, etc.) */}
+  <div
+    class={`flex flex-col sm:flex-row gap-2 ${cardCount == 2 ? 'md:w-2/3' : 'md:w-1/2'}`}
+  >
+    {/* Tarjeta Original (MODO PUENTE == 0) */}
+    {
+      showOriginal && (
+        <TarjetaReparacionIndividual
+          precio={precio}
+          titulo={titulo}
+          pieza={pieza}
+          subtitulo={textoCard1}
+          postPrecio={textoCard2}
+          tiempoCita={tiempoCita}
+          cita={cita}
+          hideBadge={cardCount === 1}
+          generoPieza={generoPieza}
+          urlRevFinal={urlRevFinal}
+        />
+      )
+    }
+
+    {/* Tarjeta Compatible (MODO PUENTE == 0) */}
+    {
+      showCompa && (
+        <TarjetaReparacionIndividual
+          precio={preciocompa}
+          titulo={`${titulo} compatible`}
+          pieza={`${pieza} compatible`}
+          subtitulo={textoCard1}
+          postPrecio={textoCard2}
+          modoCompa={true}
+          cita={citacompa}
+          tiempoCita={tiempoCita}
+          hideBadge={cardCount === 1}
+          textReserva={generoPieza}
+          urlRevFinal={urlRevFinal}
+        />
+      )
+    }
+
+    {/* Tarjeta Original (MODO PUENTE == 1) */}
+    {
+      showOriginalPuente && (
+        <TarjetaReparacionIndividual
+          precio={precioDestino}
+          titulo={titulo}
+          pieza={pieza}
+          subtitulo={textoCard1}
+          postPrecio={textoCard2}
+          tiempoCita={tiempoCita}
+          cita={citaDestino}
+          hideBadge={cardCount === 1}
+          urlRevFinal={urlRevFinal}
+        />
+      )
+    }
+
+    {/* Tarjeta Compatible (MODO PUENTE == 1) */}
+    {
+      showCompaPuente && (
+        <TarjetaReparacionIndividual
+          precio={precioDestinoCompa}
+          titulo={`${titulo} compatible`}
+          pieza={`${pieza} compatible`}
+          subtitulo={textoCard1}
+          postPrecio={textoCard2}
+          modoCompa={true}
+          cita={citaDestinoCompa}
+          hideBadge={cardCount === 1}
+          urlRevFinal={urlRevFinal}
+        />
+      )
+    }
+  </div>
+</div>
+
+<Modal id="sharedModal" isOpen={false} />

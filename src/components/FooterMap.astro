@@ -1,0 +1,265 @@
+---
+type Link = {
+  title: string;
+  url: string;
+  children?: Link[];
+};
+
+const linkMap: Link[] = [
+  {
+    title: 'Reparación de iPhone en Sevilla',
+    url: '/reparar-iphone/sevilla',
+    children: [
+      {
+        title: 'Reparación de Pantalla de iPhone en Sevilla',
+        url: '/reparar-iphone/pantalla/sevilla',
+      },
+      {
+        title: 'Reparación de Batería de iPhone en Sevilla',
+        url: '/reparar-iphone/bateria/sevilla',
+      },
+    ],
+  },
+  {
+    title: 'Reparación de iPad en Sevilla',
+    url: '/reparar-ipad/sevilla',
+    children: [
+      {
+        title: 'Reparación de Pantalla de iPad en Sevilla',
+        url: '/reparar-ipad/pantalla/sevilla',
+      },
+      {
+        title: 'Reparación de Batería de iPad en Sevilla',
+        url: '/reparar-ipad/bateria/sevilla',
+      },
+      {
+        title: 'Reparación de Cristal de iPad en Sevilla',
+        url: '/reparar-ipad/cristal/sevilla',
+      },
+    ],
+  },
+  {
+    title: 'Reparación de Apple Watch en Sevilla',
+    url: '/reparar-apple-watch/sevilla',
+    children: [
+      {
+        title: 'Reparación de Pantalla de Apple Watch en Sevilla',
+        url: '/reparar-apple-watch/pantalla/sevilla',
+      },
+      {
+        title: 'Reparación de Batería de Apple Watch en Sevilla',
+        url: '/reparar-apple-watch/bateria/sevilla',
+      },
+      {
+        title: 'Reparación de Cristal de Apple Watch en Sevilla',
+        url: '/reparar-apple-watch/cristal/sevilla',
+      },
+    ],
+  },
+  {
+    title: 'Reparación de Móviles en Sevilla',
+    url: '/reparar-movil/sevilla',
+    children: [
+      {
+        title: 'Reparación de Móviles Samsung en Sevilla',
+        url: '/reparar-movil/samsung/sevilla',
+        children: [
+          {
+            title: 'Reparación de Pantalla de Móviles Samsung en Sevilla',
+            url: '/reparar-movil/samsung/pantalla/sevilla',
+          },
+        ],
+      },
+      {
+        title: 'Reparación de Móviles Xiaomi en Sevilla',
+        url: '/reparar-movil/xiaomi/sevilla',
+        children: [
+          {
+            title: 'Reparación de Pantalla de Móviles Xiaomi en Sevilla',
+            url: '/reparar-movil/xiaomi/pantalla/sevilla',
+          },
+        ],
+      },
+      {
+        title: 'Reparación de Móviles Huawei en Sevilla',
+        url: '/reparar-movil/huawei/sevilla',
+        children: [
+          {
+            title: 'Reparación de Pantalla de Móviles Huawei en Sevilla',
+            url: '/reparar-movil/huawei/pantalla/sevilla',
+          },
+        ],
+      },
+    ],
+  },
+];
+---
+
+<div class="container mx-auto text-left">
+  <!-- Primera fila con 2 columnas -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8 font-light">
+    {
+      linkMap.slice(0, 1).map((section) => (
+        <div>
+          <a href={section.url} class="hover:underline font-bold mb-84">
+            {section.title}
+          </a>
+          <ul class="space-y-2 text-base mt-3">
+            {section.children?.map((link) => (
+              <li>
+                <a
+                  href={link.url}
+                  class=" hover:underline text-base tracking-tight"
+                  style="font-size: 16px;"
+                >
+                  {link.title}
+                </a>
+                {link.children && (
+                  <ul class="ml-4 space-y-2">
+                    {link.children.map((childLink) => (
+                      <li>
+                        <a
+                          href={childLink.url}
+                          class=" hover:underline flex items-center"
+                          style="font-size: 16px;"
+                        >
+                          <span class="mr-2">→</span> {childLink.title}
+                        </a>
+                        {childLink.children && (
+                          <ul class="ml-4 space-y-2">
+                            {childLink.children.map((subChildLink) => (
+                              <li>
+                                <a
+                                  href={subChildLink.url}
+                                  class=" hover:underline"
+                                  style="font-size: 16px;"
+                                >
+                                  {subChildLink.title}
+                                </a>
+                              </li>
+                            ))}
+                          </ul>
+                        )}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))
+    }
+    {
+      linkMap.slice(1, 2).map((section) => (
+        <div>
+          <a href={section.url} class="hover:underline font-bold mb-4">
+            {section.title}
+          </a>
+
+          <ul class="space-y-2 text-base mt-3">
+            {section.children?.map((link) => (
+              <li>
+                <a
+                  href={link.url}
+                  class=" hover:underline text-base tracking-tight"
+                  style="font-size: 16px;"
+                >
+                  {link.title}
+                </a>
+                {link.children && (
+                  <ul class="ml-4 space-y-2">
+                    {link.children.map((childLink) => (
+                      <li>
+                        <a
+                          href={childLink.url}
+                          class=" hover:underline flex items-center"
+                          style="font-size: 16px;"
+                        >
+                          <span class="mr-2">·</span> {childLink.title}
+                        </a>
+                        {childLink.children && (
+                          <ul class="ml-4 space-y-2 ">
+                            {childLink.children.map((subChildLink) => (
+                              <li>
+                                <a
+                                  href={subChildLink.url}
+                                  class=" hover:underline"
+                                  style="font-size: 16px;"
+                                >
+                                  {subChildLink.title}
+                                </a>
+                              </li>
+                            ))}
+                          </ul>
+                        )}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))
+    }
+  </div>
+
+  <!-- Segunda fila con 3 columnas -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-8 font-light">
+    {
+      linkMap.slice(2).map((section) => (
+        <div>
+          <a href={section.url} class="hover:underline font-bold mb-4">
+            {section.title}
+          </a>
+
+          <ul class="space-y-2 text-base mt-3">
+            {section.children?.map((link) => (
+              <li>
+                <a
+                  href={link.url}
+                  class=" hover:underline text-base tracking-tight"
+                  style="font-size: 16px;"
+                >
+                  {link.title}
+                </a>
+                {link.children && (
+                  // este
+                  <ul class="ml-4 space-y-2 list-disc">
+                    {link.children.map((childLink) => (
+                      <li>
+                        <a
+                          href={childLink.url}
+                          class=" hover:underline flex items-center"
+                          style="font-size: 16px;"
+                        >
+                          {childLink.title}
+                        </a>
+                        {childLink.children && (
+                          <ul class="ml-4 space-y-2">
+                            {childLink.children.map((subChildLink) => (
+                              <li>
+                                <a
+                                  href={subChildLink.url}
+                                  class=" hover:underline"
+                                  style="font-size: 16px;"
+                                >
+                                  {subChildLink.title}
+                                </a>
+                              </li>
+                            ))}
+                          </ul>
+                        )}
+                      </li>
+                    ))}
+                  </ul>
+                )}
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))
+    }
+  </div>
+</div>

@@ -1,0 +1,35 @@
+---
+type Props = {
+  enlace?: string;
+};
+
+const { enlace = '' } = Astro.props;
+---
+
+<a
+  href={enlace}
+  class="mx-2
+    mb-3
+    btn
+    btn-dark
+    mt-4
+    text-center
+    rounded-full
+    px-8
+    py-3
+    text-2xl
+    font-medium
+    border-green-600
+    bg-green-600
+    text-white
+    hover:border-green-900
+    hover:bg-green-100
+    hover:text-black
+    shadow-lg
+    transition
+    duration-200
+    ease-in-out
+  "
+>
+  <slot />
+</a>

@@ -1,0 +1,37 @@
+---
+import { Image } from 'astro:assets';
+
+const {
+  slug,
+  slugImagen,
+  title,
+  modoEnlace,
+  firstPart,
+  highlightedText,
+  secondPart,
+} = Astro.props;
+---
+
+<a
+  href={slug}
+  class={`border-2 hover:border-blue-400 w-full card group bg-white flex flex-row sm:flex-col items-center justify-center overflow-hidden rounded-3xl shadow-lg hover:shadow-xl transition-shadow duration-300`}
+>
+  <Image
+    src={slugImagen}
+    alt={`Imagen de ${title}`}
+    width={384}
+    height={256}
+    title={title}
+    class={`w-1/2 ${modoEnlace ? 'h-36' : 'h-auto'} sm:w-auto max-h-[256px]  object-contain p-2 transition-transform duration-300 ease-in-out group-hover:scale-105`}
+    loading="lazy"
+  />
+  <div
+    class="bg-gradient-to-r from-blue-50 to-white p-4 flex flex-col items-center justify-center sm:items-center sm:justify-start w-full h-full text-center group-hover:bg-gradient-to-r group-hover:from-blue-100 group-hover:to-blue-50"
+  >
+    <h3 class="text-lg font-light">
+      {firstPart}
+      {highlightedText}
+      {secondPart}
+    </h3>
+  </div>
+</a>

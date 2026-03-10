@@ -1,0 +1,195 @@
+---
+// Archivo: src/components/CasosExitoContainer.astro
+import type { CasoExito } from '../lib/schema';
+import CasoExitoS from './CasoExitoS.astro';
+
+export interface CasosExitoContainerProps {
+  casosExito: CasoExito[];
+}
+
+const { casosExito } = Astro.props as CasosExitoContainerProps;
+// Ordena los casos de éxito de más recientes a más antiguos
+const sortedCasosExito = [...casosExito].sort(
+  (a, b) =>
+    new Date(b.dateCreated).getTime() - new Date(a.dateCreated).getTime()
+);
+---
+
+<div
+  class="w-full flex flex-col items-center px-2 pt-8 relative"
+  id="casos-exito"
+>
+  <!-- CONTENEDOR PRINCIPAL DEL CARRUSEL DE CASOS DE ÉXITO -->
+  <div
+    class="casosExito-container relative flex flex-row items-center
+           justify-between w-full h-[38rem] sm:h-[22rem]"
+  >
+    <!-- Flecha PREV si hay varios casos -->
+    {sortedCasosExito.length > 1 && (
+      <button id="prev-casoExito" class="text-5xl cursor-pointer font-semibold text-blue-500" aria-label="Caso exito anterior">⟨
+      </button>
+    )}
+
+    {sortedCasosExito.map((casoExito, index) => (
+      <div
+        class={`casoExito transition-opacity duration-500 ease-in-out ${
+          index === 0 ? 'opacity-100' : 'opacity-0 hidden'
+        } inset-0`}
+      >
+        <CasoExitoS {...casoExito} />
+      </div>
+    ))}
+
+    <!-- Flecha NEXT si hay varios casos -->
+    {sortedCasosExito.length > 1 && (
+      <button id="next-casoExito" class="text-5xl cursor-pointer font-semibold text-blue-500" aria-label="Caso exito siguiente">⟩
+      </button>
+    )}
+  </div>
+
+  <!-- BARRA DE PROGRESO ABAJO DEL CARRUSEL - NUEVO -->
+  {sortedCasosExito.length > 1 && (
+    <div class="progress-bar-ce w-full h-1 bg-gray-200 rounded mt-2 relative overflow-hidden max-w-[80%]">
+      <div
+        id="progress-fill-ce"
+        class="absolute left-0 top-0 h-full bg-blue-500"
+        style="width:100%"
+      ></div>
+    </div>
+  )}
+</div>
+
+<!-- DOTS (puntos de paginación) - NUEVO -->
+{sortedCasosExito.length > 1 && (
+  <div
+    class={`dotsCE ${
+      // Si hay más de 10 casos de éxito, ocultar en móvil y mostrar solo en lg
+      sortedCasosExito.length > 10 ? 'hidden lg:flex' : 'flex'
+    } space-x-3 justify-center mt-3`}
+  >
+    {sortedCasosExito.map((_, dotIndex) => (
+      <button
+        class={`dotCE w-6 h-6 lg:w-3 lg:h-3 rounded-full ${
+          dotIndex === 0 ? 'bg-blue-500' : 'bg-blue-200'
+        }`}
+        data-index={dotIndex}
+        aria-label={`Ir al caso de éxito ${dotIndex + 1}`}
+      />
+    ))}
+  </div>
+)}
+
+<!-- SCRIPT -->
+<script>
+  // @ts-nocheck
+
+  // Recogemos los elementos del carrusel
+  const casosExito = document.querySelectorAll('.casoExito');
+  let currentCasoExitoIndex = 0;
+  let autoAdvanceTimerCE;
+
+  // Seleccionamos flechas
+  const prevButtonCE = document.getElementById('prev-casoExito');
+  const nextButtonCE = document.getElementById('next-casoExito');
+
+  // DOTS
+  const dotsCE = document.querySelectorAll('.dotCE');
+
+  // Iniciamos si hay más de 1 caso
+  if (casosExito.length > 1) {
+    resetAutoAdvanceTimerCE();
+
+    // Botón PREV
+    if (prevButtonCE) {
+      prevButtonCE.addEventListener('click', () => {
+        const newIndex =
+          currentCasoExitoIndex > 0
+            ? currentCasoExitoIndex - 1
+            : casosExito.length - 1; // si está en el primero, salta al último
+        changeCasoExitoCE(newIndex);
+        resetAutoAdvanceTimerCE();
+      });
+    }
+
+    // Botón NEXT
+    if (nextButtonCE) {
+      nextButtonCE.addEventListener('click', () => {
+        const newIndex = (currentCasoExitoIndex + 1) % casosExito.length;
+        changeCasoExitoCE(newIndex);
+        resetAutoAdvanceTimerCE();
+      });
+    }
+
+    // Dots: clic en un punto
+    dotsCE.forEach((dot) => {
+      dot.addEventListener('click', () => {
+        const dotIndex = parseInt(dot.dataset.index);
+        changeCasoExitoCE(dotIndex);
+        resetAutoAdvanceTimerCE();
+      });
+    });
+  }
+
+  // Función para cambiar de caso de éxito
+  function changeCasoExitoCE(newIndex) {
+    animateProgressBarCE(); // reiniciamos la barra al cambiar manual/auto
+
+    const currentCaso = casosExito[currentCasoExitoIndex];
+    const nextCaso = casosExito[newIndex];
+
+    // Ocultamos el caso actual con opacidad
+    currentCaso.classList.replace('opacity-100', 'opacity-0');
+    setTimeout(() => {
+      currentCaso.classList.add('hidden');
+
+      // Mostramos el nuevo
+      nextCaso.classList.remove('hidden');
+      nextCaso.classList.replace('opacity-0', 'opacity-100');
+
+      currentCasoExitoIndex = newIndex;
+      updateDotsCE(newIndex);
+    }, 700);
+  }
+
+  // Actualiza los dots
+  function updateDotsCE(newActiveIndex) {
+    dotsCE.forEach((dot, i) => {
+      if (i === newActiveIndex) {
+        dot.classList.remove('bg-blue-200');
+        dot.classList.add('bg-blue-500');
+      } else {
+        dot.classList.remove('bg-blue-500');
+        dot.classList.add('bg-blue-200');
+      }
+    });
+  }
+
+  // Reinicia el temporizador de autoavance
+  function resetAutoAdvanceTimerCE() {
+    if (autoAdvanceTimerCE) {
+      clearInterval(autoAdvanceTimerCE);
+    }
+    // cada 9s pasamos al siguiente caso
+    autoAdvanceTimerCE = setInterval(() => {
+      const newIndex = (currentCasoExitoIndex + 1) % casosExito.length;
+      changeCasoExitoCE(newIndex);
+    }, 9000);
+
+    // Barra de progreso
+    animateProgressBarCE();
+  }
+
+  // BARRA DE PROGRESO (similar a reseñas) - NUEVO
+  function animateProgressBarCE() {
+  const progressFillCE = document.getElementById('progress-fill-ce');
+  if (!progressFillCE) return;
+
+  progressFillCE.style.transition = 'none';
+  progressFillCE.style.width = '0%';
+
+  requestAnimationFrame(() => {
+    progressFillCE.style.transition = 'width 9s linear';
+    progressFillCE.style.width = '100%';
+  });
+}
+</script>

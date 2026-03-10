@@ -1,0 +1,76 @@
+---
+import MarkdownIt from 'markdown-it';
+const md = new MarkdownIt();
+
+const {
+  ImagesUploadedBig,
+  texts,
+  modo = '',
+  slugImagenBackground = '',
+} = Astro.props;
+
+// Determina la URL de la imagen.
+const backgroundURL = slugImagenBackground
+  ? slugImagenBackground
+  : ImagesUploadedBig[0]?.url;
+
+// Según "modo", aplicamos clases distintas
+// Ej: si modo === 'apple', usar object-contain md:object-cover md:object-top
+// si no, usar solo object-cover
+let objectFitClasses = '';
+if (modo !== 'horizontal') {
+  objectFitClasses = 'object-contain md:object-cover md:object-top';
+} else {
+  objectFitClasses = 'object-cover';
+}
+
+let backgroundCardColor = '';
+if (modo !== 'horizontal') {
+  backgroundCardColor = 'bg-stone-50/80 ';
+} else {
+  backgroundCardColor = 'bg-white/70 ';
+}
+
+// Clases condicionales para el wrapper de texto
+const claseCondicional = slugImagenBackground ? '' : 'bg-white bg-opacity-80';
+
+// console.log('ImagesUploadedBig: ', ImagesUploadedBig);
+// console.log('slugImagenBackground: ', slugImagenBackground);
+---
+
+<div class="relative w-full max-w-7xl mx-auto md:-mb-8">
+  <!-- Contenedor principal ajustado al contenido -->
+  <div class="relative w-full flex items-center justify-center overflow-hidden">
+    <!-- Imagen ajustada dinámicamente al contenido -->
+    <img
+      src={backgroundURL}
+      alt=""
+      role="presentation"
+      loading="lazy"
+      class={`absolute top-0 left-0 w-full h-full ${objectFitClasses} -z-10`}
+      style="height: 100%;"
+    />
+
+    <!-- <img
+      src={backgroundURL}
+      alt=""
+      role="presentation"
+      loading="lazy"
+      class="absolute w-full h-auto object-contain md:h-[500px] md:object-cover md:object-top"
+    /> -->
+    <!-- Contenido superpuesto -->
+    <div
+      class={`flex flex-col items-center flex-wrap gap-8 justify-between p-8 text-lg w-full ${claseCondicional}`}
+    >
+      {
+        texts.map((text: any) => (
+          <div
+            class={`rounded-3xl backdrop-blur-md ${backgroundCardColor} border-stone-100 border-2 shadow-lg p-6 max-w-[500px]`}
+            set:html={md.render(text)}
+          />
+        ))
+      }
+      <slot />
+    </div>
+  </div>
+</div>

@@ -1,0 +1,63 @@
+---
+import { Image } from 'astro:assets';
+
+import slide1 from '../images/home/slides/slide1.webp';
+import slide2 from '../images/home/slides/slide2.webp';
+import slide3 from '../images/home/slides/slide3.webp';
+import slide4 from '../images/home/slides/slide4.webp';
+
+const { indiceImagen = 0, titulo = 'diapo', texto = 'diapo' } = Astro.props;
+
+const Imagenes = [
+  {
+    src: slide1,
+    alt: 'Imagen 1',
+  },
+  {
+    src: slide2,
+    alt: 'Imagen 2',
+  },
+  {
+    src: slide3,
+    alt: 'Imagen 3',
+  },
+  {
+    src: slide4,
+    alt: 'Imagen 4',
+  },
+];
+
+type Props = {
+  indiceImagen: number;
+  titulo: string;
+  texto: string;
+};
+---
+
+<div
+  class=`flex flex-col items-center relative sm:flex-row${indiceImagen % 2 === 1 ? '-reverse' : ''} h-64 sm:h-64 md:h-80    overflow-hidden`
+>
+  <div class="opacity-25 sm:opacity-100 sm:w-3/5 lg:w-2/5 sm:h-min">
+    <Image
+      class="object-cover -mt-20 sm:mt-0 sm:object-cover transition-opacity duration-500 ease-in-out"
+      src={Imagenes[indiceImagen].src}
+      alt={Imagenes[indiceImagen].alt}
+      width={512}
+      height={512}
+    />
+  </div>
+  <div
+    class="absolute sm:relative h-full sm:w-3/5 flex flex-col p-8 lg:py-16 justify-around text-white"
+  >
+    <div>
+      <p class="text-2xl lg:text-2xl w-4/5">
+        {titulo}
+      </p>
+    </div>
+    <div>
+      <p class="text-2xl md:text-4xl font-semibold text-end w-5/5">
+        {texto}
+      </p>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,11 @@
+---
+//puede recibir una prop para cambiar el color del borde
+
+const { palpitante = false } = Astro.props;
+---
+
+<h2
+  class={`${palpitante ? 'animate-borderPulse border-4 py-3 px-7 rounded-xl bg-gradient-to-r from-purple-500 to-blue-600 text-white' : 'text-black'} text-3xl text-center mb-8 mt-3 w-10/12 lg:text-4xl z-0 md:w-10/12 md:ml-4`}
+>
+  <slot />
+</h2>

@@ -1,0 +1,22 @@
+---
+import H3 from './H3.astro';
+
+// Recibir todas las props directamente
+const { faqs } = Astro.props;
+---
+
+<div class="flex flex-col items-start space-y-4 mt-4 mb-4 w-10/12">
+  {
+    faqs.map((faq: any) => (
+      <details class="group">
+        <summary class="flex items-center cursor-pointer list-disc">
+          <span class="inline-block mr-2 group-open:rotate-90 transition-transform">
+            ▶
+          </span>
+          <h3 class="text-xl mb-2">{faq.title}</h3>
+        </summary>
+        <p class="mt-2 ml-4">{faq.response}</p>
+      </details>
+    ))
+  }
+</div>

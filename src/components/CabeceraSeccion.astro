@@ -1,0 +1,23 @@
+---
+import H2 from './H2.astro';
+
+type Props = {
+  id?: string;
+};
+
+const { id } = Astro.props;
+---
+
+<div
+  id={id}
+  class="overflow-hidden py-8 relative flex flex-col items-center justify-center text-start sm:text-center"
+>
+  <slot name="imagen" />
+  <H2>
+    <slot name="encabezado" />
+  </H2>
+
+  <p class="font-normal mb-4 z-0 p-4 w-10/12 md:text-lg md:w-1/2 md:ml-4">
+    <slot name="contenido" />
+  </p>
+</div>
