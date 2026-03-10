@@ -76,7 +76,7 @@ Every device model, brand, and repair type stored in Airtable flows through a de
 - `/reparar-movil/samsung/galaxy-s24/` — model page
 - `/reparar-movil/samsung/sevilla` — brand + city
 - `/reparar-movil/cambiar-pantalla/sevilla` — repair type + city
-- `/reparar-apple-watch/apple/se-40mm/` — Apple product families
+- `/reparar-apple-watch/serie-4/40mm` — Apple product family + model
 
 ![Generated repair page example](docs/ss-repair-page.webp)
 
@@ -269,7 +269,7 @@ Cada modelo de dispositivo, marca y tipo de reparacion almacenado en Airtable pa
 - `/reparar-movil/samsung/galaxy-s24/` — pagina de modelo
 - `/reparar-movil/samsung/sevilla` — marca + ciudad
 - `/reparar-movil/cambiar-pantalla/sevilla` — tipo de reparacion + ciudad
-- `/reparar-apple-watch/apple/se-40mm/` — familias de productos Apple
+- `/reparar-apple-watch/serie-4/40mm` — familia de producto Apple + modelo
 
 ![Ejemplo de pagina de reparacion generada](docs/ss-repair-page.webp)
 
